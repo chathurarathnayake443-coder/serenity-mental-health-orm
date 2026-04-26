@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <AnchorPane prefHeight="708.0" prefWidth="800.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0d4594" height="107.0" layoutX="260.0" stroke="TRANSPARENT" strokeType="INSIDE" width="540.0" />
+            <ImageView fitHeight="76.0" fitWidth="96.0" layoutX="16.0" layoutY="12.0">
+               <image>
+                  <Image url="@../../../images/logo.png" />
+               </image>
+            </ImageView>
+            <Text fill="#0d4594" layoutX="29.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Serenity">
+               <font>
+                  <Font name="AppleGothic Regular" size="22.0" />
+               </font>
+            </Text>
+            <Text layoutX="15.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mental Health Clinic ">
+               <font>
+                  <Font name="AppleGothic Regular" size="13.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="344.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patients">
+               <font>
+                  <Font name="AppleGothic Regular" size="36.0" />
+               </font>
+            </Text>
+            <Polygon fill="#2a6dc9" layoutX="260.0" layoutY="60.0" points="0.0, 46.0, -180.5, -60.0, 0.0, -60.0" stroke="#ffffff00" strokeType="INSIDE" />
+            <AnchorPane layoutX="26.0" layoutY="150.0" prefHeight="281.0" prefWidth="744.0" style="-fx-background-color: #f7f7f7; -fx-background-radius: 30px;">
+               <children>
+                  <Text layoutX="22.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient ID" />
+                  <Text layoutX="22.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+                  <Text layoutX="25.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Age" />
+                  <Text layoutX="25.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" />
+                  <Text layoutX="326.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Telephone" />
+                  <Text layoutX="329.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Guardian Name" />
+                  <Text layoutX="330.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Guardian Phone" />
+                  <TextField layoutX="25.0" layoutY="36.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
+                  <TextField layoutX="26.0" layoutY="98.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
+                  <TextField layoutX="28.0" layoutY="165.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
+                  <TextField layoutX="28.0" layoutY="228.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
+                  <TextField layoutX="340.0" layoutY="34.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
+                  <TextField layoutX="341.0" layoutY="98.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
+                  <TextField layoutX="341.0" layoutY="158.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
+                  <Button layoutX="607.0" layoutY="31.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Save" textFill="WHITE">
+                     <font>
+                        <Font name="AppleGothic Regular" size="13.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="607.0" layoutY="95.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Update" textFill="WHITE">
+                     <font>
+                        <Font name="AppleGothic Regular" size="13.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="607.0" layoutY="158.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Delete" textFill="WHITE">
+                     <font>
+                        <Font name="AppleGothic Regular" size="13.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="607.0" layoutY="221.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Reset" textFill="WHITE">
+                     <font>
+                        <Font name="AppleGothic Regular" size="13.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+            <TableView layoutX="34.0" layoutY="480.0" prefHeight="200.0" prefWidth="357.0">
+              <columns>
+                <TableColumn prefWidth="63.0" text="ID" />
+                <TableColumn prefWidth="176.0" text="Name" />
+                  <TableColumn prefWidth="117.0" text="Telephone" />
+              </columns>
+            </TableView>
+            <Text fill="#0d4594" layoutX="35.0" layoutY="463.0" strokeType="OUTSIDE" strokeWidth="0.0" text="List">
+               <font>
+                  <Font name="AppleGothic Regular" size="24.0" />
+               </font>
+            </Text>
+            <TableView layoutX="410.0" layoutY="480.0" prefHeight="200.0" prefWidth="360.0">
+               <columns>
+                  <TableColumn prefWidth="63.0" text="ID" />
+                  <TableColumn prefWidth="189.0" text="Therapist" />
+                  <TableColumn prefWidth="107.0" text="Date" />
+               </columns>
+            </TableView>
+            <Text fill="#0d4594" layoutX="410.0" layoutY="463.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Therapy History">
+               <font>
+                  <Font name="AppleGothic Regular" size="24.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </top>
+</BorderPane>
