@@ -77,7 +77,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <ImageView fitHeight="32.0" fitWidth="30.0" layoutX="471.0" layoutY="168.0">
+                  <ImageView fitHeight="32.0" fitWidth="30.0" layoutX="470.0" layoutY="168.0">
                      <image>
                         <Image url="@../../../images/eye.png" />
                      </image>
