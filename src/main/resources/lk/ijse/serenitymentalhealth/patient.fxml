@@ -20,10 +20,13 @@
       <AnchorPane prefHeight="708.0" prefWidth="800.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0d4594" height="107.0" layoutX="260.0" stroke="TRANSPARENT" strokeType="INSIDE" width="540.0" />
-            <ImageView fitHeight="76.0" fitWidth="96.0" layoutX="16.0" layoutY="12.0">
+            <ImageView fitHeight="91.0" fitWidth="124.0" layoutX="5.0" layoutY="3.0">
                <image>
                   <Image url="@../../../images/logo.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
             <Text fill="#0d4594" layoutX="29.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Serenity">
                <font>
@@ -41,15 +44,43 @@
                </font>
             </Text>
             <Polygon fill="#2a6dc9" layoutX="260.0" layoutY="60.0" points="0.0, 46.0, -180.5, -60.0, 0.0, -60.0" stroke="#ffffff00" strokeType="INSIDE" />
-            <AnchorPane layoutX="26.0" layoutY="150.0" prefHeight="281.0" prefWidth="744.0" style="-fx-background-color: #f7f7f7; -fx-background-radius: 30px;">
+            <AnchorPane layoutX="26.0" layoutY="150.0" prefHeight="281.0" prefWidth="749.0" style="-fx-background-color: #f7f7f7; -fx-background-radius: 30px;">
                <children>
-                  <Text layoutX="22.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient ID" />
-                  <Text layoutX="22.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
-                  <Text layoutX="25.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Age" />
-                  <Text layoutX="25.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" />
-                  <Text layoutX="326.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Telephone" />
-                  <Text layoutX="329.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Guardian Name" />
-                  <Text layoutX="330.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Guardian Phone" />
+                  <Text layoutX="22.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient ID">
+                     <font>
+                        <Font name="AppleGothic Regular" size="13.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="22.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+                     <font>
+                        <Font name="AppleGothic Regular" size="13.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="25.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Age">
+                     <font>
+                        <Font name="AppleGothic Regular" size="13.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="25.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address">
+                     <font>
+                        <Font name="AppleGothic Regular" size="13.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="326.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Telephone">
+                     <font>
+                        <Font name="AppleGothic Regular" size="13.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="329.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Guardian Name">
+                     <font>
+                        <Font name="AppleGothic Regular" size="13.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="330.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Guardian Phone">
+                     <font>
+                        <Font name="AppleGothic Regular" size="13.0" />
+                     </font>
+                  </Text>
                   <TextField layoutX="25.0" layoutY="36.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
                   <TextField layoutX="26.0" layoutY="98.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
                   <TextField layoutX="28.0" layoutY="165.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
@@ -89,6 +120,12 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
+                  <Text layoutX="330.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registered Date">
+                     <font>
+                        <Font name="AppleGothic Regular" size="13.0" />
+                     </font>
+                  </Text>
+                  <TextField layoutX="342.0" layoutY="227.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
                </children>
             </AnchorPane>
             <TableView layoutX="34.0" layoutY="480.0" prefHeight="200.0" prefWidth="357.0">
