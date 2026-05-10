@@ -31,4 +31,7 @@ public class Therapist {
     @JoinTable(name = "therapist_therapy_programs", joinColumns = @JoinColumn(name = "therapist_id"),
             inverseJoinColumns = @JoinColumn(name = "therapy_program_id"))
     private List<TherapyProgram> therapyPrograms;
+
+    @OneToMany(mappedBy = "therapist")
+    private List<TherapySession> therapySessions;
 }

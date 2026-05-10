@@ -30,9 +30,12 @@ public class TherapyProgram {
     @Column(name = "therapy_program_description")
     private String description;
 
-    @ManyToMany(mappedBy = "therapist_therapy_programs")
+    @ManyToMany(mappedBy = "therapyPrograms")
     private List<Therapist> therapists;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "therapyProgram")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "therapyProgram",cascade = CascadeType.ALL)
     private List<Registration> registrations;
+
+    @OneToMany(mappedBy = "therapyProgram",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private List<TherapySession> therapySessions;
 }
