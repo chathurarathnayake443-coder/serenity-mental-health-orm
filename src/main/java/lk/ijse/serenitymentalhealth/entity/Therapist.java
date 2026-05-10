@@ -15,6 +15,7 @@ import java.util.List;
 public class Therapist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "therapist_id")
     private int therapistId;
 
     @Column(name = "therapist_name")

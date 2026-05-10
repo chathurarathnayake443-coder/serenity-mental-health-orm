@@ -32,4 +32,7 @@ public class TherapyProgram {
 
     @ManyToMany(mappedBy = "therapist_therapy_programs")
     private List<Therapist> therapists;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "therapyProgram")
+    private List<Registration> registrations;
 }
