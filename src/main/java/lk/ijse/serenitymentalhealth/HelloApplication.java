@@ -4,10 +4,18 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import lk.ijse.serenitymentalhealth.config.FactoryConfiguration;
 
 import java.io.IOException;
 
 public class HelloApplication extends Application {
+
+    static {
+        // this triggers Hibernate to create all tables on startup
+        FactoryConfiguration.getInstance().getSession();
+        System.out.println("Database tables created successfully!");
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("therapysession.fxml"));
