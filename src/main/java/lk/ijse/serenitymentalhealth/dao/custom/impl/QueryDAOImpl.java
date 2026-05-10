@@ -1,4 +1,4 @@
 package lk.ijse.serenitymentalhealth.dao.custom.impl;
 
-public class PaientDAOImpl {
+public class QueryDAOImpl {
 }

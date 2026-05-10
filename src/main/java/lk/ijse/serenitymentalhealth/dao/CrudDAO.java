@@ -1,4 +1,8 @@
 package lk.ijse.serenitymentalhealth.dao;
 
-public interface CrudDAO {
+import java.sql.SQLException;
+
+public interface CrudDAO<T> extends SuperDAO {
+
+    public boolean save(T entity) throws SQLException;
 }
