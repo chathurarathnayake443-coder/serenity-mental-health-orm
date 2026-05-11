@@ -4,10 +4,21 @@ import lk.ijse.serenitymentalhealth.dao.custom.RegistrationDAO;
 import lk.ijse.serenitymentalhealth.entity.Registration;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class RegistrationDAOImpl implements RegistrationDAO {
     @Override
     public boolean save(Registration entity) throws SQLException {
         return false;
+    }
+
+    @Override
+    public String showNextId() throws SQLException {
+        return "";
+    }
+
+    @Override
+    public List<Registration> getAll() throws SQLException {
+        return List.of();
     }
 }

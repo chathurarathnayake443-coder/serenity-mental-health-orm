@@ -1,5 +1,7 @@
 package lk.ijse.serenitymentalhealth.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -13,6 +15,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class PatientController implements Initializable {
@@ -79,15 +82,15 @@ public class PatientController implements Initializable {
     private final String ADDRESS_REGEX = "^[A-Za-z0-9\\s,]{3,}$";
     private final String CONTACT_REGEX = "^[0-9]{10}$";
 
-    PatientBO customerBO = (PatientBO) BOFactory.getInstance().getBOFactory(BOFactory.BOTypes.PATIENT);
+    PatientBO patientBO = (PatientBO) BOFactory.getInstance().getBOFactory(BOFactory.BOTypes.PATIENT);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("Customer View Loaded");
+        System.out.println("Patient View Loaded");
 
-        patientIdCol.setCellValueFactory(new PropertyValueFactory<>("patient_id"));
-        patientNameCol.setCellValueFactory(new PropertyValueFactory<>("patient_name"));
-        patientPhoneCol.setCellValueFactory(new PropertyValueFactory<>("patient_phone"));
+        patientIdCol.setCellValueFactory(new PropertyValueFactory<>("patientId"));
+        patientNameCol.setCellValueFactory(new PropertyValueFactory<>("patientName"));
+        patientPhoneCol.setCellValueFactory(new PropertyValueFactory<>("patientPhone"));
 
         patientTbl.setOnMouseClicked(event -> {
             Object object = patientTbl.getSelectionModel().getSelectedItem();
@@ -103,7 +106,8 @@ public class PatientController implements Initializable {
             }
         });
 
-        //loadCustomerTable();
+        loadPatientTable();
+        showNextId();
 
     }
 
@@ -142,16 +146,57 @@ public class PatientController implements Initializable {
                 return;
             }
 
-            boolean result = customerBO.savePatient(new PatientDTO(patientName,Integer.parseInt(patientAge),patientAddress,patientPhone,guardianName,guardianPhone));
+            boolean result = patientBO.savePatient(new PatientDTO(patientName,Integer.parseInt(patientAge),patientAddress,patientPhone,guardianName,guardianPhone));
 
             if(result){
                 new Alert(Alert.AlertType.INFORMATION,"Patient Added Successfully !").show();
-//                loadCustomerTable();
-//                cleanFields();
+                showNextId();
+                clickResetBtn();
+                loadPatientTable();
             }
             else{
                 new Alert(Alert.AlertType.ERROR,"Failed to Add Patient").show();
             }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void showNextId(){
+        try{
+            String id = patientBO.showNextId();
+            patientIdField.setText(id);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void clickResetBtn(){
+        patientIdField.setText("");
+        patientNameField.setText("");
+        patientPhoneField.setText("");
+        patientAddressField.setText("");
+        patientAgeField.setText("");
+        guardianNameField.setText("");
+        guardianPhoneField.setText("");
+    }
+
+    @FXML
+    private void loadPatientTable(){
+        try{
+            List<PatientDTO> patientList = patientBO.loadPatientTable();
+
+            ObservableList<PatientDTO> obList = FXCollections.observableArrayList();
+
+            for(PatientDTO patientDTO : patientList){
+                obList.add(patientDTO);
+            }
+
+            patientTbl.setItems(obList);
         }
         catch(Exception e){
             e.printStackTrace();

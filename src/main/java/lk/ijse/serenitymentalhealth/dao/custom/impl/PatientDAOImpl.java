@@ -6,6 +6,9 @@ import lk.ijse.serenitymentalhealth.entity.Patient;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.sql.SQLException;
+import java.util.List;
+
 public class PatientDAOImpl implements PatientDAO {
 
     public boolean save(Patient entity) {
@@ -24,5 +27,43 @@ public class PatientDAOImpl implements PatientDAO {
             session.close();
         }
         return false;
+    }
+
+    @Override
+    public String showNextId() throws SQLException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            Integer maxId = session.createQuery("SELECT MAX(p.patientId) FROM Patient p", Integer.class)
+                    .uniqueResult();
+            transaction.commit();
+            return (maxId == null) ? "1" : String.valueOf(maxId + 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+        } finally {
+            session.close();
+        }
+        return "1";
+    }
+
+    public List<Patient> getAll(){
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try{
+            List<Patient> patientList = session.createQuery("from Patient",Patient.class).list();
+            transaction.commit();
+            return patientList;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }
+        finally{
+            session.close();
+        }
+        return null;
     }
 }

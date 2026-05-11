@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.serenitymentalhealth.controller.PatientController">
    <top>
       <AnchorPane prefHeight="708.0" prefWidth="800.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
@@ -81,14 +81,14 @@
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="patientIdField" layoutX="25.0" layoutY="36.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
+                  <TextField fx:id="patientIdField" disable="true" layoutX="25.0" layoutY="36.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
                   <TextField fx:id="patientNameField" layoutX="26.0" layoutY="98.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
                   <TextField fx:id="patientAgeField" layoutX="28.0" layoutY="165.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
                   <TextField fx:id="patientAddressField" layoutX="28.0" layoutY="228.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
                   <TextField fx:id="patientPhoneField" layoutX="340.0" layoutY="34.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
                   <TextField fx:id="guardianNameField" layoutX="341.0" layoutY="98.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
                   <TextField fx:id="guardianPhoneField" layoutX="341.0" layoutY="158.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
-                  <Button fx:id="patientSaveBtn" layoutX="607.0" layoutY="31.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Save" textFill="WHITE">
+                  <Button fx:id="patientSaveBtn" layoutX="607.0" layoutY="31.0" mnemonicParsing="false" onAction="#clickSaveBtn" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Save" textFill="WHITE">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
@@ -112,7 +112,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="patientResetBtn" layoutX="607.0" layoutY="221.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Reset" textFill="WHITE">
+                  <Button fx:id="patientResetBtn" layoutX="607.0" layoutY="221.0" mnemonicParsing="false" onAction="#clickResetBtn" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Reset" textFill="WHITE">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>

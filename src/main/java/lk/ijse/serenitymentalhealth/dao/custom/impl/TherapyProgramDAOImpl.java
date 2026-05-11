@@ -4,10 +4,21 @@ import lk.ijse.serenitymentalhealth.dao.custom.TherapyProgramDAO;
 import lk.ijse.serenitymentalhealth.entity.TherapyProgram;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class TherapyProgramDAOImpl implements TherapyProgramDAO {
     @Override
     public boolean save(TherapyProgram entity) throws SQLException {
         return false;
+    }
+
+    @Override
+    public String showNextId() throws SQLException {
+        return "";
+    }
+
+    @Override
+    public List<TherapyProgram> getAll() throws SQLException {
+        return List.of();
     }
 }
