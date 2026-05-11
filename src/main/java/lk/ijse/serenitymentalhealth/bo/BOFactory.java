@@ -14,7 +14,7 @@ public class BOFactory {
     public SuperBO getBOFactory(BOTypes boType){
         switch (boType){
             case PATIENT:
-                //return new PatientBOImpl();
+                return new PatientBOImpl();
 
             default:
                 return null;

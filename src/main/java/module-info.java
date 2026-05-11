@@ -17,7 +17,8 @@ module lk.ijse.serenitymentalhealth {
     requires org.hibernate.orm.core;
     requires java.naming;              // ← fixes javax.naming.Referenceable error
     requires java.sql;
-    requires lk.ijse.serenitymentalhealth;                 // ← required for database connection
+    requires lk.ijse.serenitymentalhealth;
+    //requires lk.ijse.serenitymentalhealth;                 // ← required for database connection
 
     opens lk.ijse.serenitymentalhealth to javafx.fxml;
     opens lk.ijse.serenitymentalhealth.entity to org.hibernate.orm.core;  // ← Hibernate needs to access entity classes

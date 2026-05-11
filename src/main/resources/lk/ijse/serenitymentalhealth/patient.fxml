@@ -81,14 +81,14 @@
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="25.0" layoutY="36.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
-                  <TextField layoutX="26.0" layoutY="98.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
-                  <TextField layoutX="28.0" layoutY="165.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
-                  <TextField layoutX="28.0" layoutY="228.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
-                  <TextField layoutX="340.0" layoutY="34.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
-                  <TextField layoutX="341.0" layoutY="98.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
-                  <TextField layoutX="341.0" layoutY="158.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
-                  <Button layoutX="607.0" layoutY="31.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Save" textFill="WHITE">
+                  <TextField fx:id="patientIdField" layoutX="25.0" layoutY="36.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
+                  <TextField fx:id="patientNameField" layoutX="26.0" layoutY="98.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
+                  <TextField fx:id="patientAgeField" layoutX="28.0" layoutY="165.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
+                  <TextField fx:id="patientAddressField" layoutX="28.0" layoutY="228.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
+                  <TextField fx:id="patientPhoneField" layoutX="340.0" layoutY="34.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
+                  <TextField fx:id="guardianNameField" layoutX="341.0" layoutY="98.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
+                  <TextField fx:id="guardianPhoneField" layoutX="341.0" layoutY="158.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
+                  <Button fx:id="patientSaveBtn" layoutX="607.0" layoutY="31.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Save" textFill="WHITE">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
@@ -96,7 +96,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button layoutX="607.0" layoutY="95.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Update" textFill="WHITE">
+                  <Button fx:id="patientUpdateBtn" layoutX="607.0" layoutY="95.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Update" textFill="WHITE">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
@@ -104,7 +104,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button layoutX="607.0" layoutY="158.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Delete" textFill="WHITE">
+                  <Button fx:id="patientDeleteBtn" layoutX="607.0" layoutY="158.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Delete" textFill="WHITE">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
@@ -112,7 +112,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button layoutX="607.0" layoutY="221.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Reset" textFill="WHITE">
+                  <Button fx:id="patientResetBtn" layoutX="607.0" layoutY="221.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Reset" textFill="WHITE">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
@@ -120,19 +120,13 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Text layoutX="330.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registered Date">
-                     <font>
-                        <Font name="AppleGothic Regular" size="13.0" />
-                     </font>
-                  </Text>
-                  <TextField layoutX="342.0" layoutY="227.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20px;" />
                </children>
             </AnchorPane>
-            <TableView layoutX="34.0" layoutY="480.0" prefHeight="200.0" prefWidth="357.0">
+            <TableView fx:id="patientTbl" layoutX="34.0" layoutY="480.0" prefHeight="200.0" prefWidth="357.0">
               <columns>
-                <TableColumn prefWidth="63.0" text="ID" />
-                <TableColumn prefWidth="176.0" text="Name" />
-                  <TableColumn prefWidth="117.0" text="Telephone" />
+                <TableColumn fx:id="patientIdCol" prefWidth="63.0" text="ID" />
+                <TableColumn fx:id="patientNameCol" prefWidth="176.0" text="Name" />
+                  <TableColumn fx:id="patientPhoneCol" prefWidth="117.0" text="Telephone" />
               </columns>
             </TableView>
             <Text fill="#0d4594" layoutX="35.0" layoutY="463.0" strokeType="OUTSIDE" strokeWidth="0.0" text="List">
@@ -140,11 +134,11 @@
                   <Font name="AppleGothic Regular" size="24.0" />
                </font>
             </Text>
-            <TableView layoutX="410.0" layoutY="480.0" prefHeight="200.0" prefWidth="360.0">
+            <TableView fx:id="therapyHistoryTbl" layoutX="410.0" layoutY="480.0" prefHeight="200.0" prefWidth="360.0">
                <columns>
-                  <TableColumn prefWidth="63.0" text="SessionID" />
-                  <TableColumn prefWidth="189.0" text="Therapist" />
-                  <TableColumn prefWidth="107.0" text="Date" />
+                  <TableColumn fx:id="sessionIdCol" prefWidth="63.0" text="SessionID" />
+                  <TableColumn fx:id="therapistCol" prefWidth="189.0" text="Therapist" />
+                  <TableColumn fx:id="dateCol" prefWidth="107.0" text="Date" />
                </columns>
             </TableView>
             <Text fill="#0d4594" layoutX="410.0" layoutY="463.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Therapy History">
