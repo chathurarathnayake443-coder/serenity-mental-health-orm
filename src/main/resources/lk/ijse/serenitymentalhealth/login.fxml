@@ -3,6 +3,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
@@ -10,13 +11,13 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" style="-fx-background-radius: 30px;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" style="-fx-background-radius: 30px;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.serenitymentalhealth.controller.LoginController">
    <top>
       <AnchorPane prefHeight="700.0" prefWidth="800.0" style="-fx-background-color: white; -fx-background-radius: 30px;" BorderPane.alignment="CENTER">
          <children>
@@ -47,13 +48,12 @@
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="43.0" layoutY="81.0" prefHeight="42.0" prefWidth="471.0" style="-fx-background-radius: 15px; -fx-background-color: white;" />
+                  <TextField fx:id="usernameField" layoutX="43.0" layoutY="81.0" prefHeight="42.0" prefWidth="471.0" style="-fx-background-radius: 15px; -fx-background-color: white;" />
                   <Text fill="#0d4594" layoutX="32.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Text>
-                  <PasswordField layoutX="43.0" layoutY="163.0" prefHeight="42.0" prefWidth="471.0" style="-fx-background-color: white; -fx-background-radius: 15px;" />
                   <Text fill="#0d4594" layoutX="33.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Designation">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
@@ -77,11 +77,21 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <ImageView fitHeight="32.0" fitWidth="30.0" layoutX="470.0" layoutY="168.0">
-                     <image>
-                        <Image url="@../../../images/eye.png" />
-                     </image>
-                  </ImageView>
+                  <HBox layoutX="43.0" layoutY="165.0" prefHeight="43.0" prefWidth="471.0" style="-fx-background-color: white;">
+                     <children>
+                        <PasswordField fx:id="pfPassword" prefHeight="42.0" prefWidth="413.0" />
+                        <TextField fx:id="tfPasswordVisible" managed="false" prefHeight="44.0" prefWidth="413.0" visible="false" />
+                        <Label fx:id="lblTogglePassword" onMouseClicked="#onEyeIconClicked" prefHeight="41.0" prefWidth="50.0">
+                           <graphic>
+                              <ImageView fx:id="imgEye" fitHeight="33.0" fitWidth="47.0">
+                                 <image>
+                                    <Image url="@../../../images/eye-close.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                     </children>
+                  </HBox>
                </children>
                <effect>
                   <DropShadow height="21.74" offsetX="2.0" offsetY="2.0" radius="10.9225" width="23.95">
