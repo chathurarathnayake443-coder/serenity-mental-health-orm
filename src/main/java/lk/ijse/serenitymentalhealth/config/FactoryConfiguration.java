@@ -19,6 +19,7 @@ public class FactoryConfiguration {
                 .addAnnotatedClass(Therapist.class)
                 .addAnnotatedClass(TherapyProgram.class)
                 .addAnnotatedClass(TherapySession.class)
+                .addAnnotatedClass(User.class)
                 .buildSessionFactory();
 
     }

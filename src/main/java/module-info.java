@@ -22,6 +22,7 @@ module lk.ijse.serenitymentalhealth {
     //requires lk.ijse.serenitymentalhealth;
     //requires lk.ijse.serenitymentalhealth;
     //requires lk.ijse.serenitymentalhealth;
+    //requires lk.ijse.serenitymentalhealth;
     //requires lk.ijse.serenitymentalhealth;                 // ← required for database connection
 
     opens lk.ijse.serenitymentalhealth to javafx.fxml;
