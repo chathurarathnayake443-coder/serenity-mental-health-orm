@@ -14,7 +14,8 @@ public class DAOFactory {
         REGISTRATION,
         THERAPIST,
         THERAPY_PROGRAM,
-        THERAPY_SESSION
+        THERAPY_SESSION,
+        USER
     }
     public SuperDAO getDAO(DAOTypes daoType){
         switch (daoType){
@@ -30,6 +31,8 @@ public class DAOFactory {
                 return new TherapyProgramDAOImpl();
             case THERAPY_SESSION:
                 return new TherapySessionDAOImpl();
+            case USER:
+                return new UserDAOImpl();
             default:
                 return null;
         }
