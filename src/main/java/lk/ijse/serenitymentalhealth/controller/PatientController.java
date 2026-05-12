@@ -164,6 +164,58 @@ public class PatientController implements Initializable {
     }
 
     @FXML
+    private void clickUpdateBtn(){
+        try{
+            String patientId = patientIdField.getText();
+            String patientName = patientNameField.getText();
+            String patientPhone = patientPhoneField.getText();
+            String patientAddress = patientAddressField.getText();
+            String patientAge = patientAgeField.getText();
+            String guardianName = guardianNameField.getText();
+            String guardianPhone = guardianPhoneField.getText();
+
+            if(!patientName.matches(NAME_REGEX)){
+                new Alert(Alert.AlertType.ERROR,"Invalid Patient Name").show();
+                return;
+            }
+            if(!patientAddress.matches(ADDRESS_REGEX)){
+                new Alert(Alert.AlertType.ERROR,"Invalid Patient Address").show();
+                return;
+            }
+            if(!patientPhone.matches(CONTACT_REGEX)){
+                new Alert(Alert.AlertType.ERROR,"Invalid Patient Phone").show();
+                return;
+            }
+            if(!patientAge.matches(AGE_REGEX)){
+                new Alert(Alert.AlertType.ERROR,"Invalid Patient Age").show();
+                return;
+            }
+            if(!guardianName.matches(NAME_REGEX)){
+                new Alert(Alert.AlertType.ERROR,"Invalid Guardian Name").show();
+                return;
+            }
+            if(!guardianPhone.matches(CONTACT_REGEX)){
+                new Alert(Alert.AlertType.ERROR,"Invalid Guardian Contact").show();
+                return;
+            }
+
+            boolean result = patientBO.updatePatient(new PatientDTO(Integer.parseInt(patientId),patientName,Integer.parseInt(patientAge),patientAddress,patientPhone,guardianName,guardianPhone));
+
+            if(result){
+                new Alert(Alert.AlertType.INFORMATION,"Patient Updated Successfully !").show();
+                clickResetBtn();
+                loadPatientTable();
+            }
+            else{
+                new Alert(Alert.AlertType.ERROR,"Failed to Update Patient").show();
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void showNextId(){
         try{
             String id = patientBO.showNextId();

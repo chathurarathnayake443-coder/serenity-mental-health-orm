@@ -11,7 +11,6 @@ import java.io.IOException;
 public class HelloApplication extends Application {
 
     static {
-        // this triggers Hibernate to create all tables on startup
         FactoryConfiguration.getInstance().getSession();
         System.out.println("Database tables created successfully!");
     }

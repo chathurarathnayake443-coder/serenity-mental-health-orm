@@ -27,6 +27,19 @@ public class PatientBOImpl implements PatientBO {
         return patientDAO.save(patient);
     }
 
+    public boolean updatePatient(PatientDTO patientDTO){
+        Patient patient = new Patient();
+        patient.setPatientId(patientDTO.getPatientId());
+        patient.setPatientName(patientDTO.getPatientName());
+        patient.setAge(patientDTO.getPatientAge());
+        patient.setPhone(patientDTO.getPatientPhone());
+        patient.setAddress(patientDTO.getPatientAddress());
+        patient.setGuardianName(patientDTO.getGuardianName());
+        patient.setGuardianPhone(patientDTO.getGuardianPhone());
+
+        return patientDAO.update(patient);
+    }
+
     public String showNextId() throws SQLException {
         String id = patientDAO.showNextId();
         return id;

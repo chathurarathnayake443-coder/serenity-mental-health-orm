@@ -29,6 +29,31 @@ public class PatientDAOImpl implements PatientDAO {
         return false;
     }
 
+    public boolean update(Patient entity) {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try{
+            Patient oldPatient = session.find(Patient.class,entity.getPatientId());
+            oldPatient.setPatientName(entity.getPatientName());
+            oldPatient.setAge(entity.getAge());
+            oldPatient.setPhone(entity.getPhone());
+            oldPatient.setAddress(entity.getAddress());
+            oldPatient.setGuardianName(entity.getGuardianName());
+            oldPatient.setGuardianPhone(entity.getGuardianPhone());
+            transaction.commit();
+            return true;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }
+        finally{
+            session.close();
+        }
+        return false;
+    }
+
     @Override
     public String showNextId() throws SQLException {
         Session session = FactoryConfiguration.getInstance().getSession();

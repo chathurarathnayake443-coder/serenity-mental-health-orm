@@ -46,32 +46,32 @@
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="25.0" layoutY="36.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20;" />
+                  <TextField fx:id="therapistIdField" layoutX="25.0" layoutY="36.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20;" />
                   <Text layoutX="12.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="25.0" layoutY="107.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20;" />
+                  <TextField fx:id="therapistNameField" layoutX="25.0" layoutY="107.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20;" />
                   <Text layoutX="15.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="27.0" layoutY="178.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20;" />
+                  <TextField fx:id="therapistPhoneField" layoutX="27.0" layoutY="178.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20;" />
                   <Text layoutX="306.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="309.0" layoutY="34.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20;" />
+                  <TextField fx:id="therapistEmailField" layoutX="309.0" layoutY="34.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20;" />
                   <Text layoutX="306.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="310.0" layoutY="107.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20;" />
-                  <Button layoutX="588.0" layoutY="24.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Save" textFill="WHITE">
+                  <TextField fx:id="therapistAddressField" layoutX="310.0" layoutY="107.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20;" />
+                  <Button fx:id="therapistSaveBtn" layoutX="588.0" layoutY="24.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Save" textFill="WHITE">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
@@ -98,10 +98,10 @@
                   <Font name="AppleGothic Regular" size="24.0" />
                </font>
             </Text>
-            <TableView layoutX="41.0" layoutY="482.0" prefHeight="200.0" prefWidth="207.0">
+            <TableView fx:id="therapistTbl" layoutX="41.0" layoutY="482.0" prefHeight="200.0" prefWidth="234.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="ID" />
-                <TableColumn prefWidth="131.0" text="Name" />
+                <TableColumn fx:id="therapistIdCol" prefWidth="75.0" text="ID" />
+                <TableColumn fx:id="therapistNameCol" prefWidth="158.0" text="Name" />
               </columns>
             </TableView>
             <Text fill="#0d4594" layoutX="286.0" layoutY="467.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Therapist Scedules">
@@ -109,12 +109,12 @@
                   <Font name="AppleGothic Regular" size="24.0" />
                </font>
             </Text>
-            <TableView layoutX="320.0" layoutY="482.0" prefHeight="200.0" prefWidth="434.0">
+            <TableView fx:id="therapistScheduleTbl" layoutX="320.0" layoutY="482.0" prefHeight="200.0" prefWidth="434.0">
                <columns>
-                  <TableColumn prefWidth="69.0" text="Session ID" />
-                  <TableColumn prefWidth="173.0" text="Program" />
-                  <TableColumn prefWidth="81.0" text="Date" />
-                  <TableColumn prefWidth="110.0" text="Time" />
+                  <TableColumn fx:id="sessionIdCol" prefWidth="69.0" text="Session ID" />
+                  <TableColumn fx:id="programCol" prefWidth="173.0" text="Program" />
+                  <TableColumn fx:id="datCol" prefWidth="81.0" text="Date" />
+                  <TableColumn fx:id="timeCol" prefWidth="110.0" text="Time" />
                </columns>
             </TableView>
          </children>

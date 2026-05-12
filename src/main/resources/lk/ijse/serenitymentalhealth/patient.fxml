@@ -96,7 +96,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="patientUpdateBtn" layoutX="607.0" layoutY="95.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Update" textFill="WHITE">
+                  <Button fx:id="patientUpdateBtn" layoutX="607.0" layoutY="95.0" mnemonicParsing="false" onAction="#clickUpdateBtn" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Update" textFill="WHITE">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>

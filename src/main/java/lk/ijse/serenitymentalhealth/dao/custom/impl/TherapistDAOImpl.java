@@ -13,6 +13,11 @@ public class TherapistDAOImpl implements TherapistDAO {
     }
 
     @Override
+    public boolean update(Therapist entity) throws SQLException {
+        return false;
+    }
+
+    @Override
     public String showNextId() throws SQLException {
         return "";
     }

@@ -13,6 +13,11 @@ public class PatientSessionDAOImpl implements PatientSessionDAO {
     }
 
     @Override
+    public boolean update(PatientSession entity) throws SQLException {
+        return false;
+    }
+
+    @Override
     public String showNextId() throws SQLException {
         return "";
     }
