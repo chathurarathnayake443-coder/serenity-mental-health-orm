@@ -14,9 +14,8 @@ import java.util.List;
 
 public class TherapyProgram {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "therapy_program_id")
-    private int therapyProgramId;
+    private String therapyProgramId;
 
     @Column(name = "therapy_program_name")
     private String therapyProgramName;

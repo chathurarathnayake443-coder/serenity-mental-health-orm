@@ -19,6 +19,7 @@ module lk.ijse.serenitymentalhealth {
     requires java.sql;
     //requires lk.ijse.serenitymentalhealth;
     requires javafx.base;
+    requires lk.ijse.serenitymentalhealth;
     //requires lk.ijse.serenitymentalhealth;
     //requires lk.ijse.serenitymentalhealth;
     //requires lk.ijse.serenitymentalhealth;                 // ← required for database connection
