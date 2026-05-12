@@ -5,20 +5,23 @@ public class TherapistDTO {
     private String therapistName;
     private String therapistEmail;
     private String therapistPhone;
+    private String therapistAddress;
 
     TherapistDTO() {}
 
-    public TherapistDTO(String therapistName, String therapistEmail, String therapistPhone) {
+    public TherapistDTO(String therapistName, String therapistEmail, String therapistPhone, String therapistAddress) {
         this.therapistName = therapistName;
         this.therapistEmail = therapistEmail;
         this.therapistPhone = therapistPhone;
+        this.therapistAddress = therapistAddress;
     }
 
-    public TherapistDTO(int therapistId, String therapistName, String therapistEmail, String therapistPhone) {
+    public TherapistDTO(int therapistId, String therapistName, String therapistEmail, String therapistPhone, String therapistAddress) {
         this.therapistId = therapistId;
         this.therapistName = therapistName;
         this.therapistEmail = therapistEmail;
         this.therapistPhone = therapistPhone;
+        this.therapistAddress = therapistAddress;
     }
     public int getTherapistId() {
         return therapistId;
@@ -43,5 +46,11 @@ public class TherapistDTO {
     }
     public void setTherapistPhone(String therapistPhone) {
         this.therapistPhone = therapistPhone;
+    }
+    public String getTherapistAddress() {
+        return therapistAddress;
+    }
+    public void setTherapistAddress(String therapistAddress) {
+        this.therapistAddress = therapistAddress;
     }
 }

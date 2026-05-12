@@ -22,8 +22,19 @@ public class TherapistBOImpl implements TherapistBO {
         therapist.setTherapistName(therapistDTO.getTherapistName());
         therapist.setTherapistEmail(therapistDTO.getTherapistEmail());
         therapist.setTherapistPhone(therapistDTO.getTherapistPhone());
+        therapist.setTherapistAddress(therapistDTO.getTherapistAddress());
 
         return therapistDAO.save(therapist);
+    }
+
+    public boolean updateTherapist(TherapistDTO therapistDTO) throws SQLException {
+        Therapist therapist = new Therapist();
+        therapist.setTherapistName(therapistDTO.getTherapistName());
+        therapist.setTherapistEmail(therapistDTO.getTherapistEmail());
+        therapist.setTherapistPhone(therapistDTO.getTherapistPhone());
+        therapist.setTherapistAddress(therapistDTO.getTherapistAddress());
+
+        return therapistDAO.update(therapist);
     }
 
     public String showNextId() throws SQLException {
@@ -35,7 +46,7 @@ public class TherapistBOImpl implements TherapistBO {
         List<Therapist> therapistList = therapistDAO.getAll();
         List<TherapistDTO> therapistDTOList = new ArrayList<>();
         for (Therapist therapist : therapistList) {
-            therapistDTOList.add(new TherapistDTO(therapist.getTherapistId(),therapist.getTherapistName(),therapist.getTherapistEmail(),therapist.getTherapistPhone()));
+            therapistDTOList.add(new TherapistDTO(therapist.getTherapistId(),therapist.getTherapistName(),therapist.getTherapistEmail(),therapist.getTherapistPhone(),therapist.getTherapistAddress()));
         }
         return therapistDTOList;
     }

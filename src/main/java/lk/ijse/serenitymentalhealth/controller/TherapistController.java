@@ -80,8 +80,9 @@ public class TherapistController implements Initializable {
             if (selected != null) {
                 therapistIdField.setText(String.valueOf(selected.getTherapistId()));
                 therapistNameField.setText(selected.getTherapistName());
-                therapistEmailField.setText(String.valueOf(selected.getTherapistEmail()));
+                therapistEmailField.setText(selected.getTherapistEmail());
                 therapistPhoneField.setText(selected.getTherapistPhone());
+                therapistAddressField.setText(selected.getTherapistAddress());
             }
         });
 
@@ -96,6 +97,7 @@ public class TherapistController implements Initializable {
             String therapistName = therapistNameField.getText();
             String therapistEmail = therapistEmailField.getText();
             String therapistPhone = therapistPhoneField.getText();
+            String therapistAddress = therapistAddressField.getText();
 
             if(!therapistName.matches(NAME_REGEX)){
                 new Alert(Alert.AlertType.ERROR,"Invalid Therapist Name").show();
@@ -110,7 +112,7 @@ public class TherapistController implements Initializable {
                 return;
             }
 
-            boolean result = therapistBO.saveTherapist(new TherapistDTO(therapistName,therapistEmail,therapistPhone));
+            boolean result = therapistBO.saveTherapist(new TherapistDTO(therapistName,therapistEmail,therapistPhone,therapistAddress));
             if(result){
                 new Alert(Alert.AlertType.INFORMATION,"Therapist Added Successfully !").show();
                 showNextId();
@@ -127,12 +129,50 @@ public class TherapistController implements Initializable {
     }
 
     @FXML
+    private void clickUpdateBtn(){
+        try{
+            String therapistName = therapistNameField.getText();
+            String therapistEmail = therapistEmailField.getText();
+            String therapistPhone = therapistPhoneField.getText();
+            String therapistAddress = therapistAddressField.getText();
+
+            if(!therapistName.matches(NAME_REGEX)){
+                new Alert(Alert.AlertType.ERROR,"Invalid Therapist Name").show();
+                return;
+            }
+            if(!therapistPhone.matches(CONTACT_REGEX)){
+                new Alert(Alert.AlertType.ERROR,"Invalid Therapist Contact").show();
+                return;
+            }
+            if(!therapistEmail.matches(EMAIL_REGEX)){
+                new Alert(Alert.AlertType.ERROR,"Invalid Therapist Email").show();
+                return;
+            }
+
+            boolean result = therapistBO.updateTherapist(new TherapistDTO(therapistName,therapistEmail,therapistPhone,therapistAddress));
+
+            if(result){
+                new Alert(Alert.AlertType.INFORMATION,"Therapist Updated Successfully !").show();
+                clickResetBtn();
+                loadTherapistTable();
+            }
+            else{
+                new Alert(Alert.AlertType.ERROR,"Failed to Update Therapist").show();
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void clickResetBtn(){
         therapistIdField.setText("");
         therapistNameField.setText("");
         therapistEmailField.setText("");
         therapistPhoneField.setText("");
         therapistAddressField.setText("");
+        showNextId();
     }
 
     @FXML

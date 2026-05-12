@@ -27,6 +27,9 @@ public class Therapist {
     @Column(name = "therapist_phone")
     private String therapistPhone;
 
+    @Column(name = "therapist_address")
+    private String therapistAddress;
+
     @ManyToMany
     @JoinTable(name = "therapist_therapy_programs", joinColumns = @JoinColumn(name = "therapist_id"),
             inverseJoinColumns = @JoinColumn(name = "therapy_program_id"))

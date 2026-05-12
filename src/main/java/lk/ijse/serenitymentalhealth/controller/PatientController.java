@@ -256,6 +256,7 @@ public class PatientController implements Initializable {
         patientAgeField.setText("");
         guardianNameField.setText("");
         guardianPhoneField.setText("");
+        showNextId();
     }
 
     @FXML

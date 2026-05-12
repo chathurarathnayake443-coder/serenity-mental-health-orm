@@ -33,6 +33,25 @@ public class TherapistDAOImpl implements TherapistDAO {
 
     @Override
     public boolean update(Therapist entity) throws SQLException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try{
+            Therapist oldTherapist = session.find(Therapist.class,entity.getTherapistId());
+            oldTherapist.setTherapistName(entity.getTherapistName());
+            oldTherapist.setTherapistEmail(entity.getTherapistEmail());
+            oldTherapist.setTherapistPhone(entity.getTherapistPhone());
+            oldTherapist.setTherapistAddress(entity.getTherapistAddress());
+            transaction.commit();
+            return true;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }
+        finally{
+            session.close();
+        }
         return false;
     }
 
