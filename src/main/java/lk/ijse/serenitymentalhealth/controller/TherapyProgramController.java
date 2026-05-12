@@ -2,12 +2,13 @@ package lk.ijse.serenitymentalhealth.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import lk.ijse.serenitymentalhealth.bo.BOFactory;
+import lk.ijse.serenitymentalhealth.bo.custom.TherapistBO;
+import lk.ijse.serenitymentalhealth.bo.custom.TherapyProgramBO;
 import lk.ijse.serenitymentalhealth.dto.TherapistDTO;
+import lk.ijse.serenitymentalhealth.dto.TherapyProgramDTO;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -56,6 +57,8 @@ public class TherapyProgramController implements Initializable {
     @FXML
     private TableView therapistProgramTbl;
 
+    TherapyProgramBO therapyProgramBO = (TherapyProgramBO) BOFactory.getInstance().getBOFactory(BOFactory.BOTypes.THERAPY_PROGRAM);
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("Therapist View Loaded");
@@ -89,7 +92,16 @@ public class TherapyProgramController implements Initializable {
             String therapyProgramDuration = programDurationField.getText();
             double therapyProgramCost = Double.parseDouble(programCostField.getText());
 
-
+            boolean result = therapyProgramBO.saveTherapyProgram(new TherapyProgramDTO(therapyProgramId,therapyProgramName,therapyProgramDescription,therapyProgramDuration,therapyProgramCost));
+            if(result){
+                new Alert(Alert.AlertType.INFORMATION,"Therapy Program Added Successfully !").show();
+                showNextId();
+                clickResetBtn();
+                loadTherapistTable();
+            }
+            else{
+                new Alert(Alert.AlertType.ERROR,"Failed to Add Therapy Program").show();
+            }
         }
         catch(Exception e){
             e.printStackTrace();
