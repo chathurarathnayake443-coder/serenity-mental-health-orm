@@ -1,12 +1,22 @@
 package lk.ijse.serenitymentalhealth.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import lk.ijse.serenitymentalhealth.bo.BOFactory;
+import lk.ijse.serenitymentalhealth.bo.custom.PatientBO;
+import lk.ijse.serenitymentalhealth.bo.custom.TherapistBO;
+import lk.ijse.serenitymentalhealth.dto.PatientDTO;
+import lk.ijse.serenitymentalhealth.dto.TherapistDTO;
 
-public class TherapistController {
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
+
+public class TherapistController implements Initializable {
 
     @FXML
     private TableColumn datCol;
@@ -49,4 +59,108 @@ public class TherapistController {
 
     @FXML
     private TableColumn timeCol;
+
+    private final String AGE_REGEX = "^[0-9]+$";
+    private final String NAME_REGEX = "^[A-Za-z0-9\\s]{3,}$";
+    private final String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+    private final String CONTACT_REGEX = "^[0-9]{10}$";
+
+    TherapistBO therapistBO = (TherapistBO) BOFactory.getInstance().getBOFactory(BOFactory.BOTypes.THERAPIST);
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("Therapist View Loaded");
+
+        therapistIdCol.setCellValueFactory(new PropertyValueFactory<>("therapistId"));
+        therapistNameCol.setCellValueFactory(new PropertyValueFactory<>("therapistName"));
+
+        therapistTbl.setOnMouseClicked(event -> {
+            Object object = therapistTbl.getSelectionModel().getSelectedItem();
+            TherapistDTO selected = (TherapistDTO)object;
+            if (selected != null) {
+                therapistIdField.setText(String.valueOf(selected.getTherapistId()));
+                therapistNameField.setText(selected.getTherapistName());
+                therapistEmailField.setText(String.valueOf(selected.getTherapistEmail()));
+                therapistPhoneField.setText(selected.getTherapistPhone());
+            }
+        });
+
+        loadTherapistTable();
+        showNextId();
+
+    }
+
+    @FXML
+    private void clickSaveBtn(){
+        try{
+            String therapistName = therapistNameField.getText();
+            String therapistEmail = therapistEmailField.getText();
+            String therapistPhone = therapistPhoneField.getText();
+
+            if(!therapistName.matches(NAME_REGEX)){
+                new Alert(Alert.AlertType.ERROR,"Invalid Therapist Name").show();
+                return;
+            }
+            if(!therapistPhone.matches(CONTACT_REGEX)){
+                new Alert(Alert.AlertType.ERROR,"Invalid Therapist Contact").show();
+                return;
+            }
+            if(!therapistEmail.matches(EMAIL_REGEX)){
+                new Alert(Alert.AlertType.ERROR,"Invalid Therapist Email").show();
+                return;
+            }
+
+            boolean result = therapistBO.saveTherapist(new TherapistDTO(therapistName,therapistEmail,therapistPhone));
+            if(result){
+                new Alert(Alert.AlertType.INFORMATION,"Therapist Added Successfully !").show();
+                showNextId();
+                clickResetBtn();
+                loadTherapistTable();
+            }
+            else{
+                new Alert(Alert.AlertType.ERROR,"Failed to Add Therapist").show();
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void clickResetBtn(){
+        therapistIdField.setText("");
+        therapistNameField.setText("");
+        therapistEmailField.setText("");
+        therapistPhoneField.setText("");
+        therapistAddressField.setText("");
+    }
+
+    @FXML
+    private void loadTherapistTable(){
+        try{
+            List<TherapistDTO> therapistList = therapistBO.loadTherapistTable();
+
+            ObservableList<TherapistDTO> obList = FXCollections.observableArrayList();
+
+            for(TherapistDTO therapistDTO : therapistList){
+                obList.add(therapistDTO);
+            }
+
+            therapistTbl.setItems(obList);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void showNextId(){
+        try{
+            String id = therapistBO.showNextId();
+            therapistIdField.setText(id);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }

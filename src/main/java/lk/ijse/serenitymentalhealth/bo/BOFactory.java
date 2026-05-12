@@ -1,6 +1,7 @@
 package lk.ijse.serenitymentalhealth.bo;
 
 import lk.ijse.serenitymentalhealth.bo.custom.impl.PatientBOImpl;
+import lk.ijse.serenitymentalhealth.bo.custom.impl.TherapistBOImpl;
 
 public class BOFactory {
     private static BOFactory instance;
@@ -15,6 +16,8 @@ public class BOFactory {
         switch (boType){
             case PATIENT:
                 return new PatientBOImpl();
+            case THERAPIST:
+                return new TherapistBOImpl();
 
             default:
                 return null;

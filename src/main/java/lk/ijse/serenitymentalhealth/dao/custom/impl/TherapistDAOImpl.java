@@ -1,7 +1,11 @@
 package lk.ijse.serenitymentalhealth.dao.custom.impl;
 
+import lk.ijse.serenitymentalhealth.config.FactoryConfiguration;
 import lk.ijse.serenitymentalhealth.dao.custom.TherapistDAO;
+import lk.ijse.serenitymentalhealth.entity.Patient;
 import lk.ijse.serenitymentalhealth.entity.Therapist;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -9,6 +13,21 @@ import java.util.List;
 public class TherapistDAOImpl implements TherapistDAO {
     @Override
     public boolean save(Therapist entity) throws SQLException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try{
+            session.persist(entity);
+            transaction.commit();
+            return true;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }
+        finally{
+            session.close();
+        }
         return false;
     }
 
@@ -24,11 +43,40 @@ public class TherapistDAOImpl implements TherapistDAO {
 
     @Override
     public String showNextId() throws SQLException {
-        return "";
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            Integer maxId = session.createQuery("SELECT MAX(t.therapistId) FROM Therapist t", Integer.class)
+                    .uniqueResult();
+            transaction.commit();
+            return (maxId == null) ? "1" : String.valueOf(maxId + 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+        } finally {
+            session.close();
+        }
+        return "1";
     }
 
     @Override
     public List<Therapist> getAll() throws SQLException {
-        return List.of();
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try{
+            List<Therapist> therapistList = session.createQuery("from Therapist",Therapist.class).list();
+            transaction.commit();
+            return therapistList;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }
+        finally{
+            session.close();
+        }
+        return null;
     }
 }
