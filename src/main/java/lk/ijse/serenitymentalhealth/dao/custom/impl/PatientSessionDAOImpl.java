@@ -18,6 +18,11 @@ public class PatientSessionDAOImpl implements PatientSessionDAO {
     }
 
     @Override
+    public boolean delete(int id) throws SQLException {
+        return false;
+    }
+
+    @Override
     public String showNextId() throws SQLException {
         return "";
     }

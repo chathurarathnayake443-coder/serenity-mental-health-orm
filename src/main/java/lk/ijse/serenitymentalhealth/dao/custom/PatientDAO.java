@@ -11,4 +11,6 @@ public interface PatientDAO extends CrudDAO<Patient> {
     public boolean save(Patient entity);
 
     public boolean update(Patient entity);
+
+    public boolean delete(int id);
 }

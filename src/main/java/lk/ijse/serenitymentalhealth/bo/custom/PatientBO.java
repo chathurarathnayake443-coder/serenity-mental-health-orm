@@ -17,4 +17,6 @@ public interface PatientBO extends SuperBO {
     public List<PatientDTO> loadPatientTable() throws SQLException;
 
     public boolean updatePatient(PatientDTO patientDTO);
+
+    public boolean deletePatient(int id);
 }

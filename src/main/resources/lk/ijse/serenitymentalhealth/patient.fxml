@@ -104,7 +104,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="patientDeleteBtn" layoutX="607.0" layoutY="158.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Delete" textFill="WHITE">
+                  <Button fx:id="patientDeleteBtn" layoutX="607.0" layoutY="158.0" mnemonicParsing="false" onAction="#clickDeleteBtn" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Delete" textFill="WHITE">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>

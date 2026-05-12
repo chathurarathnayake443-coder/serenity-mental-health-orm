@@ -216,6 +216,27 @@ public class PatientController implements Initializable {
     }
 
     @FXML
+    private void clickDeleteBtn(){
+        try{
+            int patientId = Integer.parseInt(patientIdField.getText());
+
+            boolean result = patientBO.deletePatient(patientId);
+
+            if(result){
+                new Alert(Alert.AlertType.INFORMATION,"Patient Deleted Successfully !").show();
+                clickResetBtn();
+                loadPatientTable();
+            }
+            else{
+                new Alert(Alert.AlertType.ERROR,"Failed to Delete Patient").show();
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void showNextId(){
         try{
             String id = patientBO.showNextId();

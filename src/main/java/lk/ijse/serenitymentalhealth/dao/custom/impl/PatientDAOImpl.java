@@ -54,6 +54,26 @@ public class PatientDAOImpl implements PatientDAO {
         return false;
     }
 
+    public boolean delete(int id) {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try{
+            Patient entity = (Patient)session.get(Patient.class,id);
+            session.remove(entity);
+            transaction.commit();
+            return true;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }
+        finally{
+            session.close();
+        }
+        return false;
+    }
+
     @Override
     public String showNextId() throws SQLException {
         Session session = FactoryConfiguration.getInstance().getSession();

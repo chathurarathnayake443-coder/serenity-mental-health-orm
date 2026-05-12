@@ -40,6 +40,10 @@ public class PatientBOImpl implements PatientBO {
         return patientDAO.update(patient);
     }
 
+    public boolean deletePatient(int id){
+        return patientDAO.delete(id);
+    }
+
     public String showNextId() throws SQLException {
         String id = patientDAO.showNextId();
         return id;
