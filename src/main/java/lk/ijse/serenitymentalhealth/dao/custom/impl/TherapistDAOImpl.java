@@ -57,6 +57,22 @@ public class TherapistDAOImpl implements TherapistDAO {
 
     @Override
     public boolean delete(int id) throws SQLException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try{
+            Therapist entity = (Therapist)session.get(Therapist.class,id);
+            session.remove(entity);
+            transaction.commit();
+            return true;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }
+        finally{
+            session.close();
+        }
         return false;
     }
 

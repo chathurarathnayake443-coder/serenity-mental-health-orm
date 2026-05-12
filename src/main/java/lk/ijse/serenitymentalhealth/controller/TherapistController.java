@@ -166,6 +166,27 @@ public class TherapistController implements Initializable {
     }
 
     @FXML
+    private void clickDeleteBtn(){
+        try{
+            int therapistId = Integer.parseInt(therapistIdField.getText());
+
+            boolean result = therapistBO.deleteTherapist(therapistId);
+
+            if(result){
+                new Alert(Alert.AlertType.INFORMATION,"Therapist Deleted Successfully !").show();
+                clickResetBtn();
+                loadTherapistTable();
+            }
+            else{
+                new Alert(Alert.AlertType.ERROR,"Failed to Delete Therapist").show();
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void clickResetBtn(){
         therapistIdField.setText("");
         therapistNameField.setText("");

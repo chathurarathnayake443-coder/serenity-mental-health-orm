@@ -81,7 +81,7 @@
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Button>
-                  <Button layoutX="588.0" layoutY="140.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Delete" textFill="WHITE">
+                  <Button layoutX="588.0" layoutY="140.0" mnemonicParsing="false" onAction="#clickDeleteBtn" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Delete" textFill="WHITE">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>

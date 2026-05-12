@@ -37,6 +37,10 @@ public class TherapistBOImpl implements TherapistBO {
         return therapistDAO.update(therapist);
     }
 
+    public boolean deleteTherapist(int id) throws SQLException {
+        return therapistDAO.delete(id);
+    }
+
     public String showNextId() throws SQLException {
         String id = therapistDAO.showNextId();
         return id;
