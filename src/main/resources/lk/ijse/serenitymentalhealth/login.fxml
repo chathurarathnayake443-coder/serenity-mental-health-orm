@@ -59,7 +59,7 @@
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Text>
-                  <ComboBox layoutX="43.0" layoutY="245.0" prefHeight="42.0" prefWidth="471.0" />
+                  <ComboBox fx:id="cmbUserType" layoutX="43.0" layoutY="245.0" prefHeight="42.0" prefWidth="471.0" />
                   <Line endX="412.5" layoutX="119.0" layoutY="318.0" startX="-100.0" stroke="#9e9e9e" strokeWidth="2.0" />
                   <Button layoutX="313.0" layoutY="342.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="132.0" style="-fx-background-color: black;" text="Log In" textFill="WHITE">
                      <font>
@@ -69,7 +69,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button layoutX="118.0" layoutY="342.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="132.0" style="-fx-background-color: #eb9b9b;" text="Exit" textFill="WHITE">
+                  <Button layoutX="118.0" layoutY="342.0" mnemonicParsing="false" onAction="#onExitButtonClicked" prefHeight="36.0" prefWidth="132.0" style="-fx-background-color: #eb9b9b;" text="Exit" textFill="WHITE">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
