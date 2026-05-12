@@ -48,31 +48,31 @@
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="20.0" layoutY="46.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20;" />
+                  <TextField fx:id="programIdField" layoutX="20.0" layoutY="46.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20;" />
                   <Text layoutX="20.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="20.0" layoutY="122.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20;" />
+                  <TextField fx:id="programNameField" layoutX="20.0" layoutY="122.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20;" />
                   <Text layoutX="20.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duration">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="21.0" layoutY="200.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20;" />
+                  <TextField fx:id="programDurationField" layoutX="21.0" layoutY="200.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20;" />
                   <Text layoutX="300.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cost">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="303.0" layoutY="43.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20;" />
+                  <TextField fx:id="programCostField" layoutX="303.0" layoutY="43.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20;" />
                   <Text layoutX="303.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="304.0" layoutY="120.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20;" />
+                  <TextField fx:id="programDescriptionField" layoutX="304.0" layoutY="120.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20;" />
                   <Button layoutX="573.0" layoutY="28.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Save" textFill="WHITE">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
@@ -100,10 +100,10 @@
                   <Font name="AppleGothic Regular" size="24.0" />
                </font>
             </Text>
-            <TableView layoutX="45.0" layoutY="480.0" prefHeight="200.0" prefWidth="238.0">
+            <TableView fx:id="programTbl" layoutX="45.0" layoutY="480.0" prefHeight="200.0" prefWidth="238.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="ID" />
-                <TableColumn prefWidth="163.0" text="Name" />
+                <TableColumn fx:id="programIdCol" prefWidth="75.0" text="ID" />
+                <TableColumn fx:id="programNameCol" prefWidth="163.0" text="Name" />
               </columns>
             </TableView>
             <AnchorPane layoutX="305.0" layoutY="453.0" prefHeight="236.0" prefWidth="481.0" style="-fx-background-color: #f7f7f7; -fx-background-radius: 30;">
@@ -118,21 +118,21 @@
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="230.0" layoutY="41.0" prefHeight="38.0" prefWidth="131.0" style="-fx-background-radius: 20;" />
+                  <TextField fx:id="therapistIdField" layoutX="230.0" layoutY="41.0" prefHeight="38.0" prefWidth="131.0" style="-fx-background-radius: 20;" />
                   <Button layoutX="373.0" layoutY="42.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="92.0" style="-fx-background-color: #0d4594;" text="Add" textFill="WHITE">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Button>
-                  <ComboBox layoutX="172.0" layoutY="46.0" prefHeight="26.0" prefWidth="47.0" />
-                  <TableView layoutX="20.0" layoutY="89.0" prefHeight="140.0" prefWidth="450.0">
+                  <ComboBox fx:id="therapistIdComboBox" layoutX="172.0" layoutY="46.0" prefHeight="26.0" prefWidth="47.0" />
+                  <TableView fx:id="therapistProgramTbl" layoutX="20.0" layoutY="89.0" prefHeight="140.0" prefWidth="450.0">
                      <columns>
-                        <TableColumn prefWidth="139.0" text="Program" />
-                        <TableColumn prefWidth="193.0" text="Therapist" />
-                        <TableColumn prefWidth="117.0" text="Edit" />
+                        <TableColumn fx:id="programNameCol" prefWidth="139.0" text="Program" />
+                        <TableColumn fx:id="therapistNameCol" prefWidth="193.0" text="Therapist" />
+                        <TableColumn fx:id="editCol" prefWidth="117.0" text="Edit" />
                      </columns>
                   </TableView>
-                  <ComboBox layoutX="18.0" layoutY="47.0" prefHeight="26.0" prefWidth="128.0" />
+                  <ComboBox fx:id="programComboBox" layoutX="18.0" layoutY="47.0" prefHeight="26.0" prefWidth="128.0" />
                </children>
             </AnchorPane>
          </children>
