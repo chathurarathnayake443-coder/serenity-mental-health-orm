@@ -1,5 +1,7 @@
 package lk.ijse.serenitymentalhealth.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -11,6 +13,8 @@ import lk.ijse.serenitymentalhealth.dto.TherapistDTO;
 import lk.ijse.serenitymentalhealth.dto.TherapyProgramDTO;
 
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class TherapyProgramController implements Initializable {
@@ -37,6 +41,9 @@ public class TherapyProgramController implements Initializable {
     private TextField programIdField;
 
     @FXML
+    private TableColumn programTblNameCol;
+
+    @FXML
     private TableColumn programNameCol;
 
     @FXML
@@ -61,25 +68,24 @@ public class TherapyProgramController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("Therapist View Loaded");
+        System.out.println("Therapy Program View Loaded");
 
-//        therapistIdCol.setCellValueFactory(new PropertyValueFactory<>("therapistId"));
-//        therapistNameCol.setCellValueFactory(new PropertyValueFactory<>("therapistName"));
-//
-//        therapistTbl.setOnMouseClicked(event -> {
-//            Object object = therapistTbl.getSelectionModel().getSelectedItem();
-//            TherapistDTO selected = (TherapistDTO)object;
-//            if (selected != null) {
-//                therapistIdField.setText(String.valueOf(selected.getTherapistId()));
-//                therapistNameField.setText(selected.getTherapistName());
-//                therapistEmailField.setText(selected.getTherapistEmail());
-//                therapistPhoneField.setText(selected.getTherapistPhone());
-//                therapistAddressField.setText(selected.getTherapistAddress());
-//            }
-       // });
+        programIdCol.setCellValueFactory(new PropertyValueFactory<>("therapyProgramId"));
+        programTblNameCol.setCellValueFactory(new PropertyValueFactory<>("therapyProgramName"));
 
-        //loadTherapistTable();
-        //showNextId();
+        programTbl.setOnMouseClicked(event -> {
+            Object object = programTbl.getSelectionModel().getSelectedItem();
+            TherapyProgramDTO selected = (TherapyProgramDTO)object;
+            if (selected != null) {
+                programIdField.setText(selected.getTherapyProgramId());
+                programNameField.setText(selected.getTherapyProgramName());
+                programCostField.setText(String.valueOf(selected.getTherapyProgramCost()));
+                programDurationField.setText(String.valueOf(selected.getTherapyProgramDuration()));
+                programDescriptionField.setText(selected.getTherapyProgramDescription());
+            }
+        });
+
+        loadTherapyProgramTable();
 
     }
 
@@ -95,13 +101,40 @@ public class TherapyProgramController implements Initializable {
             boolean result = therapyProgramBO.saveTherapyProgram(new TherapyProgramDTO(therapyProgramId,therapyProgramName,therapyProgramDescription,therapyProgramDuration,therapyProgramCost));
             if(result){
                 new Alert(Alert.AlertType.INFORMATION,"Therapy Program Added Successfully !").show();
-                showNextId();
                 clickResetBtn();
-                loadTherapistTable();
+                loadTherapyProgramTable();
             }
             else{
                 new Alert(Alert.AlertType.ERROR,"Failed to Add Therapy Program").show();
             }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void clickResetBtn(){
+        programIdField.setText("");
+        programNameField.setText("");
+        programDescriptionField.setText("");
+        programDurationField.setText("");
+        programCostField.setText("");
+    }
+
+    @FXML
+    private void loadTherapyProgramTable(){
+        try{
+            List<TherapyProgramDTO> therapyProgramList = therapyProgramBO.loadTherapyProgramTable();
+
+            ObservableList<TherapyProgramDTO> obList = FXCollections.observableArrayList();
+
+            for(TherapyProgramDTO therapyProgramDTO : therapyProgramList){
+                System.out.println(therapyProgramDTO.getTherapyProgramName());
+                obList.add(therapyProgramDTO);
+            }
+
+            programTbl.setItems(obList);
         }
         catch(Exception e){
             e.printStackTrace();

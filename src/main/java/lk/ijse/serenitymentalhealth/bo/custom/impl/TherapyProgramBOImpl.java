@@ -10,6 +10,8 @@ import lk.ijse.serenitymentalhealth.entity.Therapist;
 import lk.ijse.serenitymentalhealth.entity.TherapyProgram;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TherapyProgramBOImpl implements TherapyProgramBO {
 
@@ -22,7 +24,17 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
         therapyProgram.setTherapyProgramName(therapyProgramDTO.getTherapyProgramName());
         therapyProgram.setDescription(therapyProgramDTO.getTherapyProgramDescription());
         therapyProgram.setCost(therapyProgramDTO.getTherapyProgramCost());
+        therapyProgram.setDuration(Integer.parseInt(therapyProgramDTO.getTherapyProgramDuration()));
 
         return therapyProgramDAO.save(therapyProgram);
+    }
+
+    public List<TherapyProgramDTO> loadTherapyProgramTable() throws SQLException {
+        List<TherapyProgram> therapyProgramList = therapyProgramDAO.getAll();
+        List<TherapyProgramDTO> therapyProgramDTOList = new ArrayList<>();
+        for (TherapyProgram therapyProgram : therapyProgramList) {
+            therapyProgramDTOList.add(new TherapyProgramDTO(therapyProgram.getTherapyProgramId(), therapyProgram.getTherapyProgramName(), therapyProgram.getDescription(), String.valueOf(therapyProgram.getDuration()), therapyProgram.getCost()));
+        }
+        return therapyProgramDTOList;
     }
 }
