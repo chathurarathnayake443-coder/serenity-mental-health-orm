@@ -2,13 +2,20 @@ package lk.ijse.serenitymentalhealth.controller;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+import lk.ijse.serenitymentalhealth.bo.BOFactory;
+import lk.ijse.serenitymentalhealth.bo.custom.UserBO;
+import lk.ijse.serenitymentalhealth.dto.UserDTO;
 import lk.ijse.serenitymentalhealth.enums.UserType;
 
 import java.net.URL;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -21,6 +28,8 @@ public class LoginController implements Initializable {
     @FXML private TextField usernameField;
     @FXML
     private ComboBox cmbUserType;
+
+    UserBO userBO = (UserBO) BOFactory.getInstance().getBOFactory(BOFactory.BOTypes.USER);
 
     private boolean isPasswordVisible = false;
 
@@ -71,6 +80,26 @@ public class LoginController implements Initializable {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             Platform.exit();
             System.exit(0);
+        }
+    }
+
+    @FXML
+    private void login(){
+        try{
+            List<UserDTO> userList = userBO.loadUserTable();
+
+            for(UserDTO user : userList){
+                if(user.getUsername().equals(usernameField.getText()) && user.getPassword().equals(pfPassword.getText())){
+                    Stage stage = (Stage) usernameField.getScene().getWindow();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/lk/ijse/serenitymentalhealth/dashboard.fxml"));
+                    Scene scene = new Scene(loader.load());
+                    stage.setScene(scene);
+                    stage.show();
+                }
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
         }
     }
 }
