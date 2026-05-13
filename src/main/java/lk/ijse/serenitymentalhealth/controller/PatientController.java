@@ -284,7 +284,7 @@ public class PatientController implements Initializable {
     private void goToDashBoard(){
         try{
             Stage stage = (Stage) patientNameField.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/lk/ijse/serenitymentalhealth/patient.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/lk/ijse/serenitymentalhealth/dashboard.fxml"));
             Scene scene = new Scene(loader.load());
             stage.setScene(scene);
             stage.show();
