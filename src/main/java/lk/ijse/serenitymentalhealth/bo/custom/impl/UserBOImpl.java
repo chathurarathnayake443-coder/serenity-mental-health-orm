@@ -32,11 +32,23 @@ public class UserBOImpl implements UserBO {
         return userDAO.save(user);
     }
 
+    public boolean updateUser(UserDTO userDTO) throws SQLException {
+        User user = new User();
+        user.setUserName(userDTO.getUsername());
+        user.setName(userDTO.getName());
+        user.setUserPassword(userDTO.getPassword());
+        user.setUserContact(userDTO.getContact());
+        user.setUserAddress(userDTO.getAddress());
+        user.setUserType(userDTO.getUserType());
+
+        return userDAO.update(user);
+    }
+
     public List<UserDTO> loadUserTable() throws SQLException {
         List<User> userList = userDAO.getAll();
         List<UserDTO> userDTOList = new ArrayList<>();
         for (User user :userList) {
-            userDTOList.add(new UserDTO(user.getUserName(),user.getUserPassword(),user.getName(),user.getUserContact(),user.getUserAddress(),user.getUserType()));
+            userDTOList.add(new UserDTO(user.getUserName(),user.getName(),user.getUserPassword(),user.getUserContact(),user.getUserAddress(),user.getUserType()));
         }
         return userDTOList;
     }

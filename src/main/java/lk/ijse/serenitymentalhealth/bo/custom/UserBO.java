@@ -12,5 +12,7 @@ public interface UserBO extends SuperBO {
 
     public boolean saveUser(UserDTO userDTO) throws SQLException;
 
+    public boolean updateUser(UserDTO userDTO) throws SQLException;
+
     public List<UserDTO> loadUserTable() throws SQLException;
 }

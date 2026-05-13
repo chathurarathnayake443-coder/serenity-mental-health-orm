@@ -86,7 +86,7 @@ public class UserController implements Initializable {
                 passwordField.setText(selected.getPassword());
                 contactField.setText(selected.getContact());
                 addressField.setText(selected.getAddress());
-                roleField.setText(selected.getUserType().toString());
+                cmbUserType.setValue(selected.getUserType());
             }
         });
 
@@ -137,7 +137,54 @@ public class UserController implements Initializable {
                 loadUserTable();
             }
             else{
-                new Alert(Alert.AlertType.ERROR,"Failed to Add Therapist").show();
+                new Alert(Alert.AlertType.ERROR,"Failed to Add User").show();
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void clickUpdateBtn(){
+        try{
+            String userName = userNameField.getText();
+            String name = nameField.getText();
+            String password = passwordField.getText();
+            String contact = contactField.getText();
+            String address = addressField.getText();
+            UserType role = cmbUserType.getValue();
+
+            if(!userName.matches(EMAIL_REGEX)){
+                new Alert(Alert.AlertType.ERROR,"Invalid User Name").show();
+                return;
+            }
+            if(!contact.matches(CONTACT_REGEX)){
+                new Alert(Alert.AlertType.ERROR,"Invalid User contact").show();
+                return;
+            }
+            if(!name.matches(NAME_REGEX)){
+                new Alert(Alert.AlertType.ERROR,"Invalid Name").show();
+                return;
+            }
+            if(!address.matches(ADDRESS_REGEX)){
+                new Alert(Alert.AlertType.ERROR,"Invalid Address").show();
+                return;
+            }
+            if (cmbUserType.getValue() == null) {
+                new Alert(Alert.AlertType.ERROR, "Please select a user role").show();
+                return;
+            }
+
+            boolean result = userBO.updateUser(new UserDTO(userName,name,password,contact,address,role));
+
+            if(result){
+                new Alert(Alert.AlertType.INFORMATION,"User Updated Successfully !").show();
+                clickResetBtn();
+                loadUserTable();
+            }
+            else{
+                new Alert(Alert.AlertType.ERROR,"Failed to Update User").show();
             }
         }
         catch(Exception e){
@@ -152,7 +199,7 @@ public class UserController implements Initializable {
         passwordField.setText("");
         contactField.setText("");
         addressField.setText("");
-        roleField.setText("");
+        cmbUserType.setValue(UserType.ADMIN);
     }
 
     @FXML

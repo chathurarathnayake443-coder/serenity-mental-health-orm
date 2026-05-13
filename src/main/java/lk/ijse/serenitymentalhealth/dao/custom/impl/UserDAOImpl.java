@@ -32,6 +32,26 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean update(User entity) throws SQLException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try{
+            User oldUser = session.find(User.class,entity.getUserName());
+            oldUser.setName(entity.getName());
+            oldUser.setUserPassword(entity.getUserPassword());
+            oldUser.setUserContact(entity.getUserContact());
+            oldUser.setUserAddress(entity.getUserAddress());
+            oldUser.setUserType(entity.getUserType());
+            transaction.commit();
+            return true;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }
+        finally{
+            session.close();
+        }
         return false;
     }
 
