@@ -2,6 +2,7 @@ package lk.ijse.serenitymentalhealth.dao.custom.impl;
 
 import lk.ijse.serenitymentalhealth.config.FactoryConfiguration;
 import lk.ijse.serenitymentalhealth.dao.custom.UserDAO;
+import lk.ijse.serenitymentalhealth.entity.Patient;
 import lk.ijse.serenitymentalhealth.entity.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -46,6 +47,21 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public List<User> getAll() throws SQLException {
-        return List.of();
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try{
+            List<User> userList = session.createQuery("from User",User.class).list();
+            transaction.commit();
+            return userList;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }
+        finally{
+            session.close();
+        }
+        return null;
     }
 }

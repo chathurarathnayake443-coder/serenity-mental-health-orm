@@ -1,5 +1,7 @@
 package lk.ijse.serenitymentalhealth.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -7,11 +9,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import lk.ijse.serenitymentalhealth.bo.BOFactory;
 import lk.ijse.serenitymentalhealth.bo.custom.TherapistBO;
 import lk.ijse.serenitymentalhealth.bo.custom.UserBO;
+import lk.ijse.serenitymentalhealth.dto.PatientDTO;
 import lk.ijse.serenitymentalhealth.dto.TherapyProgramDTO;
 import lk.ijse.serenitymentalhealth.dto.UserDTO;
 import lk.ijse.serenitymentalhealth.enums.UserType;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class UserController implements Initializable {
@@ -86,7 +90,7 @@ public class UserController implements Initializable {
             }
         });
 
-        //loadTherapyProgramTable();
+        loadUserTable();
 
         cmbUserType.getItems().addAll(UserType.values());
 
@@ -129,8 +133,8 @@ public class UserController implements Initializable {
 
             if(result){
                 new Alert(Alert.AlertType.INFORMATION,"User Added Successfully !").show();
-                //clickResetBtn();
-                //loadUserTable();
+                clickResetBtn();
+                loadUserTable();
             }
             else{
                 new Alert(Alert.AlertType.ERROR,"Failed to Add Therapist").show();
@@ -149,5 +153,23 @@ public class UserController implements Initializable {
         contactField.setText("");
         addressField.setText("");
         roleField.setText("");
+    }
+
+    @FXML
+    private void loadUserTable(){
+        try{
+            List<UserDTO> userList = userBO.loadUserTable();
+
+            ObservableList<UserDTO> obList = FXCollections.observableArrayList();
+
+            for(UserDTO userDTO : userList){
+                obList.add(userDTO);
+            }
+
+            userTbl.setItems(obList);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }
