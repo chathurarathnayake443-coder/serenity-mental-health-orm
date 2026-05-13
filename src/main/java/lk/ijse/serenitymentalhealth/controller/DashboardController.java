@@ -1,13 +1,17 @@
 package lk.ijse.serenitymentalhealth.controller;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
@@ -48,6 +52,28 @@ public class DashboardController implements Initializable {
         }
         catch(Exception e){
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void logoutBtn(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Exit");
+        alert.setHeaderText("Are you sure you want to Log Out?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try{
+                Stage stage = (Stage) patientTab.getScene().getWindow();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/lk/ijse/serenitymentalhealth/login.fxml"));
+                Scene scene = new Scene(loader.load());
+                stage.setScene(scene);
+                stage.show();
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
         }
     }
 }

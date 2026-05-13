@@ -20,20 +20,12 @@
       <AnchorPane prefHeight="708.0" prefWidth="800.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0d4594" height="107.0" layoutX="260.0" stroke="TRANSPARENT" strokeType="INSIDE" width="540.0" />
-            <ImageView fitHeight="91.0" fitWidth="124.0" layoutX="5.0" layoutY="3.0" onMouseClicked="#goToDashBoard">
-               <image>
-                  <Image url="@../../../images/logo.png" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <Text fill="#0d4594" layoutX="29.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Serenity">
+            <Text fill="#0d4594" layoutX="35.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Serenity">
                <font>
                   <Font name="AppleGothic Regular" size="22.0" />
                </font>
             </Text>
-            <Text layoutX="15.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mental Health Clinic ">
+            <Text layoutX="20.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mental Health Clinic ">
                <font>
                   <Font name="AppleGothic Regular" size="13.0" />
                </font>
@@ -146,6 +138,18 @@
                   <Font name="AppleGothic Regular" size="24.0" />
                </font>
             </Text>
+            <AnchorPane layoutX="18.0" layoutY="4.0" onMouseClicked="#goToDashBoard" prefHeight="91.0" prefWidth="124.0">
+               <children>
+                  <ImageView fitHeight="91.0" fitWidth="124.0" layoutX="-1.0" layoutY="-2.0">
+                     <image>
+                        <Image url="@../../../images/logo.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </top>

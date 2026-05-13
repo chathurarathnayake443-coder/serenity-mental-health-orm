@@ -100,7 +100,7 @@
                   <Image url="@../../../images/logout.png" />
                </image>
             </ImageView>
-            <Button layoutX="641.0" layoutY="571.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="119.0" style="-fx-background-color: black; -fx-background-radius: 30px;" text="Log Out" textFill="WHITE">
+            <Button layoutX="641.0" layoutY="571.0" mnemonicParsing="false" onAction="#logoutBtn" prefHeight="32.0" prefWidth="119.0" style="-fx-background-color: black; -fx-background-radius: 30px;" text="Log Out" textFill="WHITE">
                <font>
                   <Font name="AppleGothic Regular" size="16.0" />
                </font>
