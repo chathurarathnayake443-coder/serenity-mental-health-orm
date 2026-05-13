@@ -61,6 +61,27 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    public boolean delete(String id) throws SQLException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try{
+            User entity = (User)session.get(User.class,id);
+            session.remove(entity);
+            transaction.commit();
+            return true;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }
+        finally{
+            session.close();
+        }
+        return false;
+    }
+
+    @Override
     public String showNextId() throws SQLException {
         return "";
     }

@@ -193,6 +193,27 @@ public class UserController implements Initializable {
     }
 
     @FXML
+    private void clickDeleteBtn(){
+        try{
+            String username = userNameField.getText();
+
+            boolean result = userBO.deleteUser(username);
+
+            if(result){
+                new Alert(Alert.AlertType.INFORMATION,"User Deleted Successfully !").show();
+                clickResetBtn();
+                loadUserTable();
+            }
+            else{
+                new Alert(Alert.AlertType.ERROR,"Failed to Delete User").show();
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void clickResetBtn(){
         userNameField.setText("");
         nameField.setText("");

@@ -44,6 +44,10 @@ public class UserBOImpl implements UserBO {
         return userDAO.update(user);
     }
 
+    public boolean deleteUser(String username) throws SQLException {
+        return userDAO.delete(username);
+    }
+
     public List<UserDTO> loadUserTable() throws SQLException {
         List<User> userList = userDAO.getAll();
         List<UserDTO> userDTOList = new ArrayList<>();
