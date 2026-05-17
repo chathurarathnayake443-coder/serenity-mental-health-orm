@@ -35,6 +35,9 @@ public class DashboardController implements Initializable {
     private Button therapistTab;
 
     @FXML
+    private Button registrationTab;
+
+    @FXML
     private Button userTab;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -46,6 +49,20 @@ public class DashboardController implements Initializable {
         try{
             Stage stage = (Stage) patientTab.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/lk/ijse/serenitymentalhealth/patient.fxml"));
+            Scene scene = new Scene(loader.load());
+            stage.setScene(scene);
+            stage.show();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void clickRegistrationTab(){
+        try{
+            Stage stage = (Stage) patientTab.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/lk/ijse/serenitymentalhealth/registration.fxml"));
             Scene scene = new Scene(loader.load());
             stage.setScene(scene);
             stage.show();
