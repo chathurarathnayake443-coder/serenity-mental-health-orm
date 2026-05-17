@@ -31,4 +31,9 @@ public class RegistrationDAOImpl implements RegistrationDAO {
     public List<Registration> getAll() throws SQLException {
         return List.of();
     }
+
+    @Override
+    public Registration find(String name) throws SQLException {
+        return null;
+    }
 }

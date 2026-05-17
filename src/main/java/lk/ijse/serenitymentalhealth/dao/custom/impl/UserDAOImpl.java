@@ -1,5 +1,6 @@
 package lk.ijse.serenitymentalhealth.dao.custom.impl;
 
+import com.google.protobuf.Enum;
 import lk.ijse.serenitymentalhealth.config.FactoryConfiguration;
 import lk.ijse.serenitymentalhealth.dao.custom.UserDAO;
 import lk.ijse.serenitymentalhealth.entity.Patient;
@@ -95,6 +96,26 @@ public class UserDAOImpl implements UserDAO {
             List<User> userList = session.createQuery("from User",User.class).list();
             transaction.commit();
             return userList;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }
+        finally{
+            session.close();
+        }
+        return null;
+    }
+
+    @Override
+    public User find(String name) throws SQLException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try{
+            User user = session.find(User.class,name);
+            transaction.commit();
+            return user;
         }
         catch(Exception e){
             e.printStackTrace();

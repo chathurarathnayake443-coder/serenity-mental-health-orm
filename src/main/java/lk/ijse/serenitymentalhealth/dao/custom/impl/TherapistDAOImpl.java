@@ -114,4 +114,9 @@ public class TherapistDAOImpl implements TherapistDAO {
         }
         return null;
     }
+
+    @Override
+    public Therapist find(String name) throws SQLException {
+        return null;
+    }
 }

@@ -31,4 +31,9 @@ public class PatientSessionDAOImpl implements PatientSessionDAO {
     public List<PatientSession> getAll() throws SQLException {
         return List.of();
     }
+
+    @Override
+    public PatientSession find(String name) throws SQLException {
+        return null;
+    }
 }

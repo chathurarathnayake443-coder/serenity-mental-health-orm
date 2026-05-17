@@ -31,4 +31,9 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
     public List<TherapyProgram> getAll() throws SQLException {
         return List.of();
     }
+
+    @Override
+    public TherapyProgram find(String name) throws SQLException {
+        return null;
+    }
 }

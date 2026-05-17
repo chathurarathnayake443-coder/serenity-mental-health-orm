@@ -84,22 +84,45 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    private void login(){
-        try{
-            List<UserDTO> userList = userBO.loadUserTable();
+    private void login() {
+        try {
+            String username = usernameField.getText();
+            String password = pfPassword.getText();
 
-            for(UserDTO user : userList){
-                if(user.getUsername().equals(usernameField.getText()) && user.getPassword().equals(pfPassword.getText())){
-                    Stage stage = (Stage) usernameField.getScene().getWindow();
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/lk/ijse/serenitymentalhealth/dashboard.fxml"));
-                    Scene scene = new Scene(loader.load());
-                    stage.setScene(scene);
-                    stage.show();
-                }
+            if (username.isEmpty() || password.isEmpty()) {
+                new Alert(Alert.AlertType.ERROR, "Please enter username and password").show();
+                return;
             }
-        }
-        catch(Exception e){
+
+            UserDTO userDTO = userBO.findUser(username);
+            System.out.println(password);
+            System.out.println(userDTO.getPassword());
+
+            if (userDTO == null) {
+                new Alert(Alert.AlertType.ERROR, "User Not Found").show();
+                return;
+            }
+
+            if (userDTO.getPassword().equals(password)) {
+                Stage stage = (Stage) usernameField.getScene().getWindow();
+                FXMLLoader loader;
+
+                if (userDTO.getUserType() == UserType.ADMIN) {
+                    loader = new FXMLLoader(getClass().getResource("/lk/ijse/serenitymentalhealth/dashboard.fxml"));
+                } else {
+                    loader = new FXMLLoader(getClass().getResource("/lk/ijse/serenitymentalhealth/dashboard.fxml"));
+                }
+
+                Scene scene = new Scene(loader.load());
+                stage.setScene(scene);
+                stage.show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Invalid Password").show();
+            }
+
+        } catch (Exception e) {
             e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "User Not Found").show();
         }
     }
 }

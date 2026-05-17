@@ -111,4 +111,9 @@ public class PatientDAOImpl implements PatientDAO {
         }
         return null;
     }
+
+    @Override
+    public Patient find(String name) throws SQLException {
+        return null;
+    }
 }

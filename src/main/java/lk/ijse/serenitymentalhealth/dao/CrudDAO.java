@@ -14,4 +14,6 @@ public interface CrudDAO<T> extends SuperDAO {
     public String showNextId() throws SQLException;
 
     public List<T> getAll() throws SQLException;
+
+    public T find(String name) throws SQLException;
 }

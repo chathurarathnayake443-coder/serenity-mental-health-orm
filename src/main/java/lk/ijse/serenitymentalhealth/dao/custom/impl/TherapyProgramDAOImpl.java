@@ -65,4 +65,9 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
         }
         return null;
     }
+
+    @Override
+    public TherapyProgram find(String name) throws SQLException {
+        return null;
+    }
 }

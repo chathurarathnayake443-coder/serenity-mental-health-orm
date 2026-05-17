@@ -56,4 +56,12 @@ public class UserBOImpl implements UserBO {
         }
         return userDTOList;
     }
+
+    public UserDTO findUser(String name) throws SQLException {
+        User user = userDAO.find(name);
+        if (user!=null){
+            return new UserDTO(user.getUserName(), user.getName(), user.getUserPassword(), user.getUserContact(),user.getUserAddress(),   user.getUserType());
+        }
+        return null;
+    }
 }

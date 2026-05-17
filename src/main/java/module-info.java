@@ -20,6 +20,7 @@ module lk.ijse.serenitymentalhealth {
     //requires lk.ijse.serenitymentalhealth;
     requires javafx.base;
     requires javafx.graphics;
+    requires com.google.protobuf;
     //requires lk.ijse.serenitymentalhealth;
     //requires lk.ijse.serenitymentalhealth;
     //requires lk.ijse.serenitymentalhealth;
