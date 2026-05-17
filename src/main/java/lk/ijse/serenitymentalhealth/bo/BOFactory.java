@@ -1,9 +1,6 @@
 package lk.ijse.serenitymentalhealth.bo;
 
-import lk.ijse.serenitymentalhealth.bo.custom.impl.PatientBOImpl;
-import lk.ijse.serenitymentalhealth.bo.custom.impl.TherapistBOImpl;
-import lk.ijse.serenitymentalhealth.bo.custom.impl.TherapyProgramBOImpl;
-import lk.ijse.serenitymentalhealth.bo.custom.impl.UserBOImpl;
+import lk.ijse.serenitymentalhealth.bo.custom.impl.*;
 
 public class BOFactory {
     private static BOFactory instance;
@@ -12,7 +9,7 @@ public class BOFactory {
         return instance==null?instance=new BOFactory():instance;
     }
     public enum BOTypes{
-        PATIENT,THERAPIST,THERAPY_PROGRAM,THERAPY_SESSION,USER
+        PATIENT,THERAPIST,THERAPY_PROGRAM,THERAPY_SESSION,USER,REGISTRATION
     }
     public SuperBO getBOFactory(BOTypes boType){
         switch (boType){
@@ -24,6 +21,8 @@ public class BOFactory {
                 return new TherapyProgramBOImpl();
             case USER:
                 return new UserBOImpl();
+            case REGISTRATION:
+                return new RegistrationBOImpl();
             default:
                 return null;
         }

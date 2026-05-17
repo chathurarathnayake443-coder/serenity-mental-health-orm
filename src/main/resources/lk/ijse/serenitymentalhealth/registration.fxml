@@ -26,17 +26,12 @@
                </font>
             </Text>
             <Polygon fill="#2a6dc9" layoutX="222.0" layoutY="62.0" points="-131.5, -62.0, 38.0, 45.0, 38.0, -62.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-            <ImageView fitHeight="104.0" fitWidth="131.0" layoutX="12.0" layoutY="3.0" onMouseClicked="#goToDashBoard">
-               <image>
-                  <Image url="@../../../images/logo.png" />
-               </image>
-            </ImageView>
-            <Text fill="#0d4594" layoutX="44.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Serenity">
+            <Text fill="#0d4594" layoutX="44.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Serenity">
                <font>
                   <Font name="AppleGothic Regular" size="22.0" />
                </font>
             </Text>
-            <Text layoutX="30.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mental Health Clinic">
+            <Text layoutX="30.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mental Health Clinic">
                <font>
                   <Font name="AppleGothic Regular" size="13.0" />
                </font>
@@ -109,6 +104,15 @@
                   <Font name="AppleGothic Regular" size="22.0" />
                </font>
             </Text>
+            <AnchorPane layoutX="17.0" layoutY="4.0" onMouseClicked="#goToDashBoard" prefHeight="104.0" prefWidth="131.0">
+               <children>
+                  <ImageView fitHeight="104.0" fitWidth="131.0" layoutY="1.0">
+                     <image>
+                        <Image url="@../../../images/logo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </top>

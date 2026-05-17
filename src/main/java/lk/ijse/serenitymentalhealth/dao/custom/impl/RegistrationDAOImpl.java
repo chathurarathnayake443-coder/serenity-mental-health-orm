@@ -1,7 +1,10 @@
 package lk.ijse.serenitymentalhealth.dao.custom.impl;
 
+import lk.ijse.serenitymentalhealth.config.FactoryConfiguration;
 import lk.ijse.serenitymentalhealth.dao.custom.RegistrationDAO;
 import lk.ijse.serenitymentalhealth.entity.Registration;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -24,7 +27,21 @@ public class RegistrationDAOImpl implements RegistrationDAO {
 
     @Override
     public String showNextId() throws SQLException {
-        return "";
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            Integer maxId = session.createQuery("SELECT MAX(r.registrationId) FROM Registration r", Integer.class)
+                    .uniqueResult();
+            transaction.commit();
+            return (maxId == null) ? "1" : String.valueOf(maxId + 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+        } finally {
+            session.close();
+        }
+        return "1";
     }
 
     @Override

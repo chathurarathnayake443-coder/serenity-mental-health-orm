@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import lk.ijse.serenitymentalhealth.bo.BOFactory;
 import lk.ijse.serenitymentalhealth.bo.custom.PatientBO;
+import lk.ijse.serenitymentalhealth.bo.custom.RegistrationBO;
 import lk.ijse.serenitymentalhealth.dto.PatientDTO;
 
 import java.net.URL;
@@ -56,6 +57,7 @@ public class RegistrationController implements Initializable {
     private ComboBox smallNameBox;
 
     PatientBO patientBO = (PatientBO) BOFactory.getInstance().getBOFactory(BOFactory.BOTypes.PATIENT);
+    RegistrationBO registrationBO = (RegistrationBO) BOFactory.getInstance().getBOFactory(BOFactory.BOTypes.REGISTRATION);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -73,6 +75,7 @@ public class RegistrationController implements Initializable {
         });
 
         loadPatientTable();
+        showNextId();
     }
 
     @FXML
@@ -111,6 +114,17 @@ public class RegistrationController implements Initializable {
             Scene scene = new Scene(loader.load());
             stage.setScene(scene);
             stage.show();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void showNextId(){
+        try{
+            String id = registrationBO.showNextId();
+            idField.setText(id);
         }
         catch(Exception e){
             e.printStackTrace();
