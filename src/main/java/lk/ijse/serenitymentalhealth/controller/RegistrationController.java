@@ -37,4 +37,6 @@ public class RegistrationController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("Registration View Loaded");
     }
+
+
 }
