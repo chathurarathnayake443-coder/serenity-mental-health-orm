@@ -24,6 +24,11 @@ public class TherapyProgramDTO {
         this.therapyProgramCost = therapyProgramCost;
     }
 
+    public TherapyProgramDTO(String therapyProgramId, String therapyProgramName) {
+        this.therapyProgramId = therapyProgramId;
+        this.therapyProgramName = therapyProgramName;
+    }
+
     public String getTherapyProgramId() {
         return therapyProgramId;
     }

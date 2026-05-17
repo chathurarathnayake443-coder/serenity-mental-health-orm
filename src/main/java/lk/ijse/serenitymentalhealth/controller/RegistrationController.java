@@ -13,8 +13,10 @@ import lk.ijse.serenitymentalhealth.bo.BOFactory;
 import lk.ijse.serenitymentalhealth.bo.custom.PatientBO;
 import lk.ijse.serenitymentalhealth.bo.custom.RegistrationBO;
 import lk.ijse.serenitymentalhealth.dto.PatientDTO;
+import lk.ijse.serenitymentalhealth.dto.TherapyProgramDTO;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -56,7 +58,6 @@ public class RegistrationController implements Initializable {
     @FXML
     private ComboBox smallNameBox;
 
-    PatientBO patientBO = (PatientBO) BOFactory.getInstance().getBOFactory(BOFactory.BOTypes.PATIENT);
     RegistrationBO registrationBO = (RegistrationBO) BOFactory.getInstance().getBOFactory(BOFactory.BOTypes.REGISTRATION);
 
     @Override
@@ -76,6 +77,7 @@ public class RegistrationController implements Initializable {
 
         loadPatientTable();
         showNextId();
+        loadProgramNames();
     }
 
     @FXML
@@ -91,7 +93,7 @@ public class RegistrationController implements Initializable {
     @FXML
     private void loadPatientTable(){
         try{
-            List<PatientDTO> patientList = patientBO.loadPatientTable();
+            List<PatientDTO> patientList = registrationBO.loadPatientTable();
 
             ObservableList<PatientDTO> obList = FXCollections.observableArrayList();
 
@@ -104,6 +106,18 @@ public class RegistrationController implements Initializable {
         catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void loadProgramNames(){
+        try {
+            List<TherapyProgramDTO> programDTOs = registrationBO.loadProgramNames();
+            ObservableList<String> programNames = FXCollections.observableArrayList();
+            for(TherapyProgramDTO dto : programDTOs){
+                programNames.add(dto.getTherapyProgramName());
+            }
+            nameBox.setItems(programNames);
+        } catch (SQLException ex) { ex.printStackTrace(); }
     }
 
     @FXML
