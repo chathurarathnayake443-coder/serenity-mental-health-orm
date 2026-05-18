@@ -89,6 +89,7 @@ public class TherapyProgramController implements Initializable {
         });
 
         loadTherapyProgramTable();
+        loadProgramComboBox();
 
     }
 
@@ -168,6 +169,25 @@ public class TherapyProgramController implements Initializable {
         programDescriptionField.setText("");
         programDurationField.setText("");
         programCostField.setText("");
+    }
+
+    @FXML
+    private void loadProgramComboBox(){
+        try {
+            List<TherapyProgramDTO> names = therapyProgramBO.loadProgramNames();
+            ObservableList<String> programNames = FXCollections.observableArrayList();
+            for(TherapyProgramDTO dto : names){
+                programNames.add(dto.getTherapyProgramName());
+            }
+            programComboBox.setItems(programNames);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void loadTherapistIdBox(){
+
     }
 
     @FXML

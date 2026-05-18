@@ -17,4 +17,6 @@ public interface TherapyProgramBO extends SuperBO {
     public boolean updateTherapyProgram(TherapyProgramDTO therapyProgramDTO) throws SQLException;
 
     public boolean deleteTherapyProgram(String id) throws SQLException;
+
+    public List<TherapyProgramDTO> loadProgramNames() throws SQLException;
 }
