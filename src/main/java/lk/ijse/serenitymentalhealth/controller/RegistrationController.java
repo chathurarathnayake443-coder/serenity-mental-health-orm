@@ -132,6 +132,43 @@ public class RegistrationController implements Initializable {
     }
 
     @FXML
+    private void clickUpdateBtn(){
+        try{
+            int registrationId = Integer.parseInt(idField.getText());
+            int patientId = Integer.parseInt(patientIdField.getText());
+            double fee = Double.parseDouble(feeField.getText());
+            String programId = programIdField.getText();
+            LocalDate date = dateBox.getValue();
+
+            System.out.println("Registration ID: " + registrationId);
+            System.out.println("Program ID: " + programId);
+            System.out.println("Fee: " + fee);
+
+            boolean result =  registrationBO.updateRegistration(new RegistrationDTO(registrationId,patientId,programId,fee,date));
+
+            if(result){
+                new Alert(Alert.AlertType.INFORMATION,"Registration Updated Successfully !").show();
+                showNextId();
+                clickResetBtn();
+                String selectedProgram = (smallNameBox.getValue() != null) ? smallNameBox.getValue().toString() : null;
+
+                clickResetBtn();
+
+                if (selectedProgram != null) {
+                    smallNameBox.setValue(selectedProgram);
+                    clickSmallNameBox();
+                }
+            }
+            else{
+                new Alert(Alert.AlertType.ERROR,"Failed to Update Registration").show();
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void clickResetBtn(){
         try{
             patientIdField.setText("");

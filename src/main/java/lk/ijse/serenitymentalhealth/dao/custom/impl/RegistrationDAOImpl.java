@@ -2,6 +2,7 @@ package lk.ijse.serenitymentalhealth.dao.custom.impl;
 
 import lk.ijse.serenitymentalhealth.config.FactoryConfiguration;
 import lk.ijse.serenitymentalhealth.dao.custom.RegistrationDAO;
+import lk.ijse.serenitymentalhealth.entity.Patient;
 import lk.ijse.serenitymentalhealth.entity.Registration;
 import lk.ijse.serenitymentalhealth.entity.TherapyProgram;
 import org.hibernate.Session;
@@ -33,6 +34,27 @@ public class RegistrationDAOImpl implements RegistrationDAO {
 
     @Override
     public boolean update(Registration entity) throws SQLException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try{
+            System.out.println("Updating registration with ID: " + entity.getRegistrationId());
+            Registration oldRegistration = session.find(Registration.class,entity.getRegistrationId());
+            oldRegistration.setRegistrationFee(entity.getRegistrationFee());
+            oldRegistration.setPatient(entity.getPatient());
+            oldRegistration.setRegisteredDate(entity.getRegisteredDate());
+            oldRegistration.setTherapyProgram(entity.getTherapyProgram());
+            oldRegistration.setPaymentStatus(entity.getPaymentStatus());
+            transaction.commit();
+            return true;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }
+        finally{
+            session.close();
+        }
         return false;
     }
 
