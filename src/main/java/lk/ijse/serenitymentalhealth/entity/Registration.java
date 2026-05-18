@@ -23,7 +23,7 @@ public class Registration {
     private PaymentStatus paymentStatus;
 
     @Column(name = "registered_date")
-    private LocalDateTime registeredDate;
+    private String registeredDate;
 
     @Column(name = "registration_fee")
     private double registrationFee;

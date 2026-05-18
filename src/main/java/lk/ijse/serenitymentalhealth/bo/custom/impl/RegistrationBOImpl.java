@@ -6,9 +6,12 @@ import lk.ijse.serenitymentalhealth.dao.custom.PatientDAO;
 import lk.ijse.serenitymentalhealth.dao.custom.RegistrationDAO;
 import lk.ijse.serenitymentalhealth.dao.custom.TherapyProgramDAO;
 import lk.ijse.serenitymentalhealth.dto.PatientDTO;
+import lk.ijse.serenitymentalhealth.dto.RegistrationDTO;
 import lk.ijse.serenitymentalhealth.dto.TherapyProgramDTO;
 import lk.ijse.serenitymentalhealth.entity.Patient;
+import lk.ijse.serenitymentalhealth.entity.Registration;
 import lk.ijse.serenitymentalhealth.entity.TherapyProgram;
+import lk.ijse.serenitymentalhealth.enums.PaymentStatus;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,6 +22,30 @@ public class RegistrationBOImpl implements RegistrationBO {
     RegistrationDAO registrationDAO = (RegistrationDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.REGISTRATION);
     PatientDAO patientDAO = (PatientDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.PATIENT);
     TherapyProgramDAO therapyProgramDAO = (TherapyProgramDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.THERAPY_PROGRAM);
+
+    public boolean saveRegistration(RegistrationDTO registrationDTO) throws SQLException {
+
+        Registration registration = new Registration();
+        Patient patient = new Patient();
+        TherapyProgram therapyProgram = new TherapyProgram();
+
+        patient.setPatientId(registrationDTO.getPatientId());
+        therapyProgram.setTherapyProgramId(registrationDTO.getProgramId());
+        registration.setPatient(patient);
+        registration.setTherapyProgram(therapyProgram);
+        registration.setRegistrationFee(registrationDTO.getFee());
+        registration.setRegisteredDate(registrationDTO.getDate());
+
+        double programPrice = therapyProgramDAO.getPriceById(registrationDTO.getProgramId());
+        if(registrationDTO.getFee() < programPrice){
+            registration.setPaymentStatus(PaymentStatus.PENDING);
+        }
+        else{
+            registration.setPaymentStatus(PaymentStatus.COMPLETED);
+        }
+
+        return registrationDAO.save(registration);
+    }
 
     public String showNextId() throws SQLException {
         String id = registrationDAO.showNextId();
@@ -46,4 +73,5 @@ public class RegistrationBOImpl implements RegistrationBO {
     public String getIdByName(String name) throws SQLException {
         return therapyProgramDAO.getIdByName(name);
     }
+
 }

@@ -89,4 +89,23 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
         }
         return null;
     }
+
+    public double getPriceById(String id) throws SQLException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try{
+            double price = session.createQuery("SELECT t.cost FROM TherapyProgram t WHERE t.therapyProgramId = :program_id", Double.class).setParameter("program_id",id).setMaxResults(1).uniqueResult();
+            transaction.commit();
+            return price;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }
+        finally{
+            session.close();
+        }
+        return 0;
+    }
 }

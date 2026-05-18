@@ -11,4 +11,6 @@ import java.sql.SQLException;
 public interface TherapyProgramDAO extends CrudDAO<TherapyProgram> {
 
     public String getIdByName(String name) throws SQLException;
+
+    public double getPriceById(String name) throws SQLException;
 }

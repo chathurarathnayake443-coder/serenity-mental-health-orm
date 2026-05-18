@@ -13,6 +13,7 @@ import lk.ijse.serenitymentalhealth.bo.BOFactory;
 import lk.ijse.serenitymentalhealth.bo.custom.PatientBO;
 import lk.ijse.serenitymentalhealth.bo.custom.RegistrationBO;
 import lk.ijse.serenitymentalhealth.dto.PatientDTO;
+import lk.ijse.serenitymentalhealth.dto.RegistrationDTO;
 import lk.ijse.serenitymentalhealth.dto.TherapyProgramDTO;
 
 import java.net.URL;
@@ -93,10 +94,19 @@ public class RegistrationController implements Initializable {
         try{
             int patientId = Integer.parseInt(patientIdField.getText());
             double fee = Double.parseDouble(feeField.getText());
-            String programName = nameBox.getSelectionModel().getSelectedItem().toString();
+            String programId = programIdField.getText();
             String date = dateBox.getEditor().getText();
 
+            boolean result = registrationBO.saveRegistration(new RegistrationDTO(patientId,programId,fee,date));
 
+            if(result){
+                new Alert(Alert.AlertType.INFORMATION,"Registration Added Successfully !").show();
+                showNextId();
+                //clickResetBtn();
+            }
+            else{
+                new Alert(Alert.AlertType.ERROR,"Failed to Add Registration").show();
+            }
 
         }
         catch(Exception e){
