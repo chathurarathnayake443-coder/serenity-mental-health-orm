@@ -58,6 +58,11 @@ public class RegistrationController implements Initializable {
     @FXML
     private ComboBox smallNameBox;
 
+    @FXML
+    private TableColumn statusCol;
+
+    private final String NAME_REGEX = "^[A-Za-z0-9\\s]{3,}$";
+
     RegistrationBO registrationBO = (RegistrationBO) BOFactory.getInstance().getBOFactory(BOFactory.BOTypes.REGISTRATION);
 
     @Override
@@ -83,6 +88,16 @@ public class RegistrationController implements Initializable {
     @FXML
     private void clickSaveBtn(){
         try{
+            String patientName = patientNameField.getText();
+            double fee = Double.parseDouble(feeField.getText());
+            String programName = nameBox.getSelectionModel().getSelectedItem().toString();
+            String date = dateBox.getEditor().getText();
+
+            if(!patientName.matches(NAME_REGEX)){
+                new Alert(Alert.AlertType.ERROR,"Invalid Patient Name").show();
+                return;
+            }
+
 
         }
         catch(Exception e){
