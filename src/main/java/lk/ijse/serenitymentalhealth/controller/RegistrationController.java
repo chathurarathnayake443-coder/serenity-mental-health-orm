@@ -76,6 +76,10 @@ public class RegistrationController implements Initializable {
         patientIdCol.setCellValueFactory(new PropertyValueFactory<>("patientId"));
         patientNameCol.setCellValueFactory(new PropertyValueFactory<>("patientName"));
 
+        patientCol.setCellValueFactory(new PropertyValueFactory<>("patientId"));
+        paymentCol.setCellValueFactory(new PropertyValueFactory<>("fee"));
+        statusCol.setCellValueFactory(new PropertyValueFactory<>("paymentStatus"));
+
         patientTbl.setOnMouseClicked(event -> {
             Object object = patientTbl.getSelectionModel().getSelectedItem();
             PatientDTO selected = (PatientDTO)object;
@@ -141,6 +145,7 @@ public class RegistrationController implements Initializable {
                 programNames.add(dto.getTherapyProgramName());
             }
             nameBox.setItems(programNames);
+            smallNameBox.setItems(programNames);
         } catch (SQLException ex) { ex.printStackTrace(); }
     }
 
@@ -179,6 +184,26 @@ public class RegistrationController implements Initializable {
         catch(Exception e){
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR,"Program Name not Found").show();
+        }
+    }
+
+    @FXML
+    private void clickSmallNameBox(){
+        try{
+            String programName = smallNameBox.getSelectionModel().getSelectedItem().toString();
+
+            List<RegistrationDTO> regList = registrationBO.loadRegistrationData(programName);
+
+            ObservableList<RegistrationDTO> obList = FXCollections.observableArrayList();
+
+            for(RegistrationDTO regDTO : regList){
+                obList.add(regDTO);
+            }
+
+            registerTbl.setItems(obList);
+        }
+        catch(Exception e){
+            e.printStackTrace();
         }
     }
 

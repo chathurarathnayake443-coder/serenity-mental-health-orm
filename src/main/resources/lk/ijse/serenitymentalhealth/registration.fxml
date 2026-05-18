@@ -88,12 +88,12 @@
             </AnchorPane>
             <TableView fx:id="registerTbl" layoutX="361.0" layoutY="480.0" prefHeight="200.0" prefWidth="396.0">
                <columns>
-                  <TableColumn fx:id="patientCol" prefWidth="135.0" text="Patients" />
+                  <TableColumn fx:id="patientCol" prefWidth="135.0" text="Patient ID" />
                   <TableColumn fx:id="paymentCol" prefWidth="147.0" text="Payments" />
                   <TableColumn fx:id="statusCol" prefWidth="113.0" text="Payment Status" />
                </columns>
             </TableView>
-            <ComboBox fx:id="smallNameBox" layoutX="530.0" layoutY="447.0" prefHeight="26.0" prefWidth="74.0" />
+            <ComboBox fx:id="smallNameBox" layoutX="530.0" layoutY="447.0" onAction="#clickSmallNameBox" prefHeight="26.0" prefWidth="213.0" />
             <Text layoutX="388.0" layoutY="465.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose Program Name" />
             <TableView fx:id="patientTbl" layoutX="65.0" layoutY="480.0" prefHeight="200.0" prefWidth="265.0">
               <columns>

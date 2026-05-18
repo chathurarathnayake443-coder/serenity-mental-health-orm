@@ -3,6 +3,7 @@ package lk.ijse.serenitymentalhealth.dao.custom.impl;
 import lk.ijse.serenitymentalhealth.config.FactoryConfiguration;
 import lk.ijse.serenitymentalhealth.dao.custom.RegistrationDAO;
 import lk.ijse.serenitymentalhealth.entity.Registration;
+import lk.ijse.serenitymentalhealth.entity.TherapyProgram;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -66,6 +67,25 @@ public class RegistrationDAOImpl implements RegistrationDAO {
 
     @Override
     public Registration find(String name) throws SQLException {
+        return null;
+    }
+
+    public List<Registration> loadRegisterationData(String name){
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try{
+            List<Registration> regData = session.createQuery("FROM Registration r WHERE r.therapyProgram.therapyProgramName = :program_name", Registration.class).setParameter("program_name",name).list();
+            transaction.commit();
+            return regData;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }
+        finally{
+            session.close();
+        }
         return null;
     }
 }

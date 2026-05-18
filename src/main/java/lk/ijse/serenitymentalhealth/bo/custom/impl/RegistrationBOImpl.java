@@ -74,4 +74,13 @@ public class RegistrationBOImpl implements RegistrationBO {
         return therapyProgramDAO.getIdByName(name);
     }
 
+    public List<RegistrationDTO> loadRegistrationData(String name) throws SQLException {
+        List<Registration> registrationList = registrationDAO.loadRegisterationData(name);
+        List<RegistrationDTO> registrationDTOList = new ArrayList<>();
+        for (Registration registration : registrationList) {
+            registrationDTOList.add(new RegistrationDTO(registration.getPatient().getPatientId(),registration.getRegistrationFee(),registration.getPaymentStatus()));
+        }
+        return registrationDTOList;
+    }
+
 }

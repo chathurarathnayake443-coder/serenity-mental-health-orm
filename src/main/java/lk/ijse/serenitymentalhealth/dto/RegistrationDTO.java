@@ -1,11 +1,14 @@
 package lk.ijse.serenitymentalhealth.dto;
 
+import lk.ijse.serenitymentalhealth.enums.PaymentStatus;
+
 public class RegistrationDTO {
     private int registrationId;
     private int PatientId;
     private String ProgramId;
     private double fee;
     private String date;
+    private PaymentStatus paymentStatus;
 
     public RegistrationDTO() {}
 
@@ -14,6 +17,12 @@ public class RegistrationDTO {
         this.ProgramId = programId;
         this.fee = fee;
         this.date = date;
+    }
+
+    public RegistrationDTO(int patientId, double fee, PaymentStatus paymentStatus) {
+        this.PatientId = patientId;
+        this.fee = fee;
+        this.paymentStatus = paymentStatus;
     }
 
     public RegistrationDTO(int registrationId, int patientId, String programId, double fee, String date) {
@@ -52,5 +61,11 @@ public class RegistrationDTO {
     }
     public void setDate(String date) {
         this.date = date;
+    }
+    public PaymentStatus getPaymentStatus() {
+        return paymentStatus;
+    }
+    public void setPaymentStatus(PaymentStatus paymentStatus) {
+        this.paymentStatus = paymentStatus;
     }
 }

@@ -23,4 +23,6 @@ public interface RegistrationBO extends SuperBO {
     public List<TherapyProgramDTO> loadProgramNames() throws SQLException;
 
     public String getIdByName(String name) throws SQLException;
+
+    public List<RegistrationDTO> loadRegistrationData(String name) throws SQLException;
 }
