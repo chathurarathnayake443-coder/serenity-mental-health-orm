@@ -18,6 +18,7 @@ import java.util.List;
 public class TherapyProgramBOImpl implements TherapyProgramBO {
 
     TherapyProgramDAO therapyProgramDAO = (TherapyProgramDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.THERAPY_PROGRAM);
+    TherapistDAO therapistDAO = (TherapistDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.THERAPIST);
 
     public boolean saveTherapyProgram(TherapyProgramDTO therapyProgramDTO) throws SQLException {
 
@@ -62,6 +63,20 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
             therapyProgramDTOList.add(new TherapyProgramDTO(therapyProgram.getTherapyProgramId(),therapyProgram.getTherapyProgramName()));
         }
         return therapyProgramDTOList;
+    }
+
+    public List<TherapistDTO> loadTherapistIds() throws SQLException {
+        List<Therapist> therapistList = therapistDAO.getAll();
+        List<TherapistDTO> therapistDTOList = new ArrayList<>();
+        for (Therapist therapist : therapistList) {
+            therapistDTOList.add(new TherapistDTO(therapist.getTherapistId()));
+        }
+        return therapistDTOList;
+    }
+
+    public String getTherapistNameById(int id) throws SQLException {
+        String name = therapistDAO.getNameById(id);
+        return name;
     }
 
 }

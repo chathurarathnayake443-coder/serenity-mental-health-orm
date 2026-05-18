@@ -16,6 +16,10 @@ public class TherapistDTO {
         this.therapistAddress = therapistAddress;
     }
 
+    public TherapistDTO(int therapistId) {
+        this.therapistId = therapistId;
+    }
+
     public TherapistDTO(int therapistId, String therapistName, String therapistEmail, String therapistPhone, String therapistAddress) {
         this.therapistId = therapistId;
         this.therapistName = therapistName;

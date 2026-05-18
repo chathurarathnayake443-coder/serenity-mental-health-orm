@@ -90,7 +90,7 @@ public class TherapyProgramController implements Initializable {
 
         loadTherapyProgramTable();
         loadProgramComboBox();
-
+        loadTherapistIdBox();
     }
 
     @FXML
@@ -187,7 +187,26 @@ public class TherapyProgramController implements Initializable {
 
     @FXML
     private void loadTherapistIdBox(){
+        try {
+            List<TherapistDTO> names = therapyProgramBO.loadTherapistIds();
+            ObservableList<Integer> therapistIds = FXCollections.observableArrayList();
+            for(TherapistDTO dto : names){
+                therapistIds.add(dto.getTherapistId());
+            }
+            therapistIdComboBox.setItems(therapistIds);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 
+    @FXML
+    private void clickTherapistIdBox(){
+        try{
+            int id = therapistIdComboBox.getSelectionModel().getSelectedIndex();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     @FXML

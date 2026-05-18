@@ -113,7 +113,7 @@
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="therapistIdField" layoutX="230.0" layoutY="41.0" prefHeight="38.0" prefWidth="131.0" style="-fx-background-radius: 20;" />
+                  <TextField fx:id="therapistIdField" disable="true" layoutX="230.0" layoutY="41.0" prefHeight="38.0" prefWidth="131.0" style="-fx-background-radius: 20;" />
                   <Button layoutX="373.0" layoutY="42.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="92.0" style="-fx-background-color: #0d4594;" text="Add" textFill="WHITE">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />

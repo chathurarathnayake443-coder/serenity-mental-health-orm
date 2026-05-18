@@ -119,4 +119,23 @@ public class TherapistDAOImpl implements TherapistDAO {
     public Therapist find(String name) throws SQLException {
         return null;
     }
+
+    public String getNameById(int id) throws SQLException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try{
+            String name = session.createQuery("SELECT t.therapistName FROM Therapist t WHERE t.therapistId = :therapist_id", String.class).setParameter("therapist_id",id).setMaxResults(1).uniqueResult();
+            transaction.commit();
+            return name;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }
+        finally{
+            session.close();
+        }
+        return null;
+    }
 }
