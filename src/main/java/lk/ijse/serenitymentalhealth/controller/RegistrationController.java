@@ -61,6 +61,9 @@ public class RegistrationController implements Initializable {
     @FXML
     private TableColumn statusCol;
 
+    @FXML
+    private TextField programIdField;
+
     private final String NAME_REGEX = "^[A-Za-z0-9\\s]{3,}$";
 
     RegistrationBO registrationBO = (RegistrationBO) BOFactory.getInstance().getBOFactory(BOFactory.BOTypes.REGISTRATION);
@@ -157,6 +160,19 @@ public class RegistrationController implements Initializable {
         }
         catch(Exception e){
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void clickProgramNameBox(){
+        try{
+            String programName = nameBox.getSelectionModel().getSelectedItem().toString();
+            String id = registrationBO.getIdByName(programName);
+            programIdField.setText(id);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR,"Program Name not Found").show();
         }
     }
 

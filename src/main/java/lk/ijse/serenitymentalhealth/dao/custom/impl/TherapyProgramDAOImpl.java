@@ -70,4 +70,23 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
     public TherapyProgram find(String name) throws SQLException {
         return null;
     }
+
+    public String getIdByName(String name) throws SQLException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try{
+            String id = session.createQuery("SELECT t.therapyProgramId FROM TherapyProgram t WHERE t.therapyProgramName = :program_name", String.class).setParameter("program_name",name).setMaxResults(1).uniqueResult();
+            transaction.commit();
+            return id;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }
+        finally{
+            session.close();
+        }
+        return null;
+    }
 }

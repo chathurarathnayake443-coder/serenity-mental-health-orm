@@ -42,4 +42,8 @@ public class RegistrationBOImpl implements RegistrationBO {
         }
         return therapyProgramDTOList;
     }
+
+    public String getIdByName(String name) throws SQLException {
+        return therapyProgramDAO.getIdByName(name);
+    }
 }
