@@ -32,9 +32,9 @@ public class TherapyProgram {
     @ManyToMany(mappedBy = "therapyPrograms")
     private List<Therapist> therapists;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "therapyProgram",cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "therapyProgram",cascade = CascadeType.ALL)
     private List<Registration> registrations;
 
-    @OneToMany(mappedBy = "therapyProgram",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "therapyProgram",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<TherapySession> therapySessions;
 }

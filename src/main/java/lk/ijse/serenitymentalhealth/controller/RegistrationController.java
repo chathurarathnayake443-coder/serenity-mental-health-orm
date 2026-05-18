@@ -18,6 +18,7 @@ import lk.ijse.serenitymentalhealth.dto.TherapyProgramDTO;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -88,6 +89,18 @@ public class RegistrationController implements Initializable {
             }
         });
 
+        registerTbl.setOnMouseClicked(event -> {
+            Object object = registerTbl.getSelectionModel().getSelectedItem();
+            RegistrationDTO selected = (RegistrationDTO)object;
+            if (selected != null) {
+                idField.setText(String.valueOf(selected.getRegistrationId()));
+                feeField.setText(String.valueOf(selected.getFee()));
+                programIdField.setText(String.valueOf(selected.getProgramId()));
+                dateBox.setValue(selected.getDate());
+                patientIdField.setText(String.valueOf(selected.getPatientId()));
+            }
+        });
+
         loadPatientTable();
         showNextId();
         loadProgramNames();
@@ -99,19 +112,35 @@ public class RegistrationController implements Initializable {
             int patientId = Integer.parseInt(patientIdField.getText());
             double fee = Double.parseDouble(feeField.getText());
             String programId = programIdField.getText();
-            String date = dateBox.getEditor().getText();
+            LocalDate date = dateBox.getValue();
 
             boolean result = registrationBO.saveRegistration(new RegistrationDTO(patientId,programId,fee,date));
 
             if(result){
                 new Alert(Alert.AlertType.INFORMATION,"Registration Added Successfully !").show();
                 showNextId();
-                //clickResetBtn();
+                clickResetBtn();
             }
             else{
                 new Alert(Alert.AlertType.ERROR,"Failed to Add Registration").show();
             }
 
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void clickResetBtn(){
+        try{
+            patientIdField.setText("");
+            feeField.setText("");
+            programIdField.setText("");
+            dateBox.setValue(null);
+            nameBox.setValue(null);
+            smallNameBox.setValue(null);
+            showNextId();
         }
         catch(Exception e){
             e.printStackTrace();
@@ -176,33 +205,31 @@ public class RegistrationController implements Initializable {
 
     @FXML
     private void clickProgramNameBox(){
-        try{
+        try {
+            if (nameBox.getSelectionModel().getSelectedItem() == null) return;
+
             String programName = nameBox.getSelectionModel().getSelectedItem().toString();
             String id = registrationBO.getIdByName(programName);
             programIdField.setText(id);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR,"Program Name not Found").show();
         }
     }
 
     @FXML
     private void clickSmallNameBox(){
-        try{
-            String programName = smallNameBox.getSelectionModel().getSelectedItem().toString();
+        try {
+            if (smallNameBox.getSelectionModel().getSelectedItem() == null) return;
 
+            String programName = smallNameBox.getSelectionModel().getSelectedItem().toString();
             List<RegistrationDTO> regList = registrationBO.loadRegistrationData(programName);
 
             ObservableList<RegistrationDTO> obList = FXCollections.observableArrayList();
-
-            for(RegistrationDTO regDTO : regList){
+            for (RegistrationDTO regDTO : regList) {
                 obList.add(regDTO);
             }
-
             registerTbl.setItems(obList);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

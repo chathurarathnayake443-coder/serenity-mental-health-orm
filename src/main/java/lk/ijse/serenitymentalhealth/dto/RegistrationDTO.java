@@ -2,17 +2,19 @@ package lk.ijse.serenitymentalhealth.dto;
 
 import lk.ijse.serenitymentalhealth.enums.PaymentStatus;
 
+import java.time.LocalDate;
+
 public class RegistrationDTO {
     private int registrationId;
     private int PatientId;
     private String ProgramId;
     private double fee;
-    private String date;
+    private LocalDate date;
     private PaymentStatus paymentStatus;
 
     public RegistrationDTO() {}
 
-    public RegistrationDTO(int patientId, String programId, double fee, String date) {
+    public RegistrationDTO(int patientId, String programId, double fee, LocalDate date) {
         this.PatientId = patientId;
         this.ProgramId = programId;
         this.fee = fee;
@@ -25,13 +27,23 @@ public class RegistrationDTO {
         this.paymentStatus = paymentStatus;
     }
 
-    public RegistrationDTO(int registrationId, int patientId, String programId, double fee, String date) {
+    public RegistrationDTO(int registrationId, int patientId, String programId, double fee, LocalDate date) {
         this.registrationId = registrationId;
         this.PatientId = patientId;
         this.ProgramId = programId;
         this.fee = fee;
         this.date = date;
     }
+
+    public RegistrationDTO(int registrationId, int patientId, String programId, double fee, LocalDate date, PaymentStatus paymentStatus) {
+        this.registrationId = registrationId;
+        this.PatientId = patientId;
+        this.ProgramId = programId;
+        this.fee = fee;
+        this.date = date;
+        this.paymentStatus = paymentStatus;
+    }
+
     public int getRegistrationId() {
         return registrationId;
     }
@@ -56,10 +68,10 @@ public class RegistrationDTO {
     public void setFee(double fee) {
         this.fee = fee;
     }
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
     public PaymentStatus getPaymentStatus() {

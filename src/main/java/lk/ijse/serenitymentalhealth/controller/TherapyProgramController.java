@@ -3,9 +3,12 @@ package lk.ijse.serenitymentalhealth.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import lk.ijse.serenitymentalhealth.bo.BOFactory;
 import lk.ijse.serenitymentalhealth.bo.custom.TherapistBO;
 import lk.ijse.serenitymentalhealth.bo.custom.TherapyProgramBO;
@@ -41,9 +44,6 @@ public class TherapyProgramController implements Initializable {
     private TextField programIdField;
 
     @FXML
-    private TableColumn programTblNameCol;
-
-    @FXML
     private TableColumn programNameCol;
 
     @FXML
@@ -71,7 +71,7 @@ public class TherapyProgramController implements Initializable {
         System.out.println("Therapy Program View Loaded");
 
         programIdCol.setCellValueFactory(new PropertyValueFactory<>("therapyProgramId"));
-        programTblNameCol.setCellValueFactory(new PropertyValueFactory<>("therapyProgramName"));
+        programNameCol.setCellValueFactory(new PropertyValueFactory<>("therapyProgramName"));
 
         programTbl.setOnMouseClicked(event -> {
             Object object = programTbl.getSelectionModel().getSelectedItem();
@@ -135,6 +135,20 @@ public class TherapyProgramController implements Initializable {
             }
 
             programTbl.setItems(obList);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void goToDashBoard(){
+        try{
+            Stage stage = (Stage) programIdField.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/lk/ijse/serenitymentalhealth/dashboard.fxml"));
+            Scene scene = new Scene(loader.load());
+            stage.setScene(scene);
+            stage.show();
         }
         catch(Exception e){
             e.printStackTrace();

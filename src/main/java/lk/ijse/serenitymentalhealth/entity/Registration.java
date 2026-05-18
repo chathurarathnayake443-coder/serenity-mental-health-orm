@@ -4,6 +4,7 @@ import lk.ijse.serenitymentalhealth.enums.PaymentStatus;
 import lombok.*;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -23,7 +24,7 @@ public class Registration {
     private PaymentStatus paymentStatus;
 
     @Column(name = "registered_date")
-    private String registeredDate;
+    private LocalDate registeredDate;
 
     @Column(name = "registration_fee")
     private double registrationFee;

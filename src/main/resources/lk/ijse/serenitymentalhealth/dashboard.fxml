@@ -65,7 +65,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="programTab" layoutX="385.0" layoutY="225.0" mnemonicParsing="false" prefHeight="125.0" prefWidth="179.0" style="-fx-background-color: #0d4594; -fx-background-radius: 30px;" text="Therapy Programs" textFill="WHITE">
+            <Button fx:id="programTab" layoutX="385.0" layoutY="225.0" mnemonicParsing="false" onAction="#clickProgramsTab" prefHeight="125.0" prefWidth="179.0" style="-fx-background-color: #0d4594; -fx-background-radius: 30px;" text="Therapy Programs" textFill="WHITE">
                <font>
                   <Font name="AppleGothic Regular" size="16.0" />
                </font>

@@ -78,7 +78,7 @@ public class RegistrationBOImpl implements RegistrationBO {
         List<Registration> registrationList = registrationDAO.loadRegisterationData(name);
         List<RegistrationDTO> registrationDTOList = new ArrayList<>();
         for (Registration registration : registrationList) {
-            registrationDTOList.add(new RegistrationDTO(registration.getPatient().getPatientId(),registration.getRegistrationFee(),registration.getPaymentStatus()));
+            registrationDTOList.add(new RegistrationDTO(registration.getRegistrationId(), registration.getPatient().getPatientId(), registration.getTherapyProgram().getTherapyProgramId(),registration.getRegistrationFee(),registration.getRegisteredDate(),registration.getPaymentStatus()));
         }
         return registrationDTOList;
     }

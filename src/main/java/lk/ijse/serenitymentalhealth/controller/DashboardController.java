@@ -73,6 +73,20 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
+    private void clickProgramsTab(){
+        try{
+            Stage stage = (Stage) patientTab.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/lk/ijse/serenitymentalhealth/therapyprogram.fxml"));
+            Scene scene = new Scene(loader.load());
+            stage.setScene(scene);
+            stage.show();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void logoutBtn(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Exit");
