@@ -33,6 +33,26 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
 
     @Override
     public boolean update(TherapyProgram entity) throws SQLException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try{
+            TherapyProgram oldProgram = session.find(TherapyProgram.class,entity.getTherapyProgramId());
+            oldProgram.setTherapyProgramId(entity.getTherapyProgramId());
+            oldProgram.setTherapyProgramName(entity.getTherapyProgramName());
+            oldProgram.setDuration(entity.getDuration());
+            oldProgram.setCost(entity.getCost());
+            oldProgram.setDescription(entity.getDescription());
+            transaction.commit();
+            return true;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }
+        finally{
+            session.close();
+        }
         return false;
     }
 

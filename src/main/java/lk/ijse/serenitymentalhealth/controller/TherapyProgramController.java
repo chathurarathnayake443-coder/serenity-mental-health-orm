@@ -114,6 +114,31 @@ public class TherapyProgramController implements Initializable {
     }
 
     @FXML
+    private void clickUpdateBtn(){
+        try{
+            String therapyProgramId = programIdField.getText();
+            String therapyProgramName = programNameField.getText();
+            String therapyProgramDescription = programDescriptionField.getText();
+            String therapyProgramDuration = programDurationField.getText();
+            double therapyProgramCost = Double.parseDouble(programCostField.getText());
+
+            boolean result = therapyProgramBO.updateTherapyProgram(new TherapyProgramDTO(therapyProgramId,therapyProgramName,therapyProgramDescription,therapyProgramDuration,therapyProgramCost));
+
+            if(result){
+                new Alert(Alert.AlertType.INFORMATION,"Therapy Program Updated Successfully !").show();
+                clickResetBtn();
+                loadTherapyProgramTable();
+            }
+            else{
+                new Alert(Alert.AlertType.ERROR,"Failed to Update Therapy Program").show();
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void clickResetBtn(){
         programIdField.setText("");
         programNameField.setText("");
