@@ -27,5 +27,7 @@ public interface RegistrationBO extends SuperBO {
 
     public String getIdByName(String name) throws SQLException;
 
+    public double getPriceById(String id) throws SQLException;
+
     public List<RegistrationDTO> loadRegistrationData(String name) throws SQLException;
 }

@@ -50,7 +50,7 @@
                      </font>
                   </Text>
                   <TextField fx:id="programNameField" layoutX="20.0" layoutY="122.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20;" />
-                  <Text layoutX="20.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duration">
+                  <Text layoutX="20.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duration (Months)">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
@@ -98,7 +98,7 @@
             <TableView fx:id="programTbl" layoutX="45.0" layoutY="480.0" prefHeight="200.0" prefWidth="238.0">
               <columns>
                 <TableColumn fx:id="programIdCol" prefWidth="75.0" text="ID" />
-                <TableColumn fx:id="programNameCol" prefWidth="163.0" text="Name" />
+                <TableColumn fx:id="programTblNameCol" prefWidth="163.0" text="Name" />
               </columns>
             </TableView>
             <AnchorPane layoutX="305.0" layoutY="453.0" prefHeight="236.0" prefWidth="481.0" style="-fx-background-color: #f7f7f7; -fx-background-radius: 30;">

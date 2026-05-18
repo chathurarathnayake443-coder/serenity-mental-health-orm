@@ -49,6 +49,9 @@ public class RegistrationController implements Initializable {
     private TextField patientIdField;
 
     @FXML
+    private TextField programFeeField;
+
+    @FXML
     private TableView patientTbl;
 
     @FXML
@@ -247,7 +250,9 @@ public class RegistrationController implements Initializable {
 
             String programName = nameBox.getSelectionModel().getSelectedItem().toString();
             String id = registrationBO.getIdByName(programName);
+            double price = registrationBO.getPriceById(id);
             programIdField.setText(id);
+            programFeeField.setText(String.valueOf(price));
         } catch (Exception e) {
             e.printStackTrace();
         }

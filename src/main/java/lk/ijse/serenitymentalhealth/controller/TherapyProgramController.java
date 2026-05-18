@@ -47,6 +47,9 @@ public class TherapyProgramController implements Initializable {
     private TableColumn programNameCol;
 
     @FXML
+    private TableColumn programTblNameCol;
+
+    @FXML
     private TextField programNameField;
 
     @FXML
@@ -71,7 +74,7 @@ public class TherapyProgramController implements Initializable {
         System.out.println("Therapy Program View Loaded");
 
         programIdCol.setCellValueFactory(new PropertyValueFactory<>("therapyProgramId"));
-        programNameCol.setCellValueFactory(new PropertyValueFactory<>("therapyProgramName"));
+        programTblNameCol.setCellValueFactory(new PropertyValueFactory<>("therapyProgramName"));
 
         programTbl.setOnMouseClicked(event -> {
             Object object = programTbl.getSelectionModel().getSelectedItem();

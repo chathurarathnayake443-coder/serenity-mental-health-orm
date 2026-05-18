@@ -112,4 +112,8 @@ public class RegistrationBOImpl implements RegistrationBO {
         return registrationDTOList;
     }
 
+    public double getPriceById(String id) throws SQLException {
+        return therapyProgramDAO.getPriceById(id);
+    }
+
 }
