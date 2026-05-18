@@ -44,7 +44,7 @@ public class RegistrationController implements Initializable {
     private TableColumn patientNameCol;
 
     @FXML
-    private TextField patientNameField;
+    private TextField patientIdField;
 
     @FXML
     private TableView patientTbl;
@@ -79,7 +79,7 @@ public class RegistrationController implements Initializable {
             Object object = patientTbl.getSelectionModel().getSelectedItem();
             PatientDTO selected = (PatientDTO)object;
             if (selected != null) {
-                patientNameField.setText(selected.getPatientName());
+                patientIdField.setText(String.valueOf(selected.getPatientId()));
             }
         });
 
@@ -91,15 +91,11 @@ public class RegistrationController implements Initializable {
     @FXML
     private void clickSaveBtn(){
         try{
-            String patientName = patientNameField.getText();
+            int patientId = Integer.parseInt(patientIdField.getText());
             double fee = Double.parseDouble(feeField.getText());
             String programName = nameBox.getSelectionModel().getSelectedItem().toString();
             String date = dateBox.getEditor().getText();
 
-            if(!patientName.matches(NAME_REGEX)){
-                new Alert(Alert.AlertType.ERROR,"Invalid Patient Name").show();
-                return;
-            }
 
 
         }
@@ -141,7 +137,7 @@ public class RegistrationController implements Initializable {
     @FXML
     private void goToDashBoard(){
         try{
-            Stage stage = (Stage) patientNameField.getScene().getWindow();
+            Stage stage = (Stage) patientIdField.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/lk/ijse/serenitymentalhealth/dashboard.fxml"));
             Scene scene = new Scene(loader.load());
             stage.setScene(scene);

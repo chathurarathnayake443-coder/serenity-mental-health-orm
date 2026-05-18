@@ -48,7 +48,7 @@
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="patientNameField" layoutX="20.0" layoutY="122.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20;" />
+                  <TextField fx:id="patientIdField" layoutX="20.0" layoutY="122.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20;" />
                   <Text layoutX="20.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registration Fee">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
