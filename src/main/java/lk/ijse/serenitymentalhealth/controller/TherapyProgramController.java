@@ -59,7 +59,7 @@ public class TherapyProgramController implements Initializable {
     private ComboBox therapistIdComboBox;
 
     @FXML
-    private TextField therapistIdField;
+    private TextField therapistNameField;
 
     @FXML
     private TableColumn therapistNameCol;
@@ -202,7 +202,9 @@ public class TherapyProgramController implements Initializable {
     @FXML
     private void clickTherapistIdBox(){
         try{
-            int id = therapistIdComboBox.getSelectionModel().getSelectedIndex();
+            int id = (int)therapistIdComboBox.getValue();
+            String therapistName = therapyProgramBO.getTherapistNameById(id);
+            therapistNameField.setText(therapistName);
         }
         catch(Exception e){
             e.printStackTrace();

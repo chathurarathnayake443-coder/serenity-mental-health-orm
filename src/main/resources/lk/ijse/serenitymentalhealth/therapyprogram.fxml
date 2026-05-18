@@ -113,13 +113,13 @@
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="therapistIdField" disable="true" layoutX="230.0" layoutY="41.0" prefHeight="38.0" prefWidth="131.0" style="-fx-background-radius: 20;" />
+                  <TextField fx:id="therapistNameField" disable="true" layoutX="230.0" layoutY="41.0" prefHeight="38.0" prefWidth="131.0" style="-fx-background-radius: 20;" />
                   <Button layoutX="373.0" layoutY="42.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="92.0" style="-fx-background-color: #0d4594;" text="Add" textFill="WHITE">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Button>
-                  <ComboBox fx:id="therapistIdComboBox" layoutX="172.0" layoutY="46.0" prefHeight="26.0" prefWidth="47.0" />
+                  <ComboBox fx:id="therapistIdComboBox" layoutX="172.0" layoutY="46.0" onAction="#clickTherapistIdBox" prefHeight="26.0" prefWidth="47.0" />
                   <TableView fx:id="therapistProgramTbl" layoutX="20.0" layoutY="89.0" prefHeight="140.0" prefWidth="450.0">
                      <columns>
                         <TableColumn fx:id="programNameCol" prefWidth="139.0" text="Program" />
