@@ -62,6 +62,27 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
     }
 
     @Override
+    public boolean delete(String id) throws SQLException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try{
+            TherapyProgram entity = (TherapyProgram) session.get(TherapyProgram.class,id);
+            session.remove(entity);
+            transaction.commit();
+            return true;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }
+        finally{
+            session.close();
+        }
+        return false;
+    }
+
+    @Override
     public String showNextId() throws SQLException {
         return "";
     }

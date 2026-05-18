@@ -142,6 +142,26 @@ public class TherapyProgramController implements Initializable {
     }
 
     @FXML
+    private void clickDeleteBtn(){
+        try{
+            String therapyProgramId = programIdField.getText();
+
+            boolean result = therapyProgramBO.deleteTherapyProgram(therapyProgramId);
+            if(result){
+                new Alert(Alert.AlertType.INFORMATION,"Therapy Program deleted Successfully !").show();
+                clickResetBtn();
+                loadTherapyProgramTable();
+            }
+            else{
+                new Alert(Alert.AlertType.ERROR,"Failed to Delete Therapy Program").show();
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void clickResetBtn(){
         programIdField.setText("");
         programNameField.setText("");

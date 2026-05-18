@@ -13,4 +13,6 @@ public interface TherapyProgramDAO extends CrudDAO<TherapyProgram> {
     public String getIdByName(String name) throws SQLException;
 
     public double getPriceById(String name) throws SQLException;
+
+    public boolean delete(String id) throws SQLException;
 }

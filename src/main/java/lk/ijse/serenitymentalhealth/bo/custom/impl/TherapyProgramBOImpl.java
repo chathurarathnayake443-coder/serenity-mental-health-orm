@@ -42,6 +42,10 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
         return therapyProgramDAO.update(therapyProgram);
     }
 
+    public boolean deleteTherapyProgram(String id) throws SQLException {
+        return therapyProgramDAO.delete(id);
+    }
+
     public List<TherapyProgramDTO> loadTherapyProgramTable() throws SQLException {
         List<TherapyProgram> therapyProgramList = therapyProgramDAO.getAll();
         List<TherapyProgramDTO> therapyProgramDTOList = new ArrayList<>();
