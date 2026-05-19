@@ -168,4 +168,36 @@ public class TherapistDAOImpl implements TherapistDAO {
         }
         return false;
     }
+
+    public boolean removeTherapistFromProgram(String programId, int therapistId) throws SQLException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            Therapist therapist = session.find(Therapist.class, therapistId);
+            TherapyProgram program = session.find(TherapyProgram.class, programId);
+
+            System.out.println("Therapist found: " + therapist.getTherapistName());
+            System.out.println("Program found: " + program.getTherapyProgramName());
+            System.out.println("Programs list size before remove: " + therapist.getTherapyPrograms().size());
+
+            if (therapist == null || program == null) return false;
+
+            boolean removed = therapist.getTherapyPrograms().remove(program);
+
+            System.out.println("Remove result: " + removed);
+            System.out.println("Programs list size after remove: " + therapist.getTherapyPrograms().size());
+
+
+            session.merge(therapist);
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+        } finally {
+            session.close();
+        }
+        return false;
+    }
 }

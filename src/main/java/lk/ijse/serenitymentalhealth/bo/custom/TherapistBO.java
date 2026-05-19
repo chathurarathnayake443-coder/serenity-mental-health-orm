@@ -21,4 +21,6 @@ public interface TherapistBO extends SuperBO {
     public List<TherapistDTO> loadTherapistTable() throws SQLException;
 
     public boolean assignTherapistToProgram(String programId, int therapistId) throws SQLException;
+
+    public boolean removeTherapistFromProgram(String programId, int therapistId) throws SQLException;
 }

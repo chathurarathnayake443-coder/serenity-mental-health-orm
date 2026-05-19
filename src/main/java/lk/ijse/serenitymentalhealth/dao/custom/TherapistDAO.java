@@ -14,4 +14,6 @@ public interface TherapistDAO extends CrudDAO<Therapist> {
     public String getNameById(int id) throws SQLException;
 
     public boolean assignProgramToTherapist(String programId, int therapistId) throws SQLException;
+
+    public boolean removeTherapistFromProgram(String programId, int therapistId) throws SQLException;
 }

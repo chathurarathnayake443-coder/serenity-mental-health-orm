@@ -30,7 +30,7 @@ public class Therapist {
     @Column(name = "therapist_address")
     private String therapistAddress;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "therapist_therapy_programs", joinColumns = @JoinColumn(name = "therapist_id"),
             inverseJoinColumns = @JoinColumn(name = "therapy_program_id"))
     private List<TherapyProgram> therapyPrograms;

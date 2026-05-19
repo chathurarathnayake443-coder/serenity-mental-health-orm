@@ -5,9 +5,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import lk.ijse.serenitymentalhealth.bo.BOFactory;
 import lk.ijse.serenitymentalhealth.bo.custom.TherapistBO;
@@ -70,6 +72,10 @@ public class TherapyProgramController implements Initializable {
     @FXML
     private TableView therapistProgramTbl;
 
+    private String currentSelectedProgram = null;
+
+    private final ObservableList<TherapistDTO> therapistObList = FXCollections.observableArrayList();
+
     TherapyProgramBO therapyProgramBO = (TherapyProgramBO) BOFactory.getInstance().getBOFactory(BOFactory.BOTypes.THERAPY_PROGRAM);
     TherapistBO therapistBO = (TherapistBO) BOFactory.getInstance().getBOFactory(BOFactory.BOTypes.THERAPIST);
 
@@ -79,6 +85,55 @@ public class TherapyProgramController implements Initializable {
 
         programIdCol.setCellValueFactory(new PropertyValueFactory<>("therapyProgramId"));
         programTblNameCol.setCellValueFactory(new PropertyValueFactory<>("therapyProgramName"));
+
+        therapistNameCol.setCellValueFactory(new PropertyValueFactory<>("therapistName"));
+        editCol.setCellFactory(cell -> new TableCell<TherapistDTO, Void>(){
+            Button btn = new Button("Remove");
+
+            {
+
+                btn.setStyle(
+                        "-fx-background-color: #4b9e34;" +
+                                "-fx-text-fill: white;" +
+                                "-fx-padding: 6 12 6 12;" +
+                                "-fx-background-radius: 5;"
+                );
+
+                btn.setOnAction(event -> {
+                    TherapistDTO therapist = getTableView().getItems().get(getIndex());
+
+                    System.out.println("Remove clicked for therapist: " + therapist.getTherapistId());
+                    System.out.println("Current program: " + currentSelectedProgram); // ← is this null?
+
+
+                    try {
+                        boolean result = therapistBO.removeTherapistFromProgram(
+                                therapyProgramBO.getProgramIdByName(currentSelectedProgram),
+                                therapist.getTherapistId()
+                        );
+                        if (result) {
+                            therapistObList.remove(therapist);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty){
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    HBox box = new HBox(btn);
+                    box.setStyle("-fx-padding: 5;");
+                    box.setAlignment(Pos.CENTER);
+                    setGraphic(box);
+                }
+            }
+        });
 
         programTbl.setOnMouseClicked(event -> {
             Object object = programTbl.getSelectionModel().getSelectedItem();
@@ -208,8 +263,61 @@ public class TherapyProgramController implements Initializable {
                 programNames.add(dto.getTherapyProgramName());
             }
             programComboBox.setItems(programNames);
+            programChooser.setItems(programNames);
         } catch (SQLException ex) {
             ex.printStackTrace();
+        }
+    }
+
+//    @FXML
+//    private void clickProgramChooser(){
+//        try{
+//            String therapyProgramName = programChooser.getSelectionModel().getSelectedItem().toString();
+//            List<TherapistDTO> list = therapyProgramBO.loadTherapistPrograms(therapyProgramName);
+//            loadTherapistProgramTable(list);
+//        }
+//        catch(Exception e){
+//            e.printStackTrace();
+//        }
+//    }
+
+    @FXML
+    private void clickProgramChooser() {
+        try {
+            if (programChooser.getValue() == null) return;
+
+            currentSelectedProgram = programChooser.getValue().toString();
+            List<TherapistDTO> list = therapyProgramBO.loadTherapistPrograms(currentSelectedProgram);
+            therapistObList.clear();
+            loadTherapistProgramTable(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void loadTherapistProgramTable(List<TherapistDTO> list){
+        List<TherapistDTO> therapistList = list;
+
+        //ObservableList<TherapistDTO> obList = FXCollections.observableArrayList();
+
+        for(TherapistDTO therapistDTO : therapistList){
+            therapistObList.add(therapistDTO);
+        }
+
+        therapistProgramTbl.setItems(therapistObList);
+    }
+
+    @FXML
+    private void loadTherapistProgramTable() {
+        if (currentSelectedProgram != null) {
+            try {
+                therapistObList.clear();
+                List<TherapistDTO> list = therapyProgramBO.loadTherapistPrograms(currentSelectedProgram);
+                loadTherapistProgramTable(list);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

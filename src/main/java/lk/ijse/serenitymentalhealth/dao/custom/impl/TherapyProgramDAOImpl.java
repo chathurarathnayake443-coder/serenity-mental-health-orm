@@ -3,6 +3,7 @@ package lk.ijse.serenitymentalhealth.dao.custom.impl;
 import lk.ijse.serenitymentalhealth.config.FactoryConfiguration;
 import lk.ijse.serenitymentalhealth.dao.custom.TherapyProgramDAO;
 import lk.ijse.serenitymentalhealth.entity.Patient;
+import lk.ijse.serenitymentalhealth.entity.Therapist;
 import lk.ijse.serenitymentalhealth.entity.TherapyProgram;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -148,5 +149,24 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
             session.close();
         }
         return 0;
+    }
+
+    public List<Therapist> loadProgramTherapists(String name) throws SQLException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try{
+            List<Therapist> therapistList = session.createQuery("select t.therapists from TherapyProgram t where t.therapyProgramName = :program_name", Therapist.class).setParameter("program_name",name).list();
+            transaction.commit();
+            return therapistList;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }
+        finally{
+            session.close();
+        }
+        return null;
     }
 }

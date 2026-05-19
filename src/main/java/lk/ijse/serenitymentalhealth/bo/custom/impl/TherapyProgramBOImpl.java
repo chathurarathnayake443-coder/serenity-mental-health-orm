@@ -83,4 +83,13 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
         return therapyProgramDAO.getIdByName(name);
     }
 
+    public List<TherapistDTO> loadTherapistPrograms(String name) throws SQLException {
+        List<TherapistDTO> therapistDTOList = new ArrayList<>();
+        List<Therapist> list = therapyProgramDAO.loadProgramTherapists(name);
+        for (Therapist therapist : list) {
+            therapistDTOList.add(new TherapistDTO(therapist.getTherapistId(), therapist.getTherapistName()));
+        }
+        return therapistDTOList;
+    }
+
 }

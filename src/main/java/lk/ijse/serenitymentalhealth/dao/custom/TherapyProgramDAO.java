@@ -2,11 +2,13 @@ package lk.ijse.serenitymentalhealth.dao.custom;
 
 import lk.ijse.serenitymentalhealth.config.FactoryConfiguration;
 import lk.ijse.serenitymentalhealth.dao.CrudDAO;
+import lk.ijse.serenitymentalhealth.entity.Therapist;
 import lk.ijse.serenitymentalhealth.entity.TherapyProgram;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public interface TherapyProgramDAO extends CrudDAO<TherapyProgram> {
 
@@ -15,4 +17,6 @@ public interface TherapyProgramDAO extends CrudDAO<TherapyProgram> {
     public double getPriceById(String name) throws SQLException;
 
     public boolean delete(String id) throws SQLException;
+
+    public List<Therapist> loadProgramTherapists(String name) throws SQLException;
 }
