@@ -19,4 +19,6 @@ public interface TherapyProgramDAO extends CrudDAO<TherapyProgram> {
     public boolean delete(String id) throws SQLException;
 
     public List<Therapist> loadProgramTherapists(String name) throws SQLException;
+
+    public String getNameById(String id) throws SQLException;
 }

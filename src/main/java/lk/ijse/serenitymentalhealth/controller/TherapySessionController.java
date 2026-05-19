@@ -129,7 +129,6 @@ public class TherapySessionController implements Initializable {
         minuteTimeBox.setEditable(true);
 
         loadTherapistIds();
-        loadPatientIds();
         loadProgramIds();
 
         patientCol.setCellValueFactory(new PropertyValueFactory<>("patientName"));
@@ -202,13 +201,14 @@ public class TherapySessionController implements Initializable {
             int duration = Integer.parseInt(durationBox.getText());
             LocalDate date = dateBox.getValue();
             int therapistId = (int)therapistChooser.getValue();
+            String programId = String.valueOf(programChooser.getValue());
 
             List<PatientDTO> patientDTOList = new ArrayList<>();
             for(PatientDTO patientDTO : patientObList){
                 patientDTOList.add(patientDTO);
             }
 
-            boolean result = therapySessionBO.createSession(hours,minutes,duration,date,therapistId);
+            boolean result = therapySessionBO.createSession(hours,minutes,duration,date,therapistId, programId,patientDTOList);
         }
         catch(Exception e){
             e.printStackTrace();
@@ -238,16 +238,16 @@ public class TherapySessionController implements Initializable {
     }
 
     @FXML
-    private void loadPatientIds(){
+    private void loadPatientIds(List<PatientDTO> patientDTOList){
         try {
-            List<PatientDTO> names = therapySessionBO.loadPatientIds();
+            List<PatientDTO> names = patientDTOList;
             ObservableList<Integer> patientIds = FXCollections.observableArrayList();
             for(PatientDTO dto : names){
                 patientIds.add(dto.getPatientId());
             }
             patientChooser.setItems(patientIds);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -285,6 +285,22 @@ public class TherapySessionController implements Initializable {
             int id = (int)patientChooser.getValue();
             String patientName = therapySessionBO.getPatientNameById(id);
             patientNameBox.setText(patientName);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void clickProgramIdBox(){
+        try{
+            if (programChooser.getValue() == null) return;
+
+            String id = String.valueOf(programChooser.getValue());
+            String programName = therapySessionBO.getProgramNameById(id);
+            programNameBox.setText(programName);
+            List<PatientDTO> patientDTOList = therapySessionBO.loadPatientIdsByProgram(id);
+            loadPatientIds(patientDTOList);
         }
         catch(Exception e){
             e.printStackTrace();

@@ -2,6 +2,7 @@ package lk.ijse.serenitymentalhealth.dao.custom.impl;
 
 import lk.ijse.serenitymentalhealth.config.FactoryConfiguration;
 import lk.ijse.serenitymentalhealth.dao.custom.RegistrationDAO;
+import lk.ijse.serenitymentalhealth.dto.PatientDTO;
 import lk.ijse.serenitymentalhealth.entity.Patient;
 import lk.ijse.serenitymentalhealth.entity.Registration;
 import lk.ijse.serenitymentalhealth.entity.TherapyProgram;
@@ -106,6 +107,25 @@ public class RegistrationDAOImpl implements RegistrationDAO {
             transaction.rollback();
         }
         finally{
+            session.close();
+        }
+        return null;
+    }
+
+    public List<Patient> getPatientsByProgramId(String programId){
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try{
+            List<Patient> patientList = session.createQuery("select r.patient from Registration r where r.therapyProgram.therapyProgramId = :program_id",Patient.class).setParameter("program_id",programId).list();
+            transaction.commit();
+            return patientList;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }
+        finally {
             session.close();
         }
         return null;
