@@ -77,6 +77,9 @@ public class TherapySessionController implements Initializable {
     private TableColumn therapistCol;
 
     @FXML
+    private TextField statusBox;
+
+    @FXML
     private TableColumn therapistEditCol;
 
     @FXML
