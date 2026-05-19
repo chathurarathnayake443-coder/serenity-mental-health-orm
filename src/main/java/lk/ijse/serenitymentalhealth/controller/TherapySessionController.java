@@ -2,11 +2,15 @@ package lk.ijse.serenitymentalhealth.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import lk.ijse.serenitymentalhealth.bo.BOFactory;
 import lk.ijse.serenitymentalhealth.bo.custom.PatientBO;
@@ -25,7 +29,10 @@ import java.util.ResourceBundle;
 public class TherapySessionController implements Initializable {
 
     @FXML
-    private TableView createSessionTbl;
+    private TableView createSessionPatientTbl;
+
+    @FXML
+    private TableView createSessionTherapistTbl;
 
     @FXML
     private DatePicker dateBox;
@@ -87,6 +94,9 @@ public class TherapySessionController implements Initializable {
     @FXML
     private TextField patientNameBox;
 
+    private final ObservableList<TherapistDTO> therapistObList = FXCollections.observableArrayList();
+    private final ObservableList<PatientDTO> patientObList = FXCollections.observableArrayList();
+
     TherapySessionBO therapySessionBO = (TherapySessionBO) BOFactory.getInstance().getBOFactory(BOFactory.BOTypes.THERAPY_SESSION);
 
     @Override
@@ -107,6 +117,41 @@ public class TherapySessionController implements Initializable {
 
         loadTherapistIds();
         loadPatientIds();
+
+        patientCol.setCellValueFactory(new PropertyValueFactory<>("patientName"));
+        patientEditCol.setCellFactory(cell -> new TableCell<PatientDTO, Void>(){
+            Button btn = new Button("Remove");
+
+            {
+
+                btn.setStyle(
+                        "-fx-background-color: #4b9e34;" +
+                                "-fx-text-fill: white;" +
+                                "-fx-padding: 6 12 6 12;" +
+                                "-fx-background-radius: 5;"
+                );
+
+                btn.setOnAction(event -> {
+                    PatientDTO item = getTableView().getItems().get(getIndex());
+                    patientObList.remove(item);
+                    loadChoosePatientTbl();
+                });
+
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty){
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    HBox box = new HBox(btn);
+                    box.setStyle("-fx-padding: 5;");
+                    box.setAlignment(Pos.CENTER);
+                    setGraphic(box);
+                }
+            }
+        });
 
     }
 
@@ -207,5 +252,29 @@ public class TherapySessionController implements Initializable {
         catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void AddToPatients(ActionEvent event) {
+
+        try{
+            int patientId = (int)patientChooser.getValue();
+            String patientName = therapySessionBO.getPatientNameById(patientId);
+
+            patientObList.add(new PatientDTO(patientName));
+            patientNameBox.setText("");
+            patientChooser.getSelectionModel().clearSelection();
+            loadChoosePatientTbl();
+        }
+        catch(SQLException ex){
+            throw new RuntimeException(ex);
+        }
+
+    }
+
+    private void loadChoosePatientTbl() {
+
+        createSessionPatientTbl.setItems(patientObList);
+
     }
 }

@@ -16,6 +16,10 @@ public class PatientDTO {
         this.patientId = patientId;
     }
 
+    public PatientDTO(String patientName){
+        this.patientName = patientName;
+    }
+
     public PatientDTO(String patientName, int patientAge,String patientAddress, String patientPhone, String guardianName, String guardianPhone){
         this.patientName = patientName;
         this.patientAddress = patientAddress;
