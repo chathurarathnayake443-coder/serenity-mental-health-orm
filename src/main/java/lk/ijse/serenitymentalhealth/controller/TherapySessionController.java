@@ -245,6 +245,8 @@ public class TherapySessionController implements Initializable {
     @FXML
     private void clickPatientIdBox(){
         try{
+            if (patientChooser.getValue() == null) return;
+
             int id = (int)patientChooser.getValue();
             String patientName = therapySessionBO.getPatientNameById(id);
             patientNameBox.setText(patientName);
@@ -263,7 +265,7 @@ public class TherapySessionController implements Initializable {
 
             patientObList.add(new PatientDTO(patientName));
             patientNameBox.setText("");
-            patientChooser.getSelectionModel().clearSelection();
+            patientChooser.setValue(null);
             loadChoosePatientTbl();
         }
         catch(SQLException ex){
