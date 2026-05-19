@@ -1,5 +1,7 @@
 package lk.ijse.serenitymentalhealth.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,10 +12,13 @@ import lk.ijse.serenitymentalhealth.bo.BOFactory;
 import lk.ijse.serenitymentalhealth.bo.custom.PatientBO;
 import lk.ijse.serenitymentalhealth.bo.custom.TherapySessionBO;
 import lk.ijse.serenitymentalhealth.config.FactoryConfiguration;
+import lk.ijse.serenitymentalhealth.dto.TherapistDTO;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class TherapySessionController implements Initializable {
@@ -93,6 +98,8 @@ public class TherapySessionController implements Initializable {
         );
         minuteTimeBox.setEditable(true);
 
+        loadTherapistIds();
+
     }
 
     @FXML
@@ -140,5 +147,19 @@ public class TherapySessionController implements Initializable {
         minuteTimeBox.getValueFactory().setValue(0);
         durationBox.setText("");
         showNextId();
+    }
+
+    @FXML
+    private void loadTherapistIds(){
+        try {
+            List<TherapistDTO> names = therapySessionBO.loadTherapistIds();
+            ObservableList<Integer> therapistIds = FXCollections.observableArrayList();
+            for(TherapistDTO dto : names){
+                therapistIds.add(dto.getTherapistId());
+            }
+            therapistChooser.setItems(therapistIds);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 }
