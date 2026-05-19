@@ -26,6 +26,7 @@ public class TherapySessionBOImpl implements TherapySessionBO {
     PatientDAO patientDAO = (PatientDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.PATIENT);
     TherapyProgramDAO therapyProgramDAO = (TherapyProgramDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.THERAPY_PROGRAM);
     RegistrationDAO registrationDAO = (RegistrationDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.REGISTRATION);
+    QueryDAO queryDAO = (QueryDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.QUERY);
 
     public String showNextId() throws SQLException {
         String id = therapySessionDAO.showNextId();
@@ -34,6 +35,15 @@ public class TherapySessionBOImpl implements TherapySessionBO {
 
     public List<TherapistDTO> loadTherapistIds() throws SQLException {
         List<Therapist> therapistList = therapistDAO.getAll();
+        List<TherapistDTO> therapistDTOList = new ArrayList<>();
+        for (Therapist therapist : therapistList) {
+            therapistDTOList.add(new TherapistDTO(therapist.getTherapistId()));
+        }
+        return therapistDTOList;
+    }
+
+    public List<TherapistDTO> loadTherapistIdsByProgram(String id) throws SQLException {
+        List<Therapist> therapistList = queryDAO.getTherapistsByProgramId(id);
         List<TherapistDTO> therapistDTOList = new ArrayList<>();
         for (Therapist therapist : therapistList) {
             therapistDTOList.add(new TherapistDTO(therapist.getTherapistId()));

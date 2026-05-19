@@ -29,6 +29,8 @@ public interface TherapySessionBO extends SuperBO {
 
     public List<PatientDTO> loadPatientIdsByProgram(String id) throws SQLException;
 
+    public List<TherapistDTO> loadTherapistIdsByProgram(String id) throws SQLException;
+
     public List<TherapyProgramDTO> loadTherapyProgramTable() throws SQLException;
 
     public boolean createSession(int hours, int minutes, int duration, LocalDate date, int therapistId, String programId, List<PatientDTO> list) throws SQLException;

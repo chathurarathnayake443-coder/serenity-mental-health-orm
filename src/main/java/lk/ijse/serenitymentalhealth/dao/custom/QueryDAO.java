@@ -1,4 +1,14 @@
 package lk.ijse.serenitymentalhealth.dao.custom;
 
-public interface QueryDAO {
+import lk.ijse.serenitymentalhealth.config.FactoryConfiguration;
+import lk.ijse.serenitymentalhealth.dao.SuperDAO;
+import lk.ijse.serenitymentalhealth.entity.Therapist;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import java.util.List;
+
+public interface QueryDAO extends SuperDAO {
+
+    public List<Therapist> getTherapistsByProgramId(String programId);
 }

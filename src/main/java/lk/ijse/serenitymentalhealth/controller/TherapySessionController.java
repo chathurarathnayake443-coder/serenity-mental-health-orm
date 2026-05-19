@@ -128,7 +128,6 @@ public class TherapySessionController implements Initializable {
         );
         minuteTimeBox.setEditable(true);
 
-        loadTherapistIds();
         loadProgramIds();
 
         patientCol.setCellValueFactory(new PropertyValueFactory<>("patientName"));
@@ -224,16 +223,16 @@ public class TherapySessionController implements Initializable {
     }
 
     @FXML
-    private void loadTherapistIds(){
+    private void loadTherapistIds(List<TherapistDTO> therapistDTOList){
         try {
-            List<TherapistDTO> names = therapySessionBO.loadTherapistIds();
+            List<TherapistDTO> names = therapistDTOList;
             ObservableList<Integer> therapistIds = FXCollections.observableArrayList();
             for(TherapistDTO dto : names){
                 therapistIds.add(dto.getTherapistId());
             }
             therapistChooser.setItems(therapistIds);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -301,6 +300,8 @@ public class TherapySessionController implements Initializable {
             programNameBox.setText(programName);
             List<PatientDTO> patientDTOList = therapySessionBO.loadPatientIdsByProgram(id);
             loadPatientIds(patientDTOList);
+            List<TherapistDTO> therapistDTOList = therapySessionBO.loadTherapistIdsByProgram(id);
+            loadTherapistIds(therapistDTOList);
         }
         catch(Exception e){
             e.printStackTrace();
