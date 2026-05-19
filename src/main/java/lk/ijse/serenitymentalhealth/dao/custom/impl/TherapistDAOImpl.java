@@ -4,6 +4,7 @@ import lk.ijse.serenitymentalhealth.config.FactoryConfiguration;
 import lk.ijse.serenitymentalhealth.dao.custom.TherapistDAO;
 import lk.ijse.serenitymentalhealth.entity.Patient;
 import lk.ijse.serenitymentalhealth.entity.Therapist;
+import lk.ijse.serenitymentalhealth.entity.TherapyProgram;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -137,5 +138,34 @@ public class TherapistDAOImpl implements TherapistDAO {
             session.close();
         }
         return null;
+    }
+
+    public boolean assignProgramToTherapist(String programId, int therapistId) throws SQLException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try{
+            Therapist therapist = session.find(Therapist.class, therapistId);
+            TherapyProgram program = session.find(TherapyProgram.class, programId);
+
+            if (therapist == null || program == null){
+                return false;
+            }
+
+            therapist.getTherapyPrograms().add(program);
+            program.getTherapists().add(therapist);
+
+            session.merge(therapist);
+            transaction.commit();
+            return true;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }
+        finally{
+            session.close();
+        }
+        return false;
     }
 }

@@ -56,4 +56,9 @@ public class TherapistBOImpl implements TherapistBO {
         }
         return therapistDTOList;
     }
+
+    public boolean assignTherapistToProgram(String programId, int therapistId) throws SQLException{
+        boolean result = therapistDAO.assignProgramToTherapist(programId,therapistId);
+        return result;
+    }
 }

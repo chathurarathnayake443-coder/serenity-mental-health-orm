@@ -14,7 +14,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.serenitymentalhealth.controller.TherapyProgramController">
    <top>
       <AnchorPane prefHeight="700.0" prefWidth="800.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
@@ -36,7 +35,7 @@
                   <Font name="AppleGothic Regular" size="13.0" />
                </font>
             </Text>
-            <AnchorPane layoutX="43.0" layoutY="163.0" prefHeight="272.0" prefWidth="714.0" style="-fx-background-color: #f7f7f7; -fx-background-radius: 30;">
+            <AnchorPane layoutX="43.0" layoutY="163.0" prefHeight="253.0" prefWidth="714.0" style="-fx-background-color: #f7f7f7; -fx-background-radius: 30;">
                <children>
                   <Text layoutX="19.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Program ID">
                      <font>
@@ -68,66 +67,71 @@
                      </font>
                   </Text>
                   <TextField fx:id="programDescriptionField" layoutX="304.0" layoutY="120.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20;" />
-                  <Button layoutX="573.0" layoutY="28.0" mnemonicParsing="false" onAction="#clickSaveButton" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Save" textFill="WHITE">
+                  <Button layoutX="573.0" layoutY="16.0" mnemonicParsing="false" onAction="#clickSaveButton" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Save" textFill="WHITE">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Button>
-                  <Button layoutX="574.0" layoutY="89.0" mnemonicParsing="false" onAction="#clickUpdateBtn" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Update" textFill="WHITE">
+                  <Button layoutX="574.0" layoutY="77.0" mnemonicParsing="false" onAction="#clickUpdateBtn" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Update" textFill="WHITE">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Button>
-                  <Button layoutX="575.0" layoutY="152.0" mnemonicParsing="false" onAction="#clickDeleteBtn" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Delete" textFill="WHITE">
+                  <Button layoutX="575.0" layoutY="140.0" mnemonicParsing="false" onAction="#clickDeleteBtn" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Delete" textFill="WHITE">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Button>
-                  <Button layoutX="576.0" layoutY="214.0" mnemonicParsing="false" onAction="#clickResetBtn" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Reset" textFill="WHITE">
+                  <Button layoutX="576.0" layoutY="202.0" mnemonicParsing="false" onAction="#clickResetBtn" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #0d4594;" text="Reset" textFill="WHITE">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Button>
                </children>
             </AnchorPane>
-            <Text fill="#0d4594" layoutX="43.0" layoutY="470.0" strokeType="OUTSIDE" strokeWidth="0.0" text="List">
+            <Text fill="#0d4594" layoutX="43.0" layoutY="444.0" strokeType="OUTSIDE" strokeWidth="0.0" text="List">
                <font>
                   <Font name="AppleGothic Regular" size="24.0" />
                </font>
             </Text>
-            <TableView fx:id="programTbl" layoutX="45.0" layoutY="480.0" prefHeight="200.0" prefWidth="238.0">
+            <TableView fx:id="programTbl" layoutX="45.0" layoutY="455.0" prefHeight="225.0" prefWidth="238.0">
               <columns>
                 <TableColumn fx:id="programIdCol" prefWidth="75.0" text="ID" />
                 <TableColumn fx:id="programTblNameCol" prefWidth="163.0" text="Name" />
               </columns>
             </TableView>
-            <AnchorPane layoutX="305.0" layoutY="453.0" prefHeight="236.0" prefWidth="481.0" style="-fx-background-color: #f7f7f7; -fx-background-radius: 30;">
+            <AnchorPane layoutX="305.0" layoutY="428.0" prefHeight="261.0" prefWidth="481.0" style="-fx-background-color: #f7f7f7; -fx-background-radius: 30;">
                <children>
-                  <Text layoutX="19.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Program">
+                  <Text layoutX="19.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Program">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Text>
-                  <Text layoutX="172.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Therapist ID">
+                  <Text layoutX="163.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Therapist ID">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="therapistNameField" disable="true" layoutX="230.0" layoutY="41.0" prefHeight="38.0" prefWidth="131.0" style="-fx-background-radius: 20;" />
-                  <Button layoutX="373.0" layoutY="42.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="92.0" style="-fx-background-color: #0d4594;" text="Add" textFill="WHITE">
+                  <TextField fx:id="therapistNameField" disable="true" layoutX="230.0" layoutY="27.0" prefHeight="38.0" prefWidth="131.0" style="-fx-background-radius: 20;" />
+                  <Button layoutX="373.0" layoutY="28.0" mnemonicParsing="false" onAction="#clickAddBtn" prefHeight="35.0" prefWidth="92.0" style="-fx-background-color: #0d4594;" text="Add" textFill="WHITE">
                      <font>
                         <Font name="AppleGothic Regular" size="13.0" />
                      </font>
                   </Button>
-                  <ComboBox fx:id="therapistIdComboBox" layoutX="172.0" layoutY="46.0" onAction="#clickTherapistIdBox" prefHeight="26.0" prefWidth="47.0" />
-                  <TableView fx:id="therapistProgramTbl" layoutX="20.0" layoutY="89.0" prefHeight="140.0" prefWidth="450.0">
+                  <ComboBox fx:id="therapistIdComboBox" layoutX="172.0" layoutY="36.0" onAction="#clickTherapistIdBox" prefHeight="26.0" prefWidth="47.0" />
+                  <TableView fx:id="therapistProgramTbl" layoutX="20.0" layoutY="117.0" prefHeight="126.0" prefWidth="450.0">
                      <columns>
-                        <TableColumn fx:id="programNameCol" prefWidth="139.0" text="Program" />
-                        <TableColumn fx:id="therapistNameCol" prefWidth="193.0" text="Therapist" />
-                        <TableColumn fx:id="editCol" prefWidth="117.0" text="Edit" />
+                        <TableColumn fx:id="therapistNameCol" prefWidth="304.0" text="Therapist" />
+                        <TableColumn fx:id="editCol" prefWidth="145.0" text="Edit" />
                      </columns>
                   </TableView>
-                  <ComboBox fx:id="programComboBox" layoutX="18.0" layoutY="47.0" prefHeight="26.0" prefWidth="128.0" />
+                  <ComboBox fx:id="programComboBox" layoutX="18.0" layoutY="37.0" prefHeight="26.0" prefWidth="128.0" />
+                  <Text layoutX="19.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose a Program">
+                     <font>
+                        <Font name="AppleGothic Regular" size="13.0" />
+                     </font>
+                  </Text>
+                  <ComboBox fx:id="programChooser" layoutX="140.0" layoutY="74.0" prefHeight="26.0" prefWidth="323.0" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="15.0" layoutY="3.0" onMouseClicked="#goToDashBoard" prefHeight="104.0" prefWidth="131.0">

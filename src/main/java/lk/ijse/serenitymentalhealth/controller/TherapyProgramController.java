@@ -47,6 +47,9 @@ public class TherapyProgramController implements Initializable {
     private TableColumn programNameCol;
 
     @FXML
+    private ComboBox programChooser;
+
+    @FXML
     private TableColumn programTblNameCol;
 
     @FXML
@@ -68,6 +71,7 @@ public class TherapyProgramController implements Initializable {
     private TableView therapistProgramTbl;
 
     TherapyProgramBO therapyProgramBO = (TherapyProgramBO) BOFactory.getInstance().getBOFactory(BOFactory.BOTypes.THERAPY_PROGRAM);
+    TherapistBO therapistBO = (TherapistBO) BOFactory.getInstance().getBOFactory(BOFactory.BOTypes.THERAPIST);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -155,6 +159,30 @@ public class TherapyProgramController implements Initializable {
             }
             else{
                 new Alert(Alert.AlertType.ERROR,"Failed to Delete Therapy Program").show();
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void clickAddBtn(){
+        try{
+            String therapyProgramName = programComboBox.getSelectionModel().getSelectedItem().toString();
+            int therapistId = (int)therapistIdComboBox.getValue();
+
+            String therapyProgramId = therapyProgramBO.getProgramIdByName(therapyProgramName);
+
+            boolean result = therapistBO.assignTherapistToProgram(therapyProgramId,therapistId);
+
+            if(result){
+                new Alert(Alert.AlertType.INFORMATION,"Successfully Added to the Program !").show();
+                clickResetBtn();
+                loadTherapyProgramTable();
+            }
+            else{
+                new Alert(Alert.AlertType.ERROR,"Failed to Add to the Program").show();
             }
         }
         catch(Exception e){

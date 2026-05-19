@@ -79,4 +79,8 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
         return name;
     }
 
+    public String getProgramIdByName(String name) throws SQLException {
+        return therapyProgramDAO.getIdByName(name);
+    }
+
 }
