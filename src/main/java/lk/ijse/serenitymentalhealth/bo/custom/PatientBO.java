@@ -2,9 +2,11 @@ package lk.ijse.serenitymentalhealth.bo.custom;
 
 import lk.ijse.serenitymentalhealth.bo.SuperBO;
 import lk.ijse.serenitymentalhealth.dto.PatientDTO;
+import lk.ijse.serenitymentalhealth.dto.PatientSessionHistoryDTO;
 import lk.ijse.serenitymentalhealth.entity.Patient;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,4 +21,6 @@ public interface PatientBO extends SuperBO {
     public boolean updatePatient(PatientDTO patientDTO);
 
     public boolean deletePatient(int id);
+
+    public List<PatientSessionHistoryDTO> getPatientSessionHistory(int id) throws SQLException;
 }

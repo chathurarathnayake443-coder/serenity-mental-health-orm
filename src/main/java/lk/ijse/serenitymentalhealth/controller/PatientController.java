@@ -13,6 +13,7 @@ import lk.ijse.serenitymentalhealth.bo.BOFactory;
 import lk.ijse.serenitymentalhealth.bo.custom.PatientBO;
 import lk.ijse.serenitymentalhealth.config.FactoryConfiguration;
 import lk.ijse.serenitymentalhealth.dto.PatientDTO;
+import lk.ijse.serenitymentalhealth.dto.PatientSessionHistoryDTO;
 import lk.ijse.serenitymentalhealth.entity.Patient;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -95,6 +96,10 @@ public class PatientController implements Initializable {
         patientNameCol.setCellValueFactory(new PropertyValueFactory<>("patientName"));
         patientPhoneCol.setCellValueFactory(new PropertyValueFactory<>("patientPhone"));
 
+        sessionIdCol.setCellValueFactory(new PropertyValueFactory<>("sessionId"));
+        therapistCol.setCellValueFactory(new PropertyValueFactory<>("therapistName"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+
         patientTbl.setOnMouseClicked(event -> {
             Object object = patientTbl.getSelectionModel().getSelectedItem();
             PatientDTO selected = (PatientDTO)object;
@@ -106,6 +111,8 @@ public class PatientController implements Initializable {
                 patientPhoneField.setText(selected.getPatientPhone());
                 guardianNameField.setText(selected.getGuardianName());
                 guardianPhoneField.setText(selected.getGuardianPhone());
+                int id = selected.getPatientId();
+                loadPatientSessionHistory(id);
             }
         });
 
@@ -274,6 +281,24 @@ public class PatientController implements Initializable {
             }
 
             patientTbl.setItems(obList);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void loadPatientSessionHistory(int id){
+        try{
+            List<PatientSessionHistoryDTO> patientHistoryList = patientBO.getPatientSessionHistory(id);
+
+            ObservableList<PatientSessionHistoryDTO> obList = FXCollections.observableArrayList();
+
+            for(PatientSessionHistoryDTO patientHistoryDTO : patientHistoryList){
+                obList.add(patientHistoryDTO);
+            }
+
+            therapyHistoryTbl.setItems(obList);
         }
         catch(Exception e){
             e.printStackTrace();

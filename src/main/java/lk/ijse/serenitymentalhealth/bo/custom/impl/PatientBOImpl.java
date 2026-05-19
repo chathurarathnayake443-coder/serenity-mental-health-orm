@@ -3,16 +3,20 @@ package lk.ijse.serenitymentalhealth.bo.custom.impl;
 import lk.ijse.serenitymentalhealth.bo.custom.PatientBO;
 import lk.ijse.serenitymentalhealth.dao.DAOFactory;
 import lk.ijse.serenitymentalhealth.dao.custom.PatientDAO;
+import lk.ijse.serenitymentalhealth.dao.custom.QueryDAO;
 import lk.ijse.serenitymentalhealth.dto.PatientDTO;
+import lk.ijse.serenitymentalhealth.dto.PatientSessionHistoryDTO;
 import lk.ijse.serenitymentalhealth.entity.Patient;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PatientBOImpl implements PatientBO {
 
     PatientDAO patientDAO = (PatientDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.PATIENT);
+    QueryDAO queryDAO = (QueryDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.QUERY);
 
     public boolean savePatient(PatientDTO patientDTO){
 
@@ -56,5 +60,21 @@ public class PatientBOImpl implements PatientBO {
             patientDTOList.add(new PatientDTO(patient.getPatientId(),patient.getPatientName(),patient.getAge(),patient.getAddress(), patient.getPhone(), patient.getGuardianName(), patient.getGuardianPhone()));
         }
         return patientDTOList;
+    }
+
+    public List<PatientSessionHistoryDTO> getPatientSessionHistory(int id) throws SQLException {
+        List<Object[]> rawResults = queryDAO.getPatientSessionHistory(id);
+
+        List<PatientSessionHistoryDTO> dtoList = new ArrayList<>();
+
+        for (Object[] row : rawResults) {
+            int sessionId        = (int)row[0];
+            String therapistName = (String)row[1];
+            LocalDate date       = (LocalDate)row[2];
+
+            dtoList.add(new PatientSessionHistoryDTO(sessionId, therapistName, date));
+        }
+
+        return dtoList;
     }
 }

@@ -11,4 +11,6 @@ import java.util.List;
 public interface QueryDAO extends SuperDAO {
 
     public List<Therapist> getTherapistsByProgramId(String programId);
+
+    public List<Object[]> getPatientSessionHistory(int patientId);
 }

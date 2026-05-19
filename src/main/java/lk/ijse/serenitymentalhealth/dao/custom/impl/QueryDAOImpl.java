@@ -7,6 +7,7 @@ import lk.ijse.serenitymentalhealth.entity.Therapist;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class QueryDAOImpl implements QueryDAO {
@@ -29,5 +30,30 @@ public class QueryDAOImpl implements QueryDAO {
             session.close();
         }
         return null;
+    }
+
+    public List<Object[]> getPatientSessionHistory(int patientId) {
+        Session session = FactoryConfiguration.getInstance().getSession();
+
+        try {
+            String hql = """
+                SELECT ts.therapySessionId,
+                       ts.therapist.therapistName,
+                       ts.date
+                FROM PatientSession ps
+                JOIN ps.therapySession ts
+                WHERE ps.patient.patientId = :patientId
+                """;
+
+            return session.createQuery(hql, Object[].class)
+                    .setParameter("patientId", patientId)
+                    .getResultList();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            session.close();
+        }
     }
 }
