@@ -123,6 +123,10 @@ public class TherapySessionController implements Initializable {
     @FXML
     private void clickCreateBtn(){
         try{
+            hourTimeBox.getValue();
+            minuteTimeBox.getValue();
+            durationBox.getText();
+            dateBox.getValue();
 
         }
         catch(Exception e){
