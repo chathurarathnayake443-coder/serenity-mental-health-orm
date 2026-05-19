@@ -103,7 +103,7 @@ public class TherapyProgramController implements Initializable {
                     TherapistDTO therapist = getTableView().getItems().get(getIndex());
 
                     System.out.println("Remove clicked for therapist: " + therapist.getTherapistId());
-                    System.out.println("Current program: " + currentSelectedProgram); // ← is this null?
+                    System.out.println("Current program: " + currentSelectedProgram);
 
 
                     try {
@@ -269,18 +269,6 @@ public class TherapyProgramController implements Initializable {
         }
     }
 
-//    @FXML
-//    private void clickProgramChooser(){
-//        try{
-//            String therapyProgramName = programChooser.getSelectionModel().getSelectedItem().toString();
-//            List<TherapistDTO> list = therapyProgramBO.loadTherapistPrograms(therapyProgramName);
-//            loadTherapistProgramTable(list);
-//        }
-//        catch(Exception e){
-//            e.printStackTrace();
-//        }
-//    }
-
     @FXML
     private void clickProgramChooser() {
         try {
@@ -299,26 +287,13 @@ public class TherapyProgramController implements Initializable {
     private void loadTherapistProgramTable(List<TherapistDTO> list){
         List<TherapistDTO> therapistList = list;
 
-        //ObservableList<TherapistDTO> obList = FXCollections.observableArrayList();
+        //ObservableList<TherapistDTO> obList = FXCollections.observableArrayList();  declared at the top of the class
 
         for(TherapistDTO therapistDTO : therapistList){
             therapistObList.add(therapistDTO);
         }
 
         therapistProgramTbl.setItems(therapistObList);
-    }
-
-    @FXML
-    private void loadTherapistProgramTable() {
-        if (currentSelectedProgram != null) {
-            try {
-                therapistObList.clear();
-                List<TherapistDTO> list = therapyProgramBO.loadTherapistPrograms(currentSelectedProgram);
-                loadTherapistProgramTable(list);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     @FXML
