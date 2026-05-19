@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.serenitymentalhealth.controller.TherapySessionController">
    <top>
       <AnchorPane prefHeight="700.0" prefWidth="800.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
@@ -28,11 +28,6 @@
                   <Font name="AppleGothic Regular" size="36.0" />
                </font>
             </Text>
-            <ImageView fitHeight="114.0" fitWidth="139.0" layoutX="12.0" layoutY="3.0">
-               <image>
-                  <Image url="@../../../images/logo.png" />
-               </image>
-            </ImageView>
             <Text fill="#0d4594" layoutX="46.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Serenity">
                <font>
                   <Font name="AppleGothic Regular" size="22.0" />
@@ -46,12 +41,14 @@
             <AnchorPane layoutX="40.0" layoutY="167.0" prefHeight="233.0" prefWidth="296.0" style="-fx-background-color: #f7f7f7; -fx-background-radius: 30px;">
                <children>
                   <Text layoutX="18.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Session ID" />
-                  <TextField fx:id="sessionIdField" layoutX="24.0" layoutY="37.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20;" />
-                  <Text layoutX="18.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time" />
-                  <Spinner fx:id="hourTimeBox" layoutX="27.0" layoutY="116.0" prefHeight="26.0" prefWidth="108.0" style="-fx-background-radius: 20;" />
-                  <Spinner fx:id="minuteTimeBox" layoutX="158.0" layoutY="116.0" prefHeight="26.0" prefWidth="109.0" />
-                  <Text layoutX="18.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" />
-                  <DatePicker fx:id="dateBox" layoutX="28.0" layoutY="179.0" />
+                  <TextField fx:id="sessionIdField" disable="true" layoutX="24.0" layoutY="37.0" prefHeight="38.0" prefWidth="242.0" style="-fx-background-radius: 20;" />
+                  <Text layoutX="18.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time" />
+                  <Spinner fx:id="hourTimeBox" layoutX="27.0" layoutY="100.0" prefHeight="26.0" prefWidth="108.0" style="-fx-background-radius: 20;" />
+                  <Spinner fx:id="minuteTimeBox" layoutX="158.0" layoutY="100.0" prefHeight="26.0" prefWidth="109.0" />
+                  <Text layoutX="18.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" />
+                  <DatePicker fx:id="dateBox" layoutX="28.0" layoutY="193.0" />
+                  <Text layoutX="17.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Session Duration(hr)" />
+                  <TextField fx:id="durationBox" layoutX="140.0" layoutY="140.0" prefHeight="26.0" prefWidth="127.0" />
                </children>
             </AnchorPane>
             <ComboBox fx:id="sessionIdChooser" layoutX="168.0" layoutY="413.0" prefHeight="26.0" prefWidth="67.0" />
@@ -84,6 +81,15 @@
                 <TableColumn fx:id="patientEditCol" prefWidth="118.0" text="Edit" />
               </columns>
             </TableView>
+            <AnchorPane layoutX="13.0" layoutY="3.0" onMouseClicked="#goToDashBoard" prefHeight="114.0" prefWidth="140.0">
+               <children>
+                  <ImageView fitHeight="114.0" fitWidth="139.0" layoutY="1.0">
+                     <image>
+                        <Image url="@../../../images/logo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </top>

@@ -1,8 +1,11 @@
 package lk.ijse.serenitymentalhealth.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import lk.ijse.serenitymentalhealth.bo.BOFactory;
 import lk.ijse.serenitymentalhealth.bo.custom.PatientBO;
 import lk.ijse.serenitymentalhealth.bo.custom.TherapySessionBO;
@@ -69,6 +72,9 @@ public class TherapySessionController implements Initializable {
     @FXML
     private TextField timeField;
 
+    @FXML
+    private TextField durationBox;
+
     TherapySessionBO therapySessionBO = (TherapySessionBO) BOFactory.getInstance().getBOFactory(BOFactory.BOTypes.THERAPY_SESSION);
 
     @Override
@@ -84,6 +90,20 @@ public class TherapySessionController implements Initializable {
         try{
             String id = therapySessionBO.showNextId();
             sessionIdField.setText(id);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void goToDashBoard(){
+        try{
+            Stage stage = (Stage) sessionIdField.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/lk/ijse/serenitymentalhealth/dashboard.fxml"));
+            Scene scene = new Scene(loader.load());
+            stage.setScene(scene);
+            stage.show();
         }
         catch(Exception e){
             e.printStackTrace();
