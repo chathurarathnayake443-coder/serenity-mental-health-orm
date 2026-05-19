@@ -35,6 +35,7 @@ module lk.ijse.serenitymentalhealth {
     //requires lk.ijse.serenitymentalhealth;
     //requires lk.ijse.serenitymentalhealth;
     //requires lk.ijse.serenitymentalhealth;
+    //requires lk.ijse.serenitymentalhealth;
 
     opens lk.ijse.serenitymentalhealth to javafx.fxml;
     opens lk.ijse.serenitymentalhealth.controller to javafx.fxml;

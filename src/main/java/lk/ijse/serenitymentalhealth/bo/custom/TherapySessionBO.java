@@ -1,7 +1,9 @@
 package lk.ijse.serenitymentalhealth.bo.custom;
 
 import lk.ijse.serenitymentalhealth.bo.SuperBO;
+import lk.ijse.serenitymentalhealth.dto.PatientDTO;
 import lk.ijse.serenitymentalhealth.dto.TherapistDTO;
+import lk.ijse.serenitymentalhealth.entity.Patient;
 import lk.ijse.serenitymentalhealth.entity.Therapist;
 
 import java.sql.SQLException;
@@ -13,4 +15,6 @@ public interface TherapySessionBO extends SuperBO {
     public String showNextId() throws SQLException;
 
     public List<TherapistDTO> loadTherapistIds() throws SQLException;
+
+    public List<PatientDTO> loadPatientIds() throws SQLException;
 }

@@ -12,6 +12,7 @@ import lk.ijse.serenitymentalhealth.bo.BOFactory;
 import lk.ijse.serenitymentalhealth.bo.custom.PatientBO;
 import lk.ijse.serenitymentalhealth.bo.custom.TherapySessionBO;
 import lk.ijse.serenitymentalhealth.config.FactoryConfiguration;
+import lk.ijse.serenitymentalhealth.dto.PatientDTO;
 import lk.ijse.serenitymentalhealth.dto.TherapistDTO;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -99,6 +100,7 @@ public class TherapySessionController implements Initializable {
         minuteTimeBox.setEditable(true);
 
         loadTherapistIds();
+        loadPatientIds();
 
     }
 
@@ -158,6 +160,20 @@ public class TherapySessionController implements Initializable {
                 therapistIds.add(dto.getTherapistId());
             }
             therapistChooser.setItems(therapistIds);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void loadPatientIds(){
+        try {
+            List<PatientDTO> names = therapySessionBO.loadPatientIds();
+            ObservableList<Integer> patientIds = FXCollections.observableArrayList();
+            for(PatientDTO dto : names){
+                patientIds.add(dto.getPatientId());
+            }
+            patientChooser.setItems(patientIds);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
