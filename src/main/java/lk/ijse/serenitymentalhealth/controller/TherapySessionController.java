@@ -28,10 +28,10 @@ public class TherapySessionController implements Initializable {
     private TextField dateField;
 
     @FXML
-    private Spinner hourTimeBox;
+    private Spinner<Integer> hourTimeBox;
 
     @FXML
-    private Spinner minuteTimeBox;
+    private Spinner<Integer> minuteTimeBox;
 
     @FXML
     private TableView pastSessionTable;
@@ -83,6 +83,16 @@ public class TherapySessionController implements Initializable {
 
         showNextId();
 
+        hourTimeBox.setValueFactory(
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20, 8)
+        );
+        hourTimeBox.setEditable(true);
+
+        minuteTimeBox.setValueFactory(
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0)
+        );
+        minuteTimeBox.setEditable(true);
+
     }
 
     @FXML
@@ -108,5 +118,23 @@ public class TherapySessionController implements Initializable {
         catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void clickCreateBtn(){
+        try{
+
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void clickResetBtn(){
+        hourTimeBox.getValueFactory().setValue(0);
+        minuteTimeBox.getValueFactory().setValue(0);
+        durationBox.setText("");
+        showNextId();
     }
 }
