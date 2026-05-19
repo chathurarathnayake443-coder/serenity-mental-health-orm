@@ -18,6 +18,8 @@ import lk.ijse.serenitymentalhealth.bo.custom.TherapySessionBO;
 import lk.ijse.serenitymentalhealth.config.FactoryConfiguration;
 import lk.ijse.serenitymentalhealth.dto.PatientDTO;
 import lk.ijse.serenitymentalhealth.dto.TherapistDTO;
+import lk.ijse.serenitymentalhealth.dto.TherapyProgramDTO;
+import lk.ijse.serenitymentalhealth.entity.TherapyProgram;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -91,6 +93,12 @@ public class TherapySessionController implements Initializable {
     private TextField timeField;
 
     @FXML
+    private ComboBox programChooser;
+
+    @FXML
+    private TextField programNameBox;
+
+    @FXML
     private TextField durationBox;
 
     @FXML
@@ -122,6 +130,7 @@ public class TherapySessionController implements Initializable {
 
         loadTherapistIds();
         loadPatientIds();
+        loadProgramIds();
 
         patientCol.setCellValueFactory(new PropertyValueFactory<>("patientName"));
         patientEditCol.setCellFactory(cell -> new TableCell<PatientDTO, Void>(){
@@ -237,6 +246,20 @@ public class TherapySessionController implements Initializable {
                 patientIds.add(dto.getPatientId());
             }
             patientChooser.setItems(patientIds);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void loadProgramIds(){
+        try {
+            List<TherapyProgramDTO> names = therapySessionBO.loadTherapyProgramTable();
+            ObservableList<String> programIds = FXCollections.observableArrayList();
+            for(TherapyProgramDTO dto : names){
+                programIds.add(dto.getTherapyProgramId());
+            }
+            programChooser.setItems(programIds);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

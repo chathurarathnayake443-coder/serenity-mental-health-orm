@@ -5,9 +5,11 @@ import lk.ijse.serenitymentalhealth.config.FactoryConfiguration;
 import lk.ijse.serenitymentalhealth.dao.DAOFactory;
 import lk.ijse.serenitymentalhealth.dao.custom.PatientDAO;
 import lk.ijse.serenitymentalhealth.dao.custom.TherapistDAO;
+import lk.ijse.serenitymentalhealth.dao.custom.TherapyProgramDAO;
 import lk.ijse.serenitymentalhealth.dao.custom.TherapySessionDAO;
 import lk.ijse.serenitymentalhealth.dto.PatientDTO;
 import lk.ijse.serenitymentalhealth.dto.TherapistDTO;
+import lk.ijse.serenitymentalhealth.dto.TherapyProgramDTO;
 import lk.ijse.serenitymentalhealth.entity.*;
 import lk.ijse.serenitymentalhealth.enums.PaymentStatus;
 import lk.ijse.serenitymentalhealth.enums.SessionStatus;
@@ -25,6 +27,7 @@ public class TherapySessionBOImpl implements TherapySessionBO {
     TherapySessionDAO therapySessionDAO = (TherapySessionDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.THERAPY_SESSION);
     TherapistDAO therapistDAO = (TherapistDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.THERAPIST);
     PatientDAO patientDAO = (PatientDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.PATIENT);
+    TherapyProgramDAO therapyProgramDAO = (TherapyProgramDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.THERAPY_PROGRAM);
 
     public String showNextId() throws SQLException {
         String id = therapySessionDAO.showNextId();
@@ -57,6 +60,15 @@ public class TherapySessionBOImpl implements TherapySessionBO {
     public String getPatientNameById(int id) throws SQLException {
         String name = patientDAO.getNameById(id);
         return name;
+    }
+
+    public List<TherapyProgramDTO> loadTherapyProgramTable() throws SQLException {
+        List<TherapyProgram> therapyProgramList = therapyProgramDAO.getAll();
+        List<TherapyProgramDTO> therapyProgramDTOList = new ArrayList<>();
+        for (TherapyProgram therapyProgram : therapyProgramList) {
+            therapyProgramDTOList.add(new TherapyProgramDTO(therapyProgram.getTherapyProgramId(), therapyProgram.getTherapyProgramName(), therapyProgram.getDescription(), String.valueOf(therapyProgram.getDuration()), therapyProgram.getCost()));
+        }
+        return therapyProgramDTOList;
     }
 
     public boolean createSession(int hours,int minutes,int duration,LocalDate date,int therapistId){
