@@ -13,6 +13,16 @@ public class PatientSessionDAOImpl implements PatientSessionDAO {
         return false;
     }
 
+    public boolean save(PatientSession patientSession, Session session) {
+        try {
+            session.persist(patientSession);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        // ← no session.close() — BOImpl manages it
+    }
 
     @Override
     public boolean update(PatientSession entity) throws SQLException {

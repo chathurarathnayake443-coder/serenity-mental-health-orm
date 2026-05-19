@@ -208,17 +208,43 @@ public class TherapySessionController implements Initializable {
             }
 
             boolean result = therapySessionBO.createSession(hours,minutes,duration,date,therapistId, programId,patientDTOList);
+
+            if(result){
+                new Alert(Alert.AlertType.INFORMATION,"Session Created Successfully !").show();
+                showNextId();
+                clickResetBtn();
+            }
+            else{
+                new Alert(Alert.AlertType.ERROR,"Failed to Create Session").show();
+            }
         }
         catch(Exception e){
             e.printStackTrace();
         }
     }
 
+//    @FXML
+//    private void clickResetBtn(){
+//        hourTimeBox.getValueFactory().setValue(0);
+//        minuteTimeBox.getValueFactory().setValue(0);
+//        durationBox.setText("");
+//        showNextId();
+//    }
+
     @FXML
     private void clickResetBtn(){
-        hourTimeBox.getValueFactory().setValue(0);
+        hourTimeBox.getValueFactory().setValue(8);
         minuteTimeBox.getValueFactory().setValue(0);
         durationBox.setText("");
+        dateBox.setValue(null);
+        programChooser.setValue(null);
+        therapistChooser.setValue(null);
+        patientChooser.setValue(null);
+        programNameBox.setText("");
+        therapistNameBox.setText("");
+        patientNameBox.setText("");
+        patientObList.clear();
+        createSessionPatientTbl.setItems(patientObList);
         showNextId();
     }
 
@@ -267,6 +293,7 @@ public class TherapySessionController implements Initializable {
     @FXML
     private void clickTherapistIdBox(){
         try{
+            if (therapistChooser.getValue() == null) return;
             int id = (int)therapistChooser.getValue();
             String therapistName = therapySessionBO.getTherapistNameById(id);
             therapistNameBox.setText(therapistName);
@@ -315,7 +342,7 @@ public class TherapySessionController implements Initializable {
             int patientId = (int)patientChooser.getValue();
             String patientName = therapySessionBO.getPatientNameById(patientId);
 
-            patientObList.add(new PatientDTO(patientName));
+            patientObList.add(new PatientDTO(patientId,patientName));
             patientNameBox.setText("");
             patientChooser.setValue(null);
             loadChoosePatientTbl();

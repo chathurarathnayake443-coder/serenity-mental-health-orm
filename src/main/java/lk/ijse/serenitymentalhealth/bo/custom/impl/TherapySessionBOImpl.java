@@ -27,6 +27,7 @@ public class TherapySessionBOImpl implements TherapySessionBO {
     TherapyProgramDAO therapyProgramDAO = (TherapyProgramDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.THERAPY_PROGRAM);
     RegistrationDAO registrationDAO = (RegistrationDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.REGISTRATION);
     QueryDAO queryDAO = (QueryDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.QUERY);
+    PatientSessionDAO patientSessionDAO = (PatientSessionDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.PATIENT_SESSION);
 
     public String showNextId() throws SQLException {
         String id = therapySessionDAO.showNextId();
@@ -93,27 +94,91 @@ public class TherapySessionBOImpl implements TherapySessionBO {
         return therapyProgramDTOList;
     }
 
-    public boolean createSession(int hours,int minutes,int duration,LocalDate date,int therapistId, String programId, List<PatientDTO> patientDTOList) throws SQLException {
+//    public boolean createSession(int hours,int minutes,int duration,LocalDate date,int therapistId, String programId, List<PatientDTO> patientDTOList) throws SQLException {
+//        Session session = FactoryConfiguration.getInstance().getSession();
+//        Transaction transaction = session.beginTransaction();
+//
+//        try{
+//            LocalTime startTime = LocalTime.of(hours, minutes);
+//            LocalTime endTime = startTime.plusMinutes(duration);
+//
+//            //checking therapist availability
+//
+//            boolean available = therapySessionDAO.isTherapistAvailable(
+//                    therapistId, date, startTime, endTime, session);
+//
+//            if (!available) {  // not available status
+//                transaction.rollback();
+//                return false;
+//            }
+//
+//            Therapist therapist = session.get(Therapist.class, therapistId);
+//            TherapyProgram program = session.get(TherapyProgram.class, programId);
+//
+//            TherapySession therapySession = new TherapySession();
+//            therapySession.setDate(date);
+//            therapySession.setStartTime(startTime);
+//            therapySession.setTimeDuration(duration);
+//            therapySession.setStatus(SessionStatus.PENDING);
+//            therapySession.setTherapist(therapist);
+//            therapySession.setTherapyProgram(program);
+//
+//            therapySessionDAO.save(therapySession, session);
+//
+//            for (PatientDTO patientDTO : patientDTOList) {
+//                Patient patient = session.get(Patient.class, patientDTO.getPatientId());
+//
+//                PatientSession patientSession = new PatientSession();
+//                patientSession.setPatient(patient);
+//                patientSession.setTherapySession(therapySession);
+//                patientSession.setSessionFee(0.0);
+//                patientSession.setPaymentStatus(PaymentStatus.PENDING);
+//
+//                // step 7 — save patient session using shared session
+//                patientSessionDAO.save(patientSession, session);
+//            }
+//
+//        }
+//        catch(Exception e){
+//            e.printStackTrace();
+//            transaction.rollback();
+//        }
+//        return false;
+//    }
+
+    public boolean createSession(int hours, int minutes, int duration, LocalDate date,
+                                 int therapistId, String programId,
+                                 List<PatientDTO> patientDTOList) throws SQLException {
+
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
 
-        try{
+        try {
             LocalTime startTime = LocalTime.of(hours, minutes);
             LocalTime endTime = startTime.plusMinutes(duration);
 
-
-            //checking therapist availability
-
+            // Check therapist availability
             boolean available = therapySessionDAO.isTherapistAvailable(
                     therapistId, date, startTime, endTime, session);
 
-            if (!available) {  // not available status
+            if (!available) {
+                new javafx.scene.control.Alert(
+                        javafx.scene.control.Alert.AlertType.WARNING,
+                        "Therapist is not available at this time."
+                ).show();
                 transaction.rollback();
                 return false;
             }
 
             Therapist therapist = session.get(Therapist.class, therapistId);
             TherapyProgram program = session.get(TherapyProgram.class, programId);
+
+            if (therapist == null) {
+                throw new RuntimeException("Therapist not found with ID: " + therapistId);
+            }
+            if (program == null) {
+                throw new RuntimeException("Program not found with ID: " + programId);
+            }
 
             TherapySession therapySession = new TherapySession();
             therapySession.setDate(date);
@@ -124,10 +189,32 @@ public class TherapySessionBOImpl implements TherapySessionBO {
             therapySession.setTherapyProgram(program);
 
             therapySessionDAO.save(therapySession, session);
-        }
-        catch(Exception e){
 
+            for (PatientDTO patientDTO : patientDTOList) {
+                Patient patient = session.get(Patient.class, patientDTO.getPatientId());
+
+                if (patient == null) {
+                    throw new RuntimeException("Patient not found with ID: " + patientDTO.getPatientId());
+                }
+
+                PatientSession patientSession = new PatientSession();
+                patientSession.setPatient(patient);
+                patientSession.setTherapySession(therapySession);
+                patientSession.setSessionFee(0.0);
+                patientSession.setPaymentStatus(PaymentStatus.PENDING);
+
+                patientSessionDAO.save(patientSession, session);
+            }
+
+            transaction.commit(); // ✅ was missing — nothing was ever committed!
+            return true;          // ✅ moved inside try, only reached on success
+
+        } catch (Exception e) {
+            transaction.rollback();
+            e.printStackTrace();  // ✅ now you'll actually see what went wrong
+            return false;
+        } finally {
+            session.close();      // ✅ always close the session
         }
-        return false;
     }
 }

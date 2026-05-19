@@ -6,4 +6,6 @@ import org.hibernate.Session;
 
 public interface PatientSessionDAO extends CrudDAO<PatientSession> {
 
+    public boolean save(PatientSession patientSession, Session session);
+
 }

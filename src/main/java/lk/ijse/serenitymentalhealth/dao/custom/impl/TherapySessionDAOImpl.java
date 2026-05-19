@@ -72,19 +72,19 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
                                         LocalTime startTime, LocalTime endTime,
                                         Session session) {
         try {
-            String hql = "SELECT COUNT(s) FROM TherapySession s " +
-                    "WHERE s.therapist.therapistId = :therapistId " +
+            String sql = "SELECT COUNT(*) FROM therapy_session s " +
+                    "WHERE s.therapist_id = :therapistId " +
                     "AND s.date = :date " +
                     "AND s.status != 'CANCELLED' " +
-                    "AND s.startTime < :endTime " +
-                    "AND (s.startTime + s.timeDuration) > :startTime";
+                    "AND s.start_time < :endTime " +
+                    "AND ADDTIME(s.start_time, SEC_TO_TIME(s.time_duration * 60)) > :startTime";
 
-            Long count = session.createQuery(hql, Long.class)
+            Long count = ((Number) session.createNativeQuery(sql)
                     .setParameter("therapistId", therapistId)
                     .setParameter("date", date)
                     .setParameter("startTime", startTime)
                     .setParameter("endTime", endTime)
-                    .uniqueResult();
+                    .uniqueResult()).longValue();
 
             return count == 0;
         } catch (Exception e) {
