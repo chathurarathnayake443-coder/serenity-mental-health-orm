@@ -23,6 +23,8 @@ public class BOFactory {
                 return new UserBOImpl();
             case REGISTRATION:
                 return new RegistrationBOImpl();
+            case THERAPY_SESSION:
+                return new TherapySessionBOImpl();
             default:
                 return null;
         }

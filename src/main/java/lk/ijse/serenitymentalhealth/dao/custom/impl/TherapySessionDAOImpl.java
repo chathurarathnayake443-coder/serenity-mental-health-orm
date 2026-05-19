@@ -1,7 +1,10 @@
 package lk.ijse.serenitymentalhealth.dao.custom.impl;
 
+import lk.ijse.serenitymentalhealth.config.FactoryConfiguration;
 import lk.ijse.serenitymentalhealth.dao.custom.TherapySessionDAO;
 import lk.ijse.serenitymentalhealth.entity.TherapyProgram;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -24,7 +27,21 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
 
     @Override
     public String showNextId() throws SQLException {
-        return "";
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            Integer maxId = session.createQuery("SELECT MAX(t.therapySessionId) FROM TherapySession t", Integer.class)
+                    .uniqueResult();
+            transaction.commit();
+            return (maxId == null) ? "1" : String.valueOf(maxId + 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+        } finally {
+            session.close();
+        }
+        return "1";
     }
 
     @Override
