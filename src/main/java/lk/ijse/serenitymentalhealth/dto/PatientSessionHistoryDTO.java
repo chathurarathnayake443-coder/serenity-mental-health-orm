@@ -6,13 +6,15 @@ public class PatientSessionHistoryDTO {
     private int sessionId;
     private String therapistName;
     private LocalDate date;
+    private String programName;
 
     public PatientSessionHistoryDTO() {}
 
-    public PatientSessionHistoryDTO(int sessionId, String therapistName, LocalDate date) {
+    public PatientSessionHistoryDTO(int sessionId, String therapistName, LocalDate date, String programName) {
         this.sessionId = sessionId;
         this.therapistName = therapistName;
         this.date = date;
+        this.programName = programName;
     }
     public int getSessionId() {
         return sessionId;
@@ -31,5 +33,11 @@ public class PatientSessionHistoryDTO {
     }
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+    public String getProgramName() {
+        return programName;
+    }
+    public void setProgramName(String programName) {
+        this.programName = programName;
     }
 }

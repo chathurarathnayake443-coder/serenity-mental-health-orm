@@ -128,9 +128,10 @@
             </Text>
             <TableView fx:id="therapyHistoryTbl" layoutX="410.0" layoutY="480.0" prefHeight="200.0" prefWidth="360.0">
                <columns>
-                  <TableColumn fx:id="sessionIdCol" prefWidth="63.0" text="SessionID" />
-                  <TableColumn fx:id="therapistCol" prefWidth="189.0" text="Therapist" />
-                  <TableColumn fx:id="dateCol" prefWidth="107.0" text="Date" />
+                  <TableColumn fx:id="sessionIdCol" text="SessionID" />
+                  <TableColumn fx:id="therapistCol" prefWidth="110.0" text="Therapist" />
+                  <TableColumn fx:id="dateCol" prefWidth="83.0" text="Date" />
+                  <TableColumn fx:id="programCol" prefWidth="90.0" text="Program" />
                </columns>
             </TableView>
             <Text fill="#0d4594" layoutX="410.0" layoutY="463.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Therapy History">

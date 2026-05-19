@@ -71,8 +71,9 @@ public class PatientBOImpl implements PatientBO {
             int sessionId        = (int)row[0];
             String therapistName = (String)row[1];
             LocalDate date       = (LocalDate)row[2];
+            String programName   = (String)    row[3];
 
-            dtoList.add(new PatientSessionHistoryDTO(sessionId, therapistName, date));
+            dtoList.add(new PatientSessionHistoryDTO(sessionId, therapistName, date,programName));
         }
 
         return dtoList;

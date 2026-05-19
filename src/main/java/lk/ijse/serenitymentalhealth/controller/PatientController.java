@@ -73,6 +73,9 @@ public class PatientController implements Initializable {
     private Button patientUpdateBtn;
 
     @FXML
+    private TableColumn programCol;
+
+    @FXML
     private TableColumn sessionIdCol;
 
     @FXML
@@ -99,6 +102,7 @@ public class PatientController implements Initializable {
         sessionIdCol.setCellValueFactory(new PropertyValueFactory<>("sessionId"));
         therapistCol.setCellValueFactory(new PropertyValueFactory<>("therapistName"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+        programCol.setCellValueFactory(new PropertyValueFactory<>("programName"));
 
         patientTbl.setOnMouseClicked(event -> {
             Object object = patientTbl.getSelectionModel().getSelectedItem();

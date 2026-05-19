@@ -39,7 +39,8 @@ public class QueryDAOImpl implements QueryDAO {
             String hql = """
                 SELECT ts.therapySessionId,
                        ts.therapist.therapistName,
-                       ts.date
+                       ts.date,
+                       ts.therapyProgram.therapyProgramName
                 FROM PatientSession ps
                 JOIN ps.therapySession ts
                 WHERE ps.patient.patientId = :patientId
