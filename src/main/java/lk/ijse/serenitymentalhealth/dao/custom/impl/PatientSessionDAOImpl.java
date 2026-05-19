@@ -2,6 +2,7 @@ package lk.ijse.serenitymentalhealth.dao.custom.impl;
 
 import lk.ijse.serenitymentalhealth.dao.custom.PatientSessionDAO;
 import lk.ijse.serenitymentalhealth.entity.PatientSession;
+import org.hibernate.Session;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -11,6 +12,7 @@ public class PatientSessionDAOImpl implements PatientSessionDAO {
     public boolean save(PatientSession entity) throws SQLException {
         return false;
     }
+
 
     @Override
     public boolean update(PatientSession entity) throws SQLException {

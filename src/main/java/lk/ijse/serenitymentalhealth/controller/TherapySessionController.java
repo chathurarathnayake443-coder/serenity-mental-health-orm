@@ -23,6 +23,8 @@ import org.hibernate.Transaction;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -186,11 +188,18 @@ public class TherapySessionController implements Initializable {
     @FXML
     private void clickCreateBtn(){
         try{
-            hourTimeBox.getValue();
-            minuteTimeBox.getValue();
-            durationBox.getText();
-            dateBox.getValue();
+            int hours = hourTimeBox.getValue();
+            int minutes = minuteTimeBox.getValue();
+            int duration = Integer.parseInt(durationBox.getText());
+            LocalDate date = dateBox.getValue();
+            int therapistId = (int)therapistChooser.getValue();
 
+            List<PatientDTO> patientDTOList = new ArrayList<>();
+            for(PatientDTO patientDTO : patientObList){
+                patientDTOList.add(patientDTO);
+            }
+
+            boolean result = therapySessionBO.createSession(hours,minutes,duration,date,therapistId);
         }
         catch(Exception e){
             e.printStackTrace();

@@ -1,16 +1,22 @@
 package lk.ijse.serenitymentalhealth.bo.custom.impl;
 
 import lk.ijse.serenitymentalhealth.bo.custom.TherapySessionBO;
+import lk.ijse.serenitymentalhealth.config.FactoryConfiguration;
 import lk.ijse.serenitymentalhealth.dao.DAOFactory;
 import lk.ijse.serenitymentalhealth.dao.custom.PatientDAO;
 import lk.ijse.serenitymentalhealth.dao.custom.TherapistDAO;
 import lk.ijse.serenitymentalhealth.dao.custom.TherapySessionDAO;
 import lk.ijse.serenitymentalhealth.dto.PatientDTO;
 import lk.ijse.serenitymentalhealth.dto.TherapistDTO;
-import lk.ijse.serenitymentalhealth.entity.Patient;
-import lk.ijse.serenitymentalhealth.entity.Therapist;
+import lk.ijse.serenitymentalhealth.entity.*;
+import lk.ijse.serenitymentalhealth.enums.PaymentStatus;
+import lk.ijse.serenitymentalhealth.enums.SessionStatus;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,5 +57,9 @@ public class TherapySessionBOImpl implements TherapySessionBO {
     public String getPatientNameById(int id) throws SQLException {
         String name = patientDAO.getNameById(id);
         return name;
+    }
+
+    public boolean createSession(int hours,int minutes,int duration,LocalDate date,int therapistId){
+        return false;
     }
 }

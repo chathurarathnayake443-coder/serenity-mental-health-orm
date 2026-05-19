@@ -65,11 +65,11 @@
             <TextField fx:id="timeField" layoutX="211.0" layoutY="447.0" prefHeight="26.0" prefWidth="62.0" />
             <Text layoutX="181.0" layoutY="464.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time" />
             <Button layoutX="633.0" layoutY="655.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="130.0" style="-fx-background-color: #0d4594; -fx-background-radius: 10;" text="Create Session" textFill="WHITE" />
-            <Text layoutX="394.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Therapist" />
-            <ComboBox fx:id="therapistChooser" layoutX="485.0" layoutY="160.0" onAction="#clickTherapistIdBox" prefHeight="26.0" prefWidth="84.0" />
-            <Text layoutX="394.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Patients" />
-            <ComboBox fx:id="patientChooser" layoutX="486.0" layoutY="198.0" onAction="#clickPatientIdBox" prefHeight="26.0" prefWidth="83.0" />
-            <TableView fx:id="createSessionPatientTbl" layoutX="412.0" layoutY="246.0" prefHeight="394.0" prefWidth="349.0">
+            <Text layoutX="394.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Therapist" />
+            <ComboBox fx:id="therapistChooser" layoutX="485.0" layoutY="210.0" onAction="#clickTherapistIdBox" prefHeight="26.0" prefWidth="84.0" />
+            <Text layoutX="394.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Patients" />
+            <ComboBox fx:id="patientChooser" layoutX="486.0" layoutY="248.0" onAction="#clickPatientIdBox" prefHeight="26.0" prefWidth="83.0" />
+            <TableView fx:id="createSessionPatientTbl" layoutX="412.0" layoutY="284.0" prefHeight="356.0" prefWidth="349.0">
               <columns>
                 <TableColumn fx:id="patientCol" prefWidth="230.0" text="Patients" />
                 <TableColumn fx:id="patientEditCol" prefWidth="118.0" text="Edit" />
@@ -84,12 +84,17 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <Button layoutX="485.0" layoutY="656.0" mnemonicParsing="false" onAction="#clickResetBtn" prefHeight="33.0" prefWidth="140.0" style="-fx-background-color: #0d4594; -fx-background-radius: 10;" text="Reset Session Details" textFill="WHITE" />
-            <TextField fx:id="therapistNameBox" layoutX="580.0" layoutY="161.0" prefHeight="26.0" prefWidth="184.0" />
-            <TextField fx:id="patientNameBox" layoutX="581.0" layoutY="198.0" prefHeight="26.0" prefWidth="116.0" />
-            <Button layoutX="708.0" layoutY="195.0" mnemonicParsing="false" onAction="#AddToPatients" prefHeight="33.0" prefWidth="58.0" style="-fx-background-color: #0d4594; -fx-background-radius: 10;" text="Add" textFill="WHITE" />
+            <Button layoutX="409.0" layoutY="656.0" mnemonicParsing="false" onAction="#clickResetBtn" prefHeight="33.0" prefWidth="61.0" style="-fx-background-color: #0d4594; -fx-background-radius: 10;" text="Reset" textFill="WHITE" />
+            <TextField fx:id="therapistNameBox" layoutX="580.0" layoutY="211.0" prefHeight="26.0" prefWidth="184.0" />
+            <TextField fx:id="patientNameBox" layoutX="581.0" layoutY="248.0" prefHeight="26.0" prefWidth="116.0" />
+            <Button layoutX="708.0" layoutY="245.0" mnemonicParsing="false" onAction="#AddToPatients" prefHeight="33.0" prefWidth="58.0" style="-fx-background-color: #0d4594; -fx-background-radius: 10;" text="Add" textFill="WHITE" />
             <Text layoutX="312.0" layoutY="442.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status" />
             <TextField fx:id="statusBox" layoutX="278.0" layoutY="447.0" prefHeight="26.0" prefWidth="107.0" />
+            <Text layoutX="394.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Program" />
+            <ComboBox fx:id="programChooser" layoutX="485.0" layoutY="176.0" onAction="#clickTherapistIdBox" prefHeight="26.0" prefWidth="84.0" />
+            <TextField fx:id="programNameBox" layoutX="580.0" layoutY="176.0" prefHeight="26.0" prefWidth="184.0" />
+            <Button layoutX="476.0" layoutY="656.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="69.0" style="-fx-background-color: #0d4594; -fx-background-radius: 10;" text="Update" textFill="WHITE" />
+            <Button layoutX="551.0" layoutY="655.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="76.0" style="-fx-background-color: #0d4594; -fx-background-radius: 10;" text="Cancel" textFill="WHITE" />
          </children>
       </AnchorPane>
    </top>

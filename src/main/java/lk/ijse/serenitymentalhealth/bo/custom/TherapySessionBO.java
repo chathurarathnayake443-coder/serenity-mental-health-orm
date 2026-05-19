@@ -7,6 +7,7 @@ import lk.ijse.serenitymentalhealth.entity.Patient;
 import lk.ijse.serenitymentalhealth.entity.Therapist;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface TherapySessionBO extends SuperBO {
     public String getTherapistNameById(int id) throws SQLException;
 
     public String getPatientNameById(int id) throws SQLException;
+
+    public boolean createSession(int hours, int minutes, int duration, LocalDate date, int therapistId);
 }
