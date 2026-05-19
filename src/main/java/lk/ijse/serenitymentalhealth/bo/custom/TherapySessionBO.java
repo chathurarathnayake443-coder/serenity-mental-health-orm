@@ -17,4 +17,8 @@ public interface TherapySessionBO extends SuperBO {
     public List<TherapistDTO> loadTherapistIds() throws SQLException;
 
     public List<PatientDTO> loadPatientIds() throws SQLException;
+
+    public String getTherapistNameById(int id) throws SQLException;
+
+    public String getPatientNameById(int id) throws SQLException;
 }

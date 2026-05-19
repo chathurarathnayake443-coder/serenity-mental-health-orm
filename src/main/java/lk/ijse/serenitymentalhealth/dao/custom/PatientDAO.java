@@ -6,6 +6,8 @@ import lk.ijse.serenitymentalhealth.entity.Patient;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.sql.SQLException;
+
 public interface PatientDAO extends CrudDAO<Patient> {
 
     public boolean save(Patient entity);
@@ -13,4 +15,6 @@ public interface PatientDAO extends CrudDAO<Patient> {
     public boolean update(Patient entity);
 
     public boolean delete(int id);
+
+    public String getNameById(int id) throws SQLException;
 }

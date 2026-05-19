@@ -42,4 +42,14 @@ public class TherapySessionBOImpl implements TherapySessionBO {
         }
         return patientDTOList;
     }
+
+    public String getTherapistNameById(int id) throws SQLException {
+        String name = therapistDAO.getNameById(id);
+        return name;
+    }
+
+    public String getPatientNameById(int id) throws SQLException {
+        String name = patientDAO.getNameById(id);
+        return name;
+    }
 }

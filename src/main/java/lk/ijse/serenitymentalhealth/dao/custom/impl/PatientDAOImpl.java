@@ -116,4 +116,23 @@ public class PatientDAOImpl implements PatientDAO {
     public Patient find(String name) throws SQLException {
         return null;
     }
+
+    public String getNameById(int id) throws SQLException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try{
+            String name = session.createQuery("SELECT p.patientName FROM Patient p WHERE p.patientId = :patient_id", String.class).setParameter("patient_id",id).setMaxResults(1).uniqueResult();
+            transaction.commit();
+            return name;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }
+        finally{
+            session.close();
+        }
+        return null;
+    }
 }

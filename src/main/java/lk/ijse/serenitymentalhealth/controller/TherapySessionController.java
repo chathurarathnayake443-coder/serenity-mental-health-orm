@@ -81,6 +81,12 @@ public class TherapySessionController implements Initializable {
     @FXML
     private TextField durationBox;
 
+    @FXML
+    private TextField therapistNameBox;
+
+    @FXML
+    private TextField patientNameBox;
+
     TherapySessionBO therapySessionBO = (TherapySessionBO) BOFactory.getInstance().getBOFactory(BOFactory.BOTypes.THERAPY_SESSION);
 
     @Override
@@ -176,6 +182,30 @@ public class TherapySessionController implements Initializable {
             patientChooser.setItems(patientIds);
         } catch (SQLException ex) {
             ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void clickTherapistIdBox(){
+        try{
+            int id = (int)therapistChooser.getValue();
+            String therapistName = therapySessionBO.getTherapistNameById(id);
+            therapistNameBox.setText(therapistName);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void clickPatientIdBox(){
+        try{
+            int id = (int)patientChooser.getValue();
+            String patientName = therapySessionBO.getPatientNameById(id);
+            patientNameBox.setText(patientName);
+        }
+        catch(Exception e){
+            e.printStackTrace();
         }
     }
 }
