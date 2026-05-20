@@ -64,6 +64,14 @@ public class PaymentController implements Initializable {
         statusCol.setCellValueFactory(new PropertyValueFactory<>("paymentStatus"));
         amountCol.setCellValueFactory(new PropertyValueFactory<>("sessionFee"));
 
+        paymentTbl.setOnMouseClicked(event -> {
+            Object object = paymentTbl.getSelectionModel().getSelectedItem();
+            PaymentDTO selected = (PaymentDTO)object;
+            if (selected != null) {
+                patientIdBox.setText(String.valueOf(selected.getPatientId()));
+            }
+        });
+
         loadSessionIds();
     }
 

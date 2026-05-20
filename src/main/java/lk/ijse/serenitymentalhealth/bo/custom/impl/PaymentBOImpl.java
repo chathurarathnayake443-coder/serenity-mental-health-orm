@@ -34,8 +34,8 @@ public class PaymentBOImpl implements PaymentBO {
         List<PaymentDTO> paymentDTOList = new ArrayList<>();
         for (PatientSession session : list) {
             paymentDTOList.add(new PaymentDTO(session.getTherapySession().getTherapySessionId(),
-                    session.getTherapySession().getTherapist().getTherapistId(),
                     session.getPatient().getPatientId(),
+                    session.getTherapySession().getTherapist().getTherapistId(),
                     session.getTherapySession().getTherapist().getTherapistName(),
                     session.getPatient().getPatientName(),
                     session.getSessionFee(),
