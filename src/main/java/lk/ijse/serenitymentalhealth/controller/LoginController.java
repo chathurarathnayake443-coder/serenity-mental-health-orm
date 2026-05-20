@@ -18,6 +18,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class LoginController implements Initializable {
 
@@ -83,11 +84,54 @@ public class LoginController implements Initializable {
         }
     }
 
+//    @FXML
+//    private void login() {
+//        try {
+//            String username = usernameField.getText();
+//            String password = pfPassword.getText();
+//
+//            if (username.isEmpty() || password.isEmpty()) {
+//                new Alert(Alert.AlertType.ERROR, "Please enter username and password").show();
+//                return;
+//            }
+//
+//            UserDTO userDTO = userBO.findUser(username);
+//            System.out.println(password);
+//            System.out.println(userDTO.getPassword());
+//
+//            if (userDTO == null) {
+//                new Alert(Alert.AlertType.ERROR, "User Not Found").show();
+//                return;
+//            }
+//
+//            if (userDTO.getPassword().equals(password)) {
+//                Stage stage = (Stage) usernameField.getScene().getWindow();
+//                FXMLLoader loader;
+//
+//                if (userDTO.getUserType() == UserType.ADMIN) {
+//                    loader = new FXMLLoader(getClass().getResource("/lk/ijse/serenitymentalhealth/dashboard.fxml"));
+//                } else {
+//                    loader = new FXMLLoader(getClass().getResource("/lk/ijse/serenitymentalhealth/dashboard.fxml"));
+//                }
+//
+//                Scene scene = new Scene(loader.load());
+//                stage.setScene(scene);
+//                stage.show();
+//            } else {
+//                new Alert(Alert.AlertType.ERROR, "Invalid Password").show();
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            new Alert(Alert.AlertType.ERROR, "User Not Found").show();
+//        }
+//    }
+
     @FXML
     private void login() {
         try {
             String username = usernameField.getText();
-            String password = pfPassword.getText();
+            String password = isPasswordVisible ? tfPasswordVisible.getText() : pfPassword.getText();
 
             if (username.isEmpty() || password.isEmpty()) {
                 new Alert(Alert.AlertType.ERROR, "Please enter username and password").show();
@@ -95,15 +139,13 @@ public class LoginController implements Initializable {
             }
 
             UserDTO userDTO = userBO.findUser(username);
-            System.out.println(password);
-            System.out.println(userDTO.getPassword());
 
             if (userDTO == null) {
                 new Alert(Alert.AlertType.ERROR, "User Not Found").show();
                 return;
             }
 
-            if (userDTO.getPassword().equals(password)) {
+            if (BCrypt.checkpw(password, userDTO.getPassword())) {
                 Stage stage = (Stage) usernameField.getScene().getWindow();
                 FXMLLoader loader;
 
@@ -122,7 +164,7 @@ public class LoginController implements Initializable {
 
         } catch (Exception e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "User Not Found").show();
+            new Alert(Alert.AlertType.ERROR, "Something went wrong").show();
         }
     }
 }

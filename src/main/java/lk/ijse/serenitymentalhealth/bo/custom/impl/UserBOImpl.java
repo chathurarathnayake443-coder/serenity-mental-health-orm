@@ -14,6 +14,7 @@ import lk.ijse.serenitymentalhealth.entity.User;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class UserBOImpl implements UserBO {
 
@@ -24,7 +25,7 @@ public class UserBOImpl implements UserBO {
         User user = new User();
         user.setUserName(userDTO.getUsername());
         user.setName(userDTO.getName());
-        user.setUserPassword(userDTO.getPassword());
+        user.setUserPassword(BCrypt.hashpw(userDTO.getPassword(), BCrypt.gensalt()));
         user.setUserContact(userDTO.getContact());
         user.setUserAddress(userDTO.getAddress());
         user.setUserType(userDTO.getUserType());
@@ -36,7 +37,7 @@ public class UserBOImpl implements UserBO {
         User user = new User();
         user.setUserName(userDTO.getUsername());
         user.setName(userDTO.getName());
-        user.setUserPassword(userDTO.getPassword());
+        user.setUserPassword(BCrypt.hashpw(userDTO.getPassword(), BCrypt.gensalt()));
         user.setUserContact(userDTO.getContact());
         user.setUserAddress(userDTO.getAddress());
         user.setUserType(userDTO.getUserType());

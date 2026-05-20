@@ -11,6 +11,7 @@ module lk.ijse.serenitymentalhealth {
     requires javafx.graphics;
     requires com.google.protobuf;
     requires mysql.connector.j;
+    requires jbcrypt;
     //requires lk.ijse.serenitymentalhealth;
     //requires lk.ijse.serenitymentalhealth;
     //requires lk.ijse.serenitymentalhealth;
