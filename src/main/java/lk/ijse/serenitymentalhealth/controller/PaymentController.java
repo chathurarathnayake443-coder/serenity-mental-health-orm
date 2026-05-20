@@ -1,5 +1,7 @@
 package lk.ijse.serenitymentalhealth.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -9,8 +11,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import lk.ijse.serenitymentalhealth.bo.BOFactory;
+import lk.ijse.serenitymentalhealth.bo.custom.PatientBO;
+import lk.ijse.serenitymentalhealth.bo.custom.PaymentBO;
+import lk.ijse.serenitymentalhealth.dto.TherapistDTO;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class PaymentController implements Initializable {
@@ -22,29 +29,49 @@ public class PaymentController implements Initializable {
     private TableColumn amountCol;
 
     @FXML
-    private ComboBox<?> idChooser;
+    private ComboBox idChooser;
 
     @FXML
-    private TableColumn<?, ?> idCol;
+    private TableColumn idCol;
 
     @FXML
-    private TableColumn<?, ?> patientCol;
+    private TableColumn patientCol;
 
     @FXML
     private TextField patientIdBox;
 
     @FXML
-    private TableView<?> paymentTbl;
+    private TableView paymentTbl;
 
     @FXML
-    private TableColumn<?, ?> statusCol;
+    private TableColumn statusCol;
 
     @FXML
-    private TableColumn<?, ?> therapistCol;
+    private TableColumn therapistCol;
+
+    PaymentBO paymentBO = (PaymentBO) BOFactory.getInstance().getBOFactory(BOFactory.BOTypes.PAYMENT);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("Payment view Loaded");
+
+        loadSessionIds();
+    }
+
+    @FXML
+    private void loadSessionIds(){
+        try{
+            List<Integer> sessionIds = paymentBO.loadTherapySessionIds();
+
+            ObservableList<Integer> ids = FXCollections.observableArrayList();
+            for(Integer id : sessionIds){
+                ids.add(id);
+            }
+            idChooser.setItems(ids);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     @FXML
