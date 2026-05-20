@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public interface TherapySessionDAO extends CrudDAO<TherapyProgram> {
+public interface TherapySessionDAO extends CrudDAO<TherapySession> {
 
     public boolean save(TherapySession therapySession, Session session);
 

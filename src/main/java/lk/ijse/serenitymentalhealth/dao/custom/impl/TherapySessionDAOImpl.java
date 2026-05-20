@@ -14,12 +14,12 @@ import java.util.List;
 
 public class TherapySessionDAOImpl implements TherapySessionDAO {
     @Override
-    public boolean save(TherapyProgram entity) throws SQLException {
+    public boolean save(TherapySession entity) throws SQLException {
         return false;
     }
 
     @Override
-    public boolean update(TherapyProgram entity) throws SQLException {
+    public boolean update(TherapySession entity) throws SQLException {
         return false;
     }
 
@@ -48,12 +48,27 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
     }
 
     @Override
-    public List<TherapyProgram> getAll() throws SQLException {
-        return List.of();
+    public List<TherapySession> getAll() throws SQLException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try{
+            List<TherapySession> sessionList = session.createQuery("FROM TherapySession", TherapySession.class).getResultList();
+            transaction.commit();
+            return sessionList;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }
+        finally {
+            session.close();
+        }
+        return null;
     }
 
     @Override
-    public TherapyProgram find(String name) throws SQLException {
+    public TherapySession find(String name) throws SQLException {
         return null;
     }
 
@@ -92,4 +107,6 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
             return false;
         }
     }
+
+
 }

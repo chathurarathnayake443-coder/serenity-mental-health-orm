@@ -206,15 +206,24 @@ public class TherapySessionBOImpl implements TherapySessionBO {
                 patientSessionDAO.save(patientSession, session);
             }
 
-            transaction.commit(); // ✅ was missing — nothing was ever committed!
-            return true;          // ✅ moved inside try, only reached on success
+            transaction.commit();
+            return true;
 
         } catch (Exception e) {
             transaction.rollback();
-            e.printStackTrace();  // ✅ now you'll actually see what went wrong
+            e.printStackTrace();
             return false;
         } finally {
-            session.close();      // ✅ always close the session
+            session.close();
         }
+    }
+
+    public List<Integer> loadSessionIds() throws SQLException {
+        List<TherapySession> list = therapySessionDAO.getAll();
+        List<Integer> sessionIdList = new ArrayList<>();
+        for (TherapySession therapySession : list) {
+            sessionIdList.add(therapySession.getTherapySessionId());
+        }
+        return sessionIdList;
     }
 }

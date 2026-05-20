@@ -165,6 +165,8 @@ public class TherapySessionController implements Initializable {
             }
         });
 
+        loadSessionIds();
+
     }
 
     @FXML
@@ -357,5 +359,18 @@ public class TherapySessionController implements Initializable {
 
         createSessionPatientTbl.setItems(patientObList);
 
+    }
+
+    private void loadSessionIds(){
+        try {
+            List<Integer> ids = therapySessionBO.loadSessionIds();
+            ObservableList<Integer> sessionIds = FXCollections.observableArrayList();
+            for(Integer id : ids){
+                sessionIds.add(id);
+            }
+            sessionIdChooser.setItems(sessionIds);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 }
