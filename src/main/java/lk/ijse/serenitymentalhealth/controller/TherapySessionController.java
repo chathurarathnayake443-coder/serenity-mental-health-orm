@@ -16,10 +16,7 @@ import lk.ijse.serenitymentalhealth.bo.BOFactory;
 import lk.ijse.serenitymentalhealth.bo.custom.PatientBO;
 import lk.ijse.serenitymentalhealth.bo.custom.TherapySessionBO;
 import lk.ijse.serenitymentalhealth.config.FactoryConfiguration;
-import lk.ijse.serenitymentalhealth.dto.PatientDTO;
-import lk.ijse.serenitymentalhealth.dto.TherapistDTO;
-import lk.ijse.serenitymentalhealth.dto.TherapyProgramDTO;
-import lk.ijse.serenitymentalhealth.dto.TherapySessionDTO;
+import lk.ijse.serenitymentalhealth.dto.*;
 import lk.ijse.serenitymentalhealth.entity.TherapyProgram;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -168,6 +165,10 @@ public class TherapySessionController implements Initializable {
 
         loadSessionIds();
 
+        programNameCol.setCellValueFactory(new PropertyValueFactory<>("programName"));
+        therapistNameCol.setCellValueFactory(new PropertyValueFactory<>("therapistName"));
+        patientNameCol.setCellValueFactory(new PropertyValueFactory<>("patientName"));
+
     }
 
     @FXML
@@ -252,6 +253,7 @@ public class TherapySessionController implements Initializable {
         dateField.setText("");
         timeField.setText("");
         statusBox.setText("");
+        pastSessionTable.getItems().clear();
         showNextId();
     }
 
@@ -384,6 +386,7 @@ public class TherapySessionController implements Initializable {
     @FXML
     private void clickSessionIdChooser(){
         try{
+            if (sessionIdChooser.getValue() == null) return;
             int id = (int)sessionIdChooser.getValue();
             loadSessionData(id);
         }
@@ -402,8 +405,24 @@ public class TherapySessionController implements Initializable {
             dateField.setText(String.valueOf(sessionData.getTherapyDate()));
             timeField.setText(String.valueOf(sessionData.getTherapyTime()));
             statusBox.setText(sessionData.getStatus().toString());
-        }
-        catch(Exception e){
+
+            String therapistName = sessionData.getTherapistName();
+            String programName   = sessionData.getProgramName();
+
+            ObservableList<SessionDisplayDTO> obList = FXCollections.observableArrayList();
+
+            List<PatientDTO> patientList = sessionData.getPatientSessions();
+            for (int i = 0; i < patientList.size(); i++) {
+                obList.add(new SessionDisplayDTO(
+                        i == 0 ? programName    : "",
+                        i == 0 ? therapistName  : "",
+                        patientList.get(i).getPatientName()
+                ));
+            }
+
+            pastSessionTable.setItems(obList);
+
+        } catch(Exception e){
             e.printStackTrace();
         }
     }

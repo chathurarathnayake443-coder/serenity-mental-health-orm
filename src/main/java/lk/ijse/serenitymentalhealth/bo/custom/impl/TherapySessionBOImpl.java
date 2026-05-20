@@ -230,6 +230,11 @@ public class TherapySessionBOImpl implements TherapySessionBO {
 
     public TherapySessionDTO getSessionData(int id){
         TherapySession sessionData = queryDAO.getSessionData(id);
-        return new TherapySessionDTO(sessionData.getTherapyProgram().getTherapyProgramName(), sessionData.getTherapist().getTherapistName(),sessionData.getDate(),sessionData.getStartTime(),sessionData.getTimeDuration(),sessionData.getStatus(),sessionData.getPatientSessions());
+        List<PatientDTO> patientNames = new ArrayList<>();
+        List<PatientSession> patientSessionList = sessionData.getPatientSessions();
+        for (PatientSession patientSession : patientSessionList) {
+            patientNames.add(new PatientDTO(patientSession.getPatient().getPatientId(), patientSession.getPatient().getPatientName()));
+        }
+        return new TherapySessionDTO(sessionData.getTherapyProgram().getTherapyProgramName(), sessionData.getTherapist().getTherapistName(),sessionData.getDate(),sessionData.getStartTime(),sessionData.getTimeDuration(),sessionData.getStatus(),patientNames);
     }
 }

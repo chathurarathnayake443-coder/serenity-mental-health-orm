@@ -14,11 +14,11 @@ public class TherapySessionDTO {
     private LocalTime therapyTime;
     private int duration;
     private SessionStatus status;
-    private List<PatientSession> patientSessions;
+    private List<PatientDTO> patientSessions;
 
     public TherapySessionDTO(){}
 
-    public TherapySessionDTO(String programName, String therapistName, LocalDate therapyDate, LocalTime therapyTime, int duration, SessionStatus status, List<PatientSession> patientSessions) {
+    public TherapySessionDTO(String programName, String therapistName, LocalDate therapyDate, LocalTime therapyTime, int duration, SessionStatus status, List<PatientDTO> patientSessions) {
         this.programName = programName;
         this.therapistName = therapistName;
         this.therapyDate = therapyDate;
@@ -63,10 +63,10 @@ public class TherapySessionDTO {
     public void setStatus(SessionStatus status) {
         this.status = status;
     }
-    public List<PatientSession> getPatientSessions() {
+    public List<PatientDTO> getPatientSessions() {
         return patientSessions;
     }
-    public void setPatientSessions(List<PatientSession> patientSessions) {
+    public void setPatientSessions(List<PatientDTO> patientSessions) {
         this.patientSessions = patientSessions;
     }
 
