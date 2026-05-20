@@ -6,10 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import lk.ijse.serenitymentalhealth.bo.BOFactory;
@@ -18,8 +15,10 @@ import lk.ijse.serenitymentalhealth.bo.custom.PaymentBO;
 import lk.ijse.serenitymentalhealth.dto.PatientDTO;
 import lk.ijse.serenitymentalhealth.dto.PaymentDTO;
 import lk.ijse.serenitymentalhealth.dto.TherapistDTO;
+import lk.ijse.serenitymentalhealth.enums.PaymentStatus;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -94,7 +93,18 @@ public class PaymentController implements Initializable {
     @FXML
     private void clickIdChooser(){
         try{
+            if (idChooser.getValue() == null) return;
             String sessionId = idChooser.getSelectionModel().getSelectedItem().toString();
+            loadPaymentTbl(sessionId);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void loadPaymentTbl(String sessionId){
+        try{
             List<PaymentDTO> list = paymentBO.loadPaymentDTOs(Integer.parseInt(sessionId));
 
             ObservableList<PaymentDTO> obList = FXCollections.observableArrayList();
@@ -104,6 +114,28 @@ public class PaymentController implements Initializable {
             }
 
             paymentTbl.setItems(obList);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void clickSaveBtn(){
+        try{
+            int sessionId = (int)idChooser.getValue();
+            int patientId = Integer.parseInt(patientIdBox.getText());
+            double fee = Double.parseDouble(amountBox.getText());
+            PaymentStatus paymentStatus = PaymentStatus.PENDING;
+
+            boolean result = paymentBO.makePayment(fee,patientId,sessionId,paymentStatus);
+            if(result){
+                new Alert(Alert.AlertType.INFORMATION,"Payment Saved Successfully !").show();
+                loadPaymentTbl(String.valueOf(sessionId));
+            }
+            else{
+                new Alert(Alert.AlertType.ERROR,"Failed to Add Payment").show();
+            }
         }
         catch(Exception e){
             e.printStackTrace();

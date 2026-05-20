@@ -4,6 +4,7 @@ import lk.ijse.serenitymentalhealth.bo.SuperBO;
 import lk.ijse.serenitymentalhealth.dto.PaymentDTO;
 import lk.ijse.serenitymentalhealth.entity.PatientSession;
 import lk.ijse.serenitymentalhealth.entity.TherapySession;
+import lk.ijse.serenitymentalhealth.enums.PaymentStatus;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,4 +15,6 @@ public interface PaymentBO extends SuperBO {
     public List<Integer> loadTherapySessionIds() throws SQLException;
 
     public List<PaymentDTO> loadPaymentDTOs(int id) throws SQLException;
+
+    public boolean makePayment(double sessionFee, int patientId, int sessionId, PaymentStatus paymentStatus) throws SQLException;
 }

@@ -20,7 +20,7 @@ public class PaymentDTO {
         this.therapistName = therapistName;
         this.patientName = patientName;
         this.sessionFee = sessionFee;
-        this.paymentStatus = PaymentStatus.PENDING;
+        this.paymentStatus = paymentStatus;
     }
     public int getSessionId() {
         return sessionId;
