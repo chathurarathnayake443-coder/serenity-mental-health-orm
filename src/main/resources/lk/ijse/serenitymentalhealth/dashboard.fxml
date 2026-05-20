@@ -49,7 +49,7 @@
                   <Image url="@../../../images/6522516.png" />
                </image>
             </ImageView>
-            <Button fx:id="userTab" layoutX="50.0" layoutY="224.0" mnemonicParsing="false" prefHeight="125.0" prefWidth="151.0" style="-fx-background-color: #0d4594; -fx-background-radius: 30px;" text="Users" textFill="WHITE">
+            <Button fx:id="userTab" layoutX="50.0" layoutY="224.0" mnemonicParsing="false" onAction="#clickUserTab" prefHeight="125.0" prefWidth="151.0" style="-fx-background-color: #0d4594; -fx-background-radius: 30px;" text="Users" textFill="WHITE">
                <font>
                   <Font name="AppleGothic Regular" size="16.0" />
                </font>

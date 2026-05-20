@@ -101,6 +101,20 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
+    private void clickUserTab(){
+        try{
+            Stage stage = (Stage) patientTab.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/lk/ijse/serenitymentalhealth/user.fxml"));
+            Scene scene = new Scene(loader.load());
+            stage.setScene(scene);
+            stage.show();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void clickProgramsTab(){
         try{
             Stage stage = (Stage) patientTab.getScene().getWindow();
