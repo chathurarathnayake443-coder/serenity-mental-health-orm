@@ -7,6 +7,7 @@ import lk.ijse.serenitymentalhealth.dao.custom.*;
 import lk.ijse.serenitymentalhealth.dto.PatientDTO;
 import lk.ijse.serenitymentalhealth.dto.TherapistDTO;
 import lk.ijse.serenitymentalhealth.dto.TherapyProgramDTO;
+import lk.ijse.serenitymentalhealth.dto.TherapySessionDTO;
 import lk.ijse.serenitymentalhealth.entity.*;
 import lk.ijse.serenitymentalhealth.enums.PaymentStatus;
 import lk.ijse.serenitymentalhealth.enums.SessionStatus;
@@ -225,5 +226,10 @@ public class TherapySessionBOImpl implements TherapySessionBO {
             sessionIdList.add(therapySession.getTherapySessionId());
         }
         return sessionIdList;
+    }
+
+    public TherapySessionDTO getSessionData(int id){
+        TherapySession sessionData = queryDAO.getSessionData(id);
+        return new TherapySessionDTO(sessionData.getTherapyProgram().getTherapyProgramName(), sessionData.getTherapist().getTherapistName(),sessionData.getDate(),sessionData.getStartTime(),sessionData.getTimeDuration(),sessionData.getStatus(),sessionData.getPatientSessions());
     }
 }

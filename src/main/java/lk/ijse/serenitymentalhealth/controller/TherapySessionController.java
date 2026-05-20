@@ -19,6 +19,7 @@ import lk.ijse.serenitymentalhealth.config.FactoryConfiguration;
 import lk.ijse.serenitymentalhealth.dto.PatientDTO;
 import lk.ijse.serenitymentalhealth.dto.TherapistDTO;
 import lk.ijse.serenitymentalhealth.dto.TherapyProgramDTO;
+import lk.ijse.serenitymentalhealth.dto.TherapySessionDTO;
 import lk.ijse.serenitymentalhealth.entity.TherapyProgram;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -69,7 +70,7 @@ public class TherapySessionController implements Initializable {
     private ComboBox sessionIdChooser;
 
     @FXML
-    private TableColumn sessionIdCol;
+    private TableColumn programNameCol;
 
     @FXML
     private TextField sessionIdField;
@@ -247,6 +248,10 @@ public class TherapySessionController implements Initializable {
         patientNameBox.setText("");
         patientObList.clear();
         createSessionPatientTbl.setItems(patientObList);
+        sessionIdChooser.setValue(null);
+        dateField.setText("");
+        timeField.setText("");
+        statusBox.setText("");
         showNextId();
     }
 
@@ -355,12 +360,14 @@ public class TherapySessionController implements Initializable {
 
     }
 
+    @FXML
     private void loadChoosePatientTbl() {
 
         createSessionPatientTbl.setItems(patientObList);
 
     }
 
+    @FXML
     private void loadSessionIds(){
         try {
             List<Integer> ids = therapySessionBO.loadSessionIds();
@@ -371,6 +378,33 @@ public class TherapySessionController implements Initializable {
             sessionIdChooser.setItems(sessionIds);
         } catch (SQLException ex) {
             ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void clickSessionIdChooser(){
+        try{
+            int id = (int)sessionIdChooser.getValue();
+            loadSessionData(id);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void loadSessionData(int id){
+        try{
+            TherapySessionDTO sessionData = therapySessionBO.getSessionData(id);
+            sessionIdField.setText(String.valueOf(id));
+            durationBox.setText(Integer.toString(sessionData.getDuration()));
+            dateBox.setValue(sessionData.getTherapyDate());
+            dateField.setText(String.valueOf(sessionData.getTherapyDate()));
+            timeField.setText(String.valueOf(sessionData.getTherapyTime()));
+            statusBox.setText(sessionData.getStatus().toString());
+        }
+        catch(Exception e){
+            e.printStackTrace();
         }
     }
 }

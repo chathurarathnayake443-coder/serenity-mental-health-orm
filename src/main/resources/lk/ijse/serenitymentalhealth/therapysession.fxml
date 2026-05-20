@@ -51,11 +51,11 @@
                   <TextField fx:id="durationBox" layoutX="140.0" layoutY="147.0" prefHeight="26.0" prefWidth="127.0" />
                </children>
             </AnchorPane>
-            <ComboBox fx:id="sessionIdChooser" layoutX="168.0" layoutY="413.0" prefHeight="26.0" prefWidth="67.0" />
+            <ComboBox fx:id="sessionIdChooser" layoutX="168.0" layoutY="413.0" onAction="#clickSessionIdChooser" prefHeight="26.0" prefWidth="67.0" />
             <Text layoutX="52.0" layoutY="431.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose Session ID" />
             <TableView fx:id="pastSessionTable" layoutX="51.0" layoutY="481.0" prefHeight="200.0" prefWidth="334.0">
               <columns>
-                <TableColumn fx:id="sessionIdCol" prefWidth="75.0" text="ID" />
+                <TableColumn fx:id="programNameCol" prefWidth="75.0" text="Program" />
                 <TableColumn fx:id="therapistNameCol" prefWidth="128.0" text="Therapist" />
                   <TableColumn fx:id="patientNameCol" prefWidth="130.0" text="Patients" />
               </columns>
