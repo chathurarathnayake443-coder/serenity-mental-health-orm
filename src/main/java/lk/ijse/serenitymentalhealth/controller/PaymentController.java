@@ -10,10 +10,13 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import lk.ijse.serenitymentalhealth.bo.BOFactory;
 import lk.ijse.serenitymentalhealth.bo.custom.PatientBO;
 import lk.ijse.serenitymentalhealth.bo.custom.PaymentBO;
+import lk.ijse.serenitymentalhealth.dto.PatientDTO;
+import lk.ijse.serenitymentalhealth.dto.PaymentDTO;
 import lk.ijse.serenitymentalhealth.dto.TherapistDTO;
 
 import java.net.URL;
@@ -55,6 +58,12 @@ public class PaymentController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("Payment view Loaded");
 
+        idCol.setCellValueFactory(new PropertyValueFactory<>("sessionId"));
+        therapistCol.setCellValueFactory(new PropertyValueFactory<>("therapistName"));
+        patientCol.setCellValueFactory(new PropertyValueFactory<>("patientName"));
+        statusCol.setCellValueFactory(new PropertyValueFactory<>("paymentStatus"));
+        amountCol.setCellValueFactory(new PropertyValueFactory<>("sessionFee"));
+
         loadSessionIds();
     }
 
@@ -68,6 +77,25 @@ public class PaymentController implements Initializable {
                 ids.add(id);
             }
             idChooser.setItems(ids);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void clickIdChooser(){
+        try{
+            String sessionId = idChooser.getSelectionModel().getSelectedItem().toString();
+            List<PaymentDTO> list = paymentBO.loadPaymentDTOs(Integer.parseInt(sessionId));
+
+            ObservableList<PaymentDTO> obList = FXCollections.observableArrayList();
+
+            for(PaymentDTO paymentDTO : list){
+                obList.add(paymentDTO);
+            }
+
+            paymentTbl.setItems(obList);
         }
         catch(Exception e){
             e.printStackTrace();

@@ -38,7 +38,7 @@
             <AnchorPane layoutX="190.0" layoutY="170.0" prefHeight="150.0" prefWidth="431.0" style="-fx-background-color: #f7f7f7; -fx-background-radius: 30px;">
                <children>
                   <Text layoutX="18.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Session ID" />
-                  <ComboBox fx:id="idChooser" layoutX="91.0" layoutY="13.0" prefHeight="26.0" prefWidth="117.0" />
+                  <ComboBox fx:id="idChooser" layoutX="91.0" layoutY="13.0" onAction="#clickIdChooser" prefHeight="26.0" prefWidth="117.0" />
                   <Text layoutX="18.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient ID" />
                   <TextField fx:id="patientIdBox" layoutX="91.0" layoutY="57.0" prefHeight="26.0" prefWidth="117.0" />
                   <Text layoutX="18.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount" />

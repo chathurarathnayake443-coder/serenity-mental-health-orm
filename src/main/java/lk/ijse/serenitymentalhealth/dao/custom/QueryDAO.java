@@ -2,6 +2,7 @@ package lk.ijse.serenitymentalhealth.dao.custom;
 
 import lk.ijse.serenitymentalhealth.config.FactoryConfiguration;
 import lk.ijse.serenitymentalhealth.dao.SuperDAO;
+import lk.ijse.serenitymentalhealth.entity.PatientSession;
 import lk.ijse.serenitymentalhealth.entity.Therapist;
 import lk.ijse.serenitymentalhealth.entity.TherapySession;
 import org.hibernate.Session;
@@ -18,4 +19,6 @@ public interface QueryDAO extends SuperDAO {
     public TherapySession getSessionData(int sessionId);
 
     public List<TherapySession> getSessionsByTherapistId(int therapistId, Session session);
+
+    public List<PatientSession> getSessionPayments(int sessionId);
 }

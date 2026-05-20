@@ -3,6 +3,7 @@ package lk.ijse.serenitymentalhealth.dao.custom.impl;
 import com.mysql.cj.xdevapi.SessionFactory;
 import lk.ijse.serenitymentalhealth.config.FactoryConfiguration;
 import lk.ijse.serenitymentalhealth.dao.custom.QueryDAO;
+import lk.ijse.serenitymentalhealth.entity.PatientSession;
 import lk.ijse.serenitymentalhealth.entity.Therapist;
 import lk.ijse.serenitymentalhealth.entity.TherapySession;
 import org.hibernate.Session;
@@ -98,5 +99,33 @@ public class QueryDAOImpl implements QueryDAO {
         return session.createQuery(hql, TherapySession.class)
                 .setParameter("therapistId", therapistId)
                 .getResultList();
+    }
+
+    public List<PatientSession> getSessionPayments(int sessionId){
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        try{
+            String hql = """
+        SELECT ps FROM PatientSession ps
+        JOIN FETCH ps.therapySession ts
+        JOIN FETCH ts.therapist
+        JOIN FETCH ps.patient
+        WHERE ts.therapySessionId = :sessionId
+        """;
+
+            List<PatientSession> results = session.createQuery(hql, PatientSession.class)
+                    .setParameter("sessionId", sessionId)
+                    .getResultList();
+            transaction.commit();
+            return results;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            transaction.rollback();
+        }
+        finally{
+            session.close();
+        }
+        return null;
     }
 }
