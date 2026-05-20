@@ -26,6 +26,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class TherapySessionController implements Initializable {
@@ -423,6 +424,30 @@ public class TherapySessionController implements Initializable {
             pastSessionTable.setItems(obList);
 
         } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void clickCancelSessionBtn(){
+        try{
+            try {
+                int sessionId = Integer.parseInt(sessionIdField.getText());
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to cancel this session?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    boolean success = therapySessionBO.cancelSession(sessionId);
+                    if (success) {
+                        new Alert(Alert.AlertType.INFORMATION, "Session cancelled successfully.").show();
+                    } else {
+                        new Alert(Alert.AlertType.ERROR, "Failed to cancel session.").show();
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        catch(Exception e){
             e.printStackTrace();
         }
     }

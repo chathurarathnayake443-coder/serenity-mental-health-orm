@@ -237,4 +237,20 @@ public class TherapySessionBOImpl implements TherapySessionBO {
         }
         return new TherapySessionDTO(sessionData.getTherapyProgram().getTherapyProgramName(), sessionData.getTherapist().getTherapistName(),sessionData.getDate(),sessionData.getStartTime(),sessionData.getTimeDuration(),sessionData.getStatus(),patientNames);
     }
+
+    public boolean cancelSession(int sessionId) {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            boolean result = therapySessionDAO.cancelSession(sessionId, session);
+            transaction.commit();
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+            return false;
+        } finally {
+            session.close();
+        }
+    }
 }

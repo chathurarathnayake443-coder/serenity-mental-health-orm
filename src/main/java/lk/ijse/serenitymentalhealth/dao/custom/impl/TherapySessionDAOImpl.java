@@ -4,6 +4,7 @@ import lk.ijse.serenitymentalhealth.config.FactoryConfiguration;
 import lk.ijse.serenitymentalhealth.dao.custom.TherapySessionDAO;
 import lk.ijse.serenitymentalhealth.entity.TherapyProgram;
 import lk.ijse.serenitymentalhealth.entity.TherapySession;
+import lk.ijse.serenitymentalhealth.enums.SessionStatus;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -106,6 +107,15 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public boolean cancelSession(int sessionId, Session session) {
+        TherapySession therapySession = session.get(TherapySession.class, sessionId);
+        if (therapySession == null) return false;
+
+        therapySession.setStatus(SessionStatus.CANCELLED);
+        session.merge(therapySession);
+        return true;
     }
 
 
