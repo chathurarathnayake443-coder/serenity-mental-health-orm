@@ -18,4 +18,6 @@ public interface TherapySessionDAO extends CrudDAO<TherapySession> {
                                         Session session);
 
     public boolean cancelSession(int sessionId, Session session);
+
+    public boolean rescheduleSession(int sessionId, LocalDate newDate, LocalTime newStartTime, LocalTime newEndTime, Session session);
 }

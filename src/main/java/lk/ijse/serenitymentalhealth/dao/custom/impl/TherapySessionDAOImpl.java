@@ -118,5 +118,38 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
         return true;
     }
 
+    public boolean rescheduleSession(int sessionId, LocalDate newDate, LocalTime newStartTime, LocalTime newEndTime, Session session) {
+        TherapySession therapySession = session.get(TherapySession.class, sessionId);
+        if (therapySession == null) return false;
+
+        String hql = """
+        SELECT COUNT(s) FROM TherapySession s
+        WHERE s.therapist.therapistId = :therapistId
+        AND s.date = :date
+        AND s.status != 'CANCELLED'
+        AND s.therapySessionId != :currentSessionId
+        AND s.startTime < :newEndTime
+        AND :newStartTime < s.startTime
+        """;
+
+        Long count = session.createQuery(hql, Long.class)
+                .setParameter("therapistId", therapySession.getTherapist().getTherapistId())
+                .setParameter("date", newDate)
+                .setParameter("currentSessionId", sessionId)
+                .setParameter("newStartTime", newStartTime)
+                .setParameter("newEndTime", newEndTime)
+                .uniqueResult();
+
+        if (count != null && count > 0) return false;
+
+        therapySession.setDate(newDate);
+        therapySession.setStartTime(newStartTime);
+        therapySession.setTimeDuration((int) java.time.Duration.between(newStartTime, newEndTime).toMinutes());
+        therapySession.setStatus(SessionStatus.RESCHEDULED);
+
+        session.merge(therapySession);
+        return true;
+    }
+
 
 }

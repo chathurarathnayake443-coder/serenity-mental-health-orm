@@ -15,6 +15,7 @@ import org.hibernate.Transaction;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,4 +46,6 @@ public interface TherapySessionBO extends SuperBO {
     public TherapySessionDTO getSessionData(int id);
 
     public boolean cancelSession(int sessionId);
+
+    public boolean rescheduleSession(int sessionId, LocalDate newDate, int hours, int minutes, int duration) throws SQLException;
 }

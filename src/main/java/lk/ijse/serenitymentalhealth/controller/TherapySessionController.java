@@ -451,4 +451,48 @@ public class TherapySessionController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void clickRescheduleBtn(){
+        try{
+            if (sessionIdChooser.getValue() == null) {
+                new Alert(Alert.AlertType.WARNING, "Please select a session first.").show();
+                return;
+            }
+            if (dateBox.getValue() == null) {
+                new Alert(Alert.AlertType.WARNING, "Please select a new date.").show();
+                return;
+            }
+            if (durationBox.getText().isBlank()) {
+                new Alert(Alert.AlertType.WARNING, "Please enter duration.").show();
+                return;
+            }
+
+            int sessionId = (int) sessionIdChooser.getValue();
+            int hours = hourTimeBox.getValue();
+            int minutes = minuteTimeBox.getValue();
+            int duration = Integer.parseInt(durationBox.getText());
+            LocalDate newDate = dateBox.getValue();
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                    "Are you sure you want to reschedule this session?");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                boolean success = therapySessionBO.rescheduleSession(
+                        sessionId, newDate, hours, minutes, duration);
+
+                if (success) {
+                    new Alert(Alert.AlertType.INFORMATION, "Session rescheduled successfully.").show();
+                    loadSessionIds();
+                    clickResetBtn();
+                } else {
+                    new Alert(Alert.AlertType.ERROR,
+                            "Failed — therapist not available at the new time.").show();
+                }
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }

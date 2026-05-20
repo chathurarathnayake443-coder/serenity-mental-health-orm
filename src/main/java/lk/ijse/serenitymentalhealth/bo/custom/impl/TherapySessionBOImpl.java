@@ -253,4 +253,25 @@ public class TherapySessionBOImpl implements TherapySessionBO {
             session.close();
         }
     }
+
+    public boolean rescheduleSession(int sessionId, LocalDate newDate, int hours, int minutes, int duration) throws SQLException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            LocalTime newStartTime = LocalTime.of(hours, minutes);
+            LocalTime newEndTime   = newStartTime.plusMinutes(duration);
+
+            boolean result = therapySessionDAO.rescheduleSession(
+                    sessionId, newDate, newStartTime, newEndTime, session);
+
+            transaction.commit();
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+            return false;
+        } finally {
+            session.close();
+        }
+    }
 }
