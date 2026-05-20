@@ -53,16 +53,14 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
 
-        try{
+        try {
             List<TherapySession> sessionList = session.createQuery("FROM TherapySession", TherapySession.class).getResultList();
             transaction.commit();
             return sessionList;
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             transaction.rollback();
-        }
-        finally {
+        } finally {
             session.close();
         }
         return null;
@@ -72,7 +70,6 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
     public TherapySession find(String name) throws SQLException {
         return null;
     }
-
 
     public boolean save(TherapySession therapySession, Session session) {
         try {
@@ -88,19 +85,31 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
                                         LocalTime startTime, LocalTime endTime,
                                         Session session) {
         try {
-            String sql = "SELECT COUNT(*) FROM therapy_session s " +
-                    "WHERE s.therapist_id = :therapistId " +
-                    "AND s.date = :date " +
-                    "AND s.status != 'CANCELLED' " +
-                    "AND s.start_time < :endTime " +
-                    "AND ADDTIME(s.start_time, SEC_TO_TIME(s.time_duration * 60)) > :startTime";
+            String hql = """
+                    SELECT COUNT(s) FROM TherapySession s
+                    WHERE s.therapist.therapistId = :therapistId
+                    AND s.date = :date
+                    AND s.status != 'CANCELLED'
+                    AND s.startTime < :endTime
+                    AND s.endTime > :startTime
+                    """;
 
-            Long count = ((Number) session.createNativeQuery(sql)
+            System.out.println("=== AVAILABILITY CHECK ===");
+            System.out.println("TherapistId : " + therapistId);
+            System.out.println("Date        : " + date);
+            System.out.println("StartTime   : " + startTime);
+            System.out.println("EndTime     : " + endTime);
+
+            Long count = session.createQuery(hql, Long.class)
                     .setParameter("therapistId", therapistId)
                     .setParameter("date", date)
                     .setParameter("startTime", startTime)
                     .setParameter("endTime", endTime)
-                    .uniqueResult()).longValue();
+                    .uniqueResult();
+
+            System.out.println("Count       : " + count);
+            System.out.println("Available   : " + (count == 0));
+            System.out.println("==========================");
 
             return count == 0;
         } catch (Exception e) {
@@ -123,14 +132,14 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
         if (therapySession == null) return false;
 
         String hql = """
-        SELECT COUNT(s) FROM TherapySession s
-        WHERE s.therapist.therapistId = :therapistId
-        AND s.date = :date
-        AND s.status != 'CANCELLED'
-        AND s.therapySessionId != :currentSessionId
-        AND s.startTime < :newEndTime
-        AND :newStartTime < s.startTime
-        """;
+                SELECT COUNT(s) FROM TherapySession s
+                WHERE s.therapist.therapistId = :therapistId
+                AND s.date = :date
+                AND s.status != 'CANCELLED'
+                AND s.therapySessionId != :currentSessionId
+                AND s.startTime < :newEndTime
+                AND s.endTime > :newStartTime
+                """;
 
         Long count = session.createQuery(hql, Long.class)
                 .setParameter("therapistId", therapySession.getTherapist().getTherapistId())
@@ -144,12 +153,11 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
 
         therapySession.setDate(newDate);
         therapySession.setStartTime(newStartTime);
+        therapySession.setEndTime(newEndTime);
         therapySession.setTimeDuration((int) java.time.Duration.between(newStartTime, newEndTime).toMinutes());
         therapySession.setStatus(SessionStatus.RESCHEDULED);
 
         session.merge(therapySession);
         return true;
     }
-
-
 }

@@ -31,8 +31,7 @@ public class TherapySessionBOImpl implements TherapySessionBO {
     PatientSessionDAO patientSessionDAO = (PatientSessionDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.PATIENT_SESSION);
 
     public String showNextId() throws SQLException {
-        String id = therapySessionDAO.showNextId();
-        return id;
+        return therapySessionDAO.showNextId();
     }
 
     public List<TherapistDTO> loadTherapistIds() throws SQLException {
@@ -72,80 +71,30 @@ public class TherapySessionBOImpl implements TherapySessionBO {
     }
 
     public String getTherapistNameById(int id) throws SQLException {
-        String name = therapistDAO.getNameById(id);
-        return name;
+        return therapistDAO.getNameById(id);
     }
 
     public String getPatientNameById(int id) throws SQLException {
-        String name = patientDAO.getNameById(id);
-        return name;
+        return patientDAO.getNameById(id);
     }
 
     public String getProgramNameById(String id) throws SQLException {
-        String name = therapyProgramDAO.getNameById(id);
-        return name;
+        return therapyProgramDAO.getNameById(id);
     }
 
     public List<TherapyProgramDTO> loadTherapyProgramTable() throws SQLException {
         List<TherapyProgram> therapyProgramList = therapyProgramDAO.getAll();
         List<TherapyProgramDTO> therapyProgramDTOList = new ArrayList<>();
         for (TherapyProgram therapyProgram : therapyProgramList) {
-            therapyProgramDTOList.add(new TherapyProgramDTO(therapyProgram.getTherapyProgramId(), therapyProgram.getTherapyProgramName(), therapyProgram.getDescription(), String.valueOf(therapyProgram.getDuration()), therapyProgram.getCost()));
+            therapyProgramDTOList.add(new TherapyProgramDTO(
+                    therapyProgram.getTherapyProgramId(),
+                    therapyProgram.getTherapyProgramName(),
+                    therapyProgram.getDescription(),
+                    String.valueOf(therapyProgram.getDuration()),
+                    therapyProgram.getCost()));
         }
         return therapyProgramDTOList;
     }
-
-//    public boolean createSession(int hours,int minutes,int duration,LocalDate date,int therapistId, String programId, List<PatientDTO> patientDTOList) throws SQLException {
-//        Session session = FactoryConfiguration.getInstance().getSession();
-//        Transaction transaction = session.beginTransaction();
-//
-//        try{
-//            LocalTime startTime = LocalTime.of(hours, minutes);
-//            LocalTime endTime = startTime.plusMinutes(duration);
-//
-//            //checking therapist availability
-//
-//            boolean available = therapySessionDAO.isTherapistAvailable(
-//                    therapistId, date, startTime, endTime, session);
-//
-//            if (!available) {  // not available status
-//                transaction.rollback();
-//                return false;
-//            }
-//
-//            Therapist therapist = session.get(Therapist.class, therapistId);
-//            TherapyProgram program = session.get(TherapyProgram.class, programId);
-//
-//            TherapySession therapySession = new TherapySession();
-//            therapySession.setDate(date);
-//            therapySession.setStartTime(startTime);
-//            therapySession.setTimeDuration(duration);
-//            therapySession.setStatus(SessionStatus.PENDING);
-//            therapySession.setTherapist(therapist);
-//            therapySession.setTherapyProgram(program);
-//
-//            therapySessionDAO.save(therapySession, session);
-//
-//            for (PatientDTO patientDTO : patientDTOList) {
-//                Patient patient = session.get(Patient.class, patientDTO.getPatientId());
-//
-//                PatientSession patientSession = new PatientSession();
-//                patientSession.setPatient(patient);
-//                patientSession.setTherapySession(therapySession);
-//                patientSession.setSessionFee(0.0);
-//                patientSession.setPaymentStatus(PaymentStatus.PENDING);
-//
-//                // step 7 — save patient session using shared session
-//                patientSessionDAO.save(patientSession, session);
-//            }
-//
-//        }
-//        catch(Exception e){
-//            e.printStackTrace();
-//            transaction.rollback();
-//        }
-//        return false;
-//    }
 
     public boolean createSession(int hours, int minutes, int duration, LocalDate date,
                                  int therapistId, String programId,
@@ -156,9 +105,8 @@ public class TherapySessionBOImpl implements TherapySessionBO {
 
         try {
             LocalTime startTime = LocalTime.of(hours, minutes);
-            LocalTime endTime = startTime.plusMinutes(duration);
+            LocalTime endTime = startTime.plusMinutes(duration * 60);
 
-            // Check therapist availability
             boolean available = therapySessionDAO.isTherapistAvailable(
                     therapistId, date, startTime, endTime, session);
 
@@ -174,16 +122,13 @@ public class TherapySessionBOImpl implements TherapySessionBO {
             Therapist therapist = session.get(Therapist.class, therapistId);
             TherapyProgram program = session.get(TherapyProgram.class, programId);
 
-            if (therapist == null) {
-                throw new RuntimeException("Therapist not found with ID: " + therapistId);
-            }
-            if (program == null) {
-                throw new RuntimeException("Program not found with ID: " + programId);
-            }
+            if (therapist == null) throw new RuntimeException("Therapist not found: " + therapistId);
+            if (program == null) throw new RuntimeException("Program not found: " + programId);
 
             TherapySession therapySession = new TherapySession();
             therapySession.setDate(date);
             therapySession.setStartTime(startTime);
+            therapySession.setEndTime(endTime);
             therapySession.setTimeDuration(duration);
             therapySession.setStatus(SessionStatus.PENDING);
             therapySession.setTherapist(therapist);
@@ -193,10 +138,7 @@ public class TherapySessionBOImpl implements TherapySessionBO {
 
             for (PatientDTO patientDTO : patientDTOList) {
                 Patient patient = session.get(Patient.class, patientDTO.getPatientId());
-
-                if (patient == null) {
-                    throw new RuntimeException("Patient not found with ID: " + patientDTO.getPatientId());
-                }
+                if (patient == null) throw new RuntimeException("Patient not found: " + patientDTO.getPatientId());
 
                 PatientSession patientSession = new PatientSession();
                 patientSession.setPatient(patient);
@@ -228,14 +170,22 @@ public class TherapySessionBOImpl implements TherapySessionBO {
         return sessionIdList;
     }
 
-    public TherapySessionDTO getSessionData(int id){
+    public TherapySessionDTO getSessionData(int id) {
         TherapySession sessionData = queryDAO.getSessionData(id);
         List<PatientDTO> patientNames = new ArrayList<>();
-        List<PatientSession> patientSessionList = sessionData.getPatientSessions();
-        for (PatientSession patientSession : patientSessionList) {
-            patientNames.add(new PatientDTO(patientSession.getPatient().getPatientId(), patientSession.getPatient().getPatientName()));
+        for (PatientSession patientSession : sessionData.getPatientSessions()) {
+            patientNames.add(new PatientDTO(
+                    patientSession.getPatient().getPatientId(),
+                    patientSession.getPatient().getPatientName()));
         }
-        return new TherapySessionDTO(sessionData.getTherapyProgram().getTherapyProgramName(), sessionData.getTherapist().getTherapistName(),sessionData.getDate(),sessionData.getStartTime(),sessionData.getTimeDuration(),sessionData.getStatus(),patientNames);
+        return new TherapySessionDTO(
+                sessionData.getTherapyProgram().getTherapyProgramName(),
+                sessionData.getTherapist().getTherapistName(),
+                sessionData.getDate(),
+                sessionData.getStartTime(),
+                sessionData.getTimeDuration(),
+                sessionData.getStatus(),
+                patientNames);
     }
 
     public boolean cancelSession(int sessionId) {
@@ -259,7 +209,7 @@ public class TherapySessionBOImpl implements TherapySessionBO {
         Transaction transaction = session.beginTransaction();
         try {
             LocalTime newStartTime = LocalTime.of(hours, minutes);
-            LocalTime newEndTime   = newStartTime.plusMinutes(duration);
+            LocalTime newEndTime = newStartTime.plusMinutes(duration * 60);
 
             boolean result = therapySessionDAO.rescheduleSession(
                     sessionId, newDate, newStartTime, newEndTime, session);
