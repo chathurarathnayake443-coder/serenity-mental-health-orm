@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.serenitymentalhealth.controller.PaymentController">
    <top>
       <AnchorPane prefHeight="700.0" prefWidth="800.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
@@ -25,11 +25,6 @@
                   <Font name="AppleGothic Regular" size="36.0" />
                </font>
             </Text>
-            <ImageView fitHeight="114.0" fitWidth="139.0" layoutX="12.0" layoutY="3.0">
-               <image>
-                  <Image url="@../../../images/logo.png" />
-               </image>
-            </ImageView>
             <Text fill="#0d4594" layoutX="46.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Serenity">
                <font>
                   <Font name="AppleGothic Regular" size="22.0" />
@@ -40,26 +35,35 @@
                   <Font name="AppleGothic Regular" size="13.0" />
                </font>
             </Text>
-            <AnchorPane layoutX="40.0" layoutY="167.0" prefHeight="150.0" prefWidth="471.0" style="-fx-background-color: #f7f7f7; -fx-background-radius: 30px;">
+            <AnchorPane layoutX="190.0" layoutY="170.0" prefHeight="150.0" prefWidth="431.0" style="-fx-background-color: #f7f7f7; -fx-background-radius: 30px;">
                <children>
                   <Text layoutX="18.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Session ID" />
-                  <ComboBox layoutX="91.0" layoutY="13.0" prefHeight="26.0" prefWidth="117.0" />
+                  <ComboBox fx:id="idChooser" layoutX="91.0" layoutY="13.0" prefHeight="26.0" prefWidth="117.0" />
                   <Text layoutX="18.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient ID" />
-                  <TextField layoutX="91.0" layoutY="57.0" prefHeight="26.0" prefWidth="117.0" />
+                  <TextField fx:id="patientIdBox" layoutX="91.0" layoutY="57.0" prefHeight="26.0" prefWidth="117.0" />
                   <Text layoutX="18.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount" />
-                  <TextField layoutX="91.0" layoutY="98.0" prefHeight="26.0" prefWidth="117.0" />
-                  <Button layoutX="276.0" layoutY="22.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="128.0" text="Save &amp; Generate Bill" />
+                  <TextField fx:id="amountBox" layoutX="91.0" layoutY="98.0" prefHeight="26.0" prefWidth="117.0" />
+                  <Button layoutX="276.0" layoutY="28.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="128.0" style="-fx-background-color: #0d4594;" text="Save &amp; Generate Bill" textFill="WHITE" />
                </children>
             </AnchorPane>
-            <TableView layoutX="44.0" layoutY="339.0" prefHeight="294.0" prefWidth="723.0">
+            <TableView fx:id="paymentTbl" layoutX="44.0" layoutY="339.0" prefHeight="294.0" prefWidth="723.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="Session ID" />
-                <TableColumn prefWidth="184.0" text="Therapist" />
-                  <TableColumn prefWidth="182.0" text="Patients" />
-                  <TableColumn prefWidth="125.0" text="Payment Status" />
-                  <TableColumn prefWidth="156.0" text="Payment Amount" />
+                <TableColumn fx:id="idCol" prefWidth="75.0" text="Session ID" />
+                <TableColumn fx:id="therapistCol" prefWidth="184.0" text="Therapist" />
+                  <TableColumn fx:id="patientCol" prefWidth="182.0" text="Patient Name" />
+                  <TableColumn fx:id="statusCol" prefWidth="125.0" text="Payment Status" />
+                  <TableColumn fx:id="amountCol" prefWidth="156.0" text="Payment Amount" />
               </columns>
             </TableView>
+            <AnchorPane layoutX="20.0" layoutY="3.0" onMouseClicked="#goToDashBoard" prefHeight="114.0" prefWidth="139.0">
+               <children>
+                  <ImageView fitHeight="114.0" fitWidth="139.0" layoutY="1.0">
+                     <image>
+                        <Image url="@../../../images/logo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </top>
