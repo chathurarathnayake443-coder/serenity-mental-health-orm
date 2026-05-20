@@ -108,7 +108,7 @@
                <columns>
                   <TableColumn fx:id="sessionIdCol" prefWidth="69.0" text="Session ID" />
                   <TableColumn fx:id="programCol" prefWidth="173.0" text="Program" />
-                  <TableColumn fx:id="datCol" prefWidth="81.0" text="Date" />
+                  <TableColumn fx:id="dateCol" prefWidth="81.0" text="Date" />
                   <TableColumn fx:id="timeCol" prefWidth="110.0" text="Time" />
                </columns>
             </TableView>

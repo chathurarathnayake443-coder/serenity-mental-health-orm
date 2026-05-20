@@ -14,6 +14,7 @@ import lk.ijse.serenitymentalhealth.bo.custom.PatientBO;
 import lk.ijse.serenitymentalhealth.bo.custom.TherapistBO;
 import lk.ijse.serenitymentalhealth.dto.PatientDTO;
 import lk.ijse.serenitymentalhealth.dto.TherapistDTO;
+import lk.ijse.serenitymentalhealth.dto.TherapySessionDTO;
 
 import java.net.URL;
 import java.util.List;
@@ -22,7 +23,7 @@ import java.util.ResourceBundle;
 public class TherapistController implements Initializable {
 
     @FXML
-    private TableColumn datCol;
+    private TableColumn dateCol;
 
     @FXML
     private TableColumn programCol;
@@ -86,11 +87,18 @@ public class TherapistController implements Initializable {
                 therapistEmailField.setText(selected.getTherapistEmail());
                 therapistPhoneField.setText(selected.getTherapistPhone());
                 therapistAddressField.setText(selected.getTherapistAddress());
+                String therapistId = String.valueOf(selected.getTherapistId());
+                loadTherapistSessionTbl(Integer.parseInt(therapistId));
             }
         });
 
         loadTherapistTable();
         showNextId();
+
+        sessionIdCol.setCellValueFactory(new PropertyValueFactory<>("therapySessionId"));
+        programCol.setCellValueFactory(new PropertyValueFactory<>("programName"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("therapyDate"));
+        timeCol.setCellValueFactory(new PropertyValueFactory<>("therapyTime"));
 
     }
 
@@ -236,6 +244,24 @@ public class TherapistController implements Initializable {
             Scene scene = new Scene(loader.load());
             stage.setScene(scene);
             stage.show();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void loadTherapistSessionTbl(int id){
+        try{
+            List<TherapySessionDTO> therapistSessionList = therapistBO.getSessionsByTherapistId(id);
+
+            ObservableList<TherapySessionDTO> obList = FXCollections.observableArrayList();
+
+            for(TherapySessionDTO therapistSessionDTO : therapistSessionList){
+                obList.add(therapistSessionDTO);
+            }
+
+            therapistScheduleTbl.setItems(obList);
         }
         catch(Exception e){
             e.printStackTrace();

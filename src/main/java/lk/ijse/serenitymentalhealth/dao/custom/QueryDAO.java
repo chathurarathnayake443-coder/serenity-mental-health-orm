@@ -16,4 +16,6 @@ public interface QueryDAO extends SuperDAO {
     public List<Object[]> getPatientSessionHistory(int patientId);
 
     public TherapySession getSessionData(int sessionId);
+
+    public List<TherapySession> getSessionsByTherapistId(int therapistId, Session session);
 }

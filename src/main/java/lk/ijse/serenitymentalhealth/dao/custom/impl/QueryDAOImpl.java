@@ -86,4 +86,17 @@ public class QueryDAOImpl implements QueryDAO {
         }
         return null;
     }
+
+    public List<TherapySession> getSessionsByTherapistId(int therapistId, Session session) {
+        String hql = """
+            SELECT ts FROM TherapySession ts
+            JOIN FETCH ts.therapyProgram
+            WHERE ts.therapist.therapistId = :therapistId
+            AND ts.status != 'CANCELLED'
+            """;
+
+        return session.createQuery(hql, TherapySession.class)
+                .setParameter("therapistId", therapistId)
+                .getResultList();
+    }
 }

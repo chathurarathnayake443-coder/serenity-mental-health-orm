@@ -8,6 +8,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 public class TherapySessionDTO {
+    private int therapySessionId;
     private String programName;
     private String therapistName;
     private LocalDate therapyDate;
@@ -27,6 +28,14 @@ public class TherapySessionDTO {
         this.status = status;
         this.patientSessions = patientSessions;
     }
+
+    public TherapySessionDTO(int therapySessionId, String therapyProgramName, LocalDate date, LocalTime startTime) {
+        this.therapySessionId = therapySessionId;
+        this.programName = therapyProgramName;
+        this.therapyDate = date;
+        this.therapyTime = startTime;
+    }
+
     public String getProgramName() {
         return programName;
     }
@@ -68,6 +77,12 @@ public class TherapySessionDTO {
     }
     public void setPatientSessions(List<PatientDTO> patientSessions) {
         this.patientSessions = patientSessions;
+    }
+    public int getTherapySessionId() {
+        return therapySessionId;
+    }
+    public void setTherapySessionId(int therapySessionId) {
+        this.therapySessionId = therapySessionId;
     }
 
 }
