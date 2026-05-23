@@ -152,7 +152,7 @@ public class LoginController implements Initializable {
                 if (userDTO.getUserType() == UserType.ADMIN) {
                     loader = new FXMLLoader(getClass().getResource("/lk/ijse/serenitymentalhealth/dashboard.fxml"));
                 } else {
-                    loader = new FXMLLoader(getClass().getResource("/lk/ijse/serenitymentalhealth/dashboard.fxml"));
+                    loader = new FXMLLoader(getClass().getResource("/lk/ijse/serenitymentalhealth/dashboard-receptionist.fxml"));
                 }
 
                 Scene scene = new Scene(loader.load());
