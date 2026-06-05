@@ -14,6 +14,8 @@ import lk.ijse.serenitymentalhealth.entity.User;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import lk.ijse.serenitymentalhealth.exception.LoginException;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class UserBOImpl implements UserBO {
@@ -58,8 +60,8 @@ public class UserBOImpl implements UserBO {
         return userDTOList;
     }
 
-    public UserDTO findUser(String name) throws SQLException {
-        User user = userDAO.find(name);
+    public UserDTO findUser(String name) throws SQLException, LoginException {
+        User user = userDAO.findByName(name);
         if (user!=null){
             return new UserDTO(user.getUserName(), user.getName(), user.getUserPassword(), user.getUserContact(),user.getUserAddress(),   user.getUserType());
         }

@@ -3,6 +3,7 @@ package lk.ijse.serenitymentalhealth.bo.custom;
 import lk.ijse.serenitymentalhealth.bo.SuperBO;
 import lk.ijse.serenitymentalhealth.dto.UserDTO;
 import lk.ijse.serenitymentalhealth.entity.User;
+import lk.ijse.serenitymentalhealth.exception.LoginException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,5 +19,5 @@ public interface UserBO extends SuperBO {
 
     public List<UserDTO> loadUserTable() throws SQLException;
 
-    public UserDTO findUser(String name) throws SQLException;
+    public UserDTO findUser(String name) throws SQLException, LoginException;
 }

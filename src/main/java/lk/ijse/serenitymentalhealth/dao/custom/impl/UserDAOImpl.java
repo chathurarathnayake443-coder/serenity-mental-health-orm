@@ -5,6 +5,7 @@ import lk.ijse.serenitymentalhealth.config.FactoryConfiguration;
 import lk.ijse.serenitymentalhealth.dao.custom.UserDAO;
 import lk.ijse.serenitymentalhealth.entity.Patient;
 import lk.ijse.serenitymentalhealth.entity.User;
+import lk.ijse.serenitymentalhealth.exception.LoginException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -109,13 +110,24 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User find(String name) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public User findByName(String name) throws SQLException, LoginException {
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
 
         try{
             User user = session.find(User.class,name);
             transaction.commit();
+            if (user == null) {
+                throw new LoginException("No account found for username: " + name);
+            }
             return user;
+        }
+        catch(LoginException e){
+            throw e;
         }
         catch(Exception e){
             e.printStackTrace();

@@ -1,3 +1,176 @@
+//package lk.ijse.serenitymentalhealth.controller;
+//
+//import javafx.application.Platform;
+//import javafx.fxml.FXML;
+//import javafx.fxml.FXMLLoader;
+//import javafx.fxml.Initializable;
+//import javafx.scene.Scene;
+//import javafx.scene.control.*;
+//import javafx.scene.image.Image;
+//import javafx.scene.image.ImageView;
+//import javafx.stage.Stage;
+//import lk.ijse.serenitymentalhealth.bo.BOFactory;
+//import lk.ijse.serenitymentalhealth.bo.custom.UserBO;
+//import lk.ijse.serenitymentalhealth.dto.UserDTO;
+//import lk.ijse.serenitymentalhealth.enums.UserType;
+//
+//import java.net.URL;
+//import java.util.List;
+//import java.util.Optional;
+//import java.util.ResourceBundle;
+//import org.mindrot.jbcrypt.BCrypt;
+//
+//public class LoginController implements Initializable {
+//
+//    @FXML private ImageView imgEye;
+//    @FXML private Label lblTogglePassword;
+//    @FXML private PasswordField pfPassword;
+//    @FXML private TextField tfPasswordVisible;
+//    @FXML private TextField usernameField;
+//    @FXML
+//    private ComboBox cmbUserType;
+//
+//    UserBO userBO = (UserBO) BOFactory.getInstance().getBOFactory(BOFactory.BOTypes.USER);
+//
+//    private boolean isPasswordVisible = false;
+//
+//    private Image eyeOpen;
+//    private Image eyeClosed;
+//
+//    @Override
+//    public void initialize(URL url, ResourceBundle resourceBundle) {
+//        eyeOpen  = new Image(getClass().getResourceAsStream("/images/eye.png"));
+//        eyeClosed = new Image(getClass().getResourceAsStream("/images/eye-close.png"));
+//
+//        imgEye.setImage(eyeClosed);
+//
+//        cmbUserType.getItems().addAll(UserType.values());
+//
+//        cmbUserType.setValue(UserType.ADMIN);
+//    }
+//
+//    @FXML
+//    void onEyeIconClicked() {
+//        isPasswordVisible = !isPasswordVisible;
+//
+//        if (isPasswordVisible) {
+//            tfPasswordVisible.setText(pfPassword.getText());
+//            tfPasswordVisible.setVisible(true);
+//            tfPasswordVisible.setManaged(true);
+//            pfPassword.setVisible(false);
+//            pfPassword.setManaged(false);
+//            imgEye.setImage(eyeOpen);
+//        } else {
+//            pfPassword.setText(tfPasswordVisible.getText());
+//            pfPassword.setVisible(true);
+//            pfPassword.setManaged(true);
+//            tfPasswordVisible.setVisible(false);
+//            tfPasswordVisible.setManaged(false);
+//            imgEye.setImage(eyeClosed);
+//        }
+//    }
+//
+//    @FXML
+//    void onExitButtonClicked() {
+//        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//        alert.setTitle("Exit");
+//        alert.setHeaderText("Are you sure you want to exit?");
+//
+//        Optional<ButtonType> result = alert.showAndWait();
+//
+//        if (result.isPresent() && result.get() == ButtonType.OK) {
+//            Platform.exit();
+//            System.exit(0);
+//        }
+//    }
+//
+////    @FXML
+////    private void login() {
+////        try {
+////            String username = usernameField.getText();
+////            String password = pfPassword.getText();
+////
+////            if (username.isEmpty() || password.isEmpty()) {
+////                new Alert(Alert.AlertType.ERROR, "Please enter username and password").show();
+////                return;
+////            }
+////
+////            UserDTO userDTO = userBO.findUser(username);
+////            System.out.println(password);
+////            System.out.println(userDTO.getPassword());
+////
+////            if (userDTO == null) {
+////                new Alert(Alert.AlertType.ERROR, "User Not Found").show();
+////                return;
+////            }
+////
+////            if (userDTO.getPassword().equals(password)) {
+////                Stage stage = (Stage) usernameField.getScene().getWindow();
+////                FXMLLoader loader;
+////
+////                if (userDTO.getUserType() == UserType.ADMIN) {
+////                    loader = new FXMLLoader(getClass().getResource("/lk/ijse/serenitymentalhealth/dashboard.fxml"));
+////                } else {
+////                    loader = new FXMLLoader(getClass().getResource("/lk/ijse/serenitymentalhealth/dashboard.fxml"));
+////                }
+////
+////                Scene scene = new Scene(loader.load());
+////                stage.setScene(scene);
+////                stage.show();
+////            } else {
+////                new Alert(Alert.AlertType.ERROR, "Invalid Password").show();
+////            }
+////
+////        } catch (Exception e) {
+////            e.printStackTrace();
+////            new Alert(Alert.AlertType.ERROR, "User Not Found").show();
+////        }
+////    }
+//
+//    @FXML
+//    private void login() {
+//        try {
+//            String username = usernameField.getText();
+//            String password = isPasswordVisible ? tfPasswordVisible.getText() : pfPassword.getText();
+//            UserType userType = UserType.valueOf(cmbUserType.getSelectionModel().getSelectedItem().toString());
+//
+//            if (username.isEmpty() || password.isEmpty()) {
+//                new Alert(Alert.AlertType.ERROR, "Please enter username and password").show();
+//                return;
+//            }
+//
+//            UserDTO userDTO = userBO.findUser(username);
+//
+//            if (userDTO == null) {
+//                new Alert(Alert.AlertType.ERROR, "User Not Found").show();
+//                return;
+//            }
+//
+//            if (BCrypt.checkpw(password, userDTO.getPassword())) {
+//                Stage stage = (Stage) usernameField.getScene().getWindow();
+//                FXMLLoader loader;
+//
+//                if (userDTO.getUserType() == UserType.ADMIN) {
+//                    System.out.println(userDTO.getUserType());
+//                    loader = new FXMLLoader(getClass().getResource("/lk/ijse/serenitymentalhealth/dashboard.fxml"));
+//                } else {
+//                    loader = new FXMLLoader(getClass().getResource("/lk/ijse/serenitymentalhealth/dashboard-receptionist.fxml"));
+//                }
+//
+//                Scene scene = new Scene(loader.load());
+//                stage.setScene(scene);
+//                stage.show();
+//            } else {
+//                new Alert(Alert.AlertType.ERROR, "Invalid Password").show();
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            new Alert(Alert.AlertType.ERROR, "Something went wrong").show();
+//        }
+//    }
+//}
+
 package lk.ijse.serenitymentalhealth.controller;
 
 import javafx.application.Platform;
