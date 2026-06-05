@@ -2,6 +2,8 @@ package lk.ijse.serenitymentalhealth.entity;
 
 import lombok.*;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Cache;
 
 import java.util.List;
 
@@ -11,6 +13,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 
 public class TherapyProgram {
     @Id

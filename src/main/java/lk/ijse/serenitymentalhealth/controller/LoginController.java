@@ -132,6 +132,7 @@ public class LoginController implements Initializable {
         try {
             String username = usernameField.getText();
             String password = isPasswordVisible ? tfPasswordVisible.getText() : pfPassword.getText();
+            UserType userType = UserType.valueOf(cmbUserType.getSelectionModel().getSelectedItem().toString());
 
             if (username.isEmpty() || password.isEmpty()) {
                 new Alert(Alert.AlertType.ERROR, "Please enter username and password").show();
@@ -150,6 +151,7 @@ public class LoginController implements Initializable {
                 FXMLLoader loader;
 
                 if (userDTO.getUserType() == UserType.ADMIN) {
+                    System.out.println(userDTO.getUserType());
                     loader = new FXMLLoader(getClass().getResource("/lk/ijse/serenitymentalhealth/dashboard.fxml"));
                 } else {
                     loader = new FXMLLoader(getClass().getResource("/lk/ijse/serenitymentalhealth/dashboard-receptionist.fxml"));

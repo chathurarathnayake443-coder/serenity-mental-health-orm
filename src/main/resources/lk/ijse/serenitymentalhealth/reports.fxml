@@ -1,14 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="lk.ijse.serenitymentalhealth.controller.ReportController"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.serenitymentalhealth.controller.ReportController">
+   <top>
+      <AnchorPane prefHeight="700.0" prefWidth="800.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0d4594" height="107.0" layoutX="260.0" stroke="TRANSPARENT" strokeType="INSIDE" width="540.0" />
+            <Polygon fill="#2a6dc9" layoutX="204.0" layoutY="74.0" points="-107.5, -74.0, 56.0, 33.0, 56.0, -74.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+            <Text fill="WHITE" layoutX="309.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reports">
+               <font>
+                  <Font name="AppleGothic Regular" size="36.0" />
+               </font>
+            </Text>
+            <Text fill="#0d4594" layoutX="46.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Serenity">
+               <font>
+                  <Font name="AppleGothic Regular" size="22.0" />
+               </font>
+            </Text>
+            <Text layoutX="29.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mental Health Clinic">
+               <font>
+                  <Font name="AppleGothic Regular" size="13.0" />
+               </font>
+            </Text>
+            <AnchorPane layoutX="20.0" layoutY="3.0" onMouseClicked="#goToDashBoard" prefHeight="114.0" prefWidth="139.0">
+               <children>
+                  <ImageView fitHeight="114.0" fitWidth="139.0" layoutY="1.0">
+                     <image>
+                        <Image url="@../../../images/logo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <Text layoutX="147.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="See Which Patients are in All Programs">
+               <font>
+                  <Font name="AppleGothic Regular" size="29.0" />
+               </font>
+            </Text>
+            <TableView fx:id="patientTbl" layoutX="94.0" layoutY="225.0" prefHeight="200.0" prefWidth="628.0">
+              <columns>
+                <TableColumn fx:id="idField" prefWidth="304.0" text="Id" />
+                <TableColumn fx:id="nameField" prefWidth="323.0" text="Patient Name" />
+              </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+   </top>
+</BorderPane>
